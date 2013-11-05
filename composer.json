@@ -1,6 +1,7 @@
 {
     "name": "atlantis/admin",
     "description": "",
+    "keywords": ["administrator", "admin", "database", "atlantis", "laravel", "cms"],
     "authors": [
         {
             "name": "Azri Jamil",
@@ -22,7 +23,9 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/migrations",
+            "src/controllers",
+            "src/views"
         ],
         "psr-0": {
             "Atlantis\\Admin\\": "src/"

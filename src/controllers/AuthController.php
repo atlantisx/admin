@@ -1,23 +1,55 @@
 <?php namespace Atlantis\Admin;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Routing\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
+
+
 
 class AuthController extends Controller {
-    protected $layout = 'layouts.common';
+    protected $layout = 'admin::layouts.common';
 
 
-    public function getRegister($role='user'){
+    protected function setupLayout()
+    {
+        //[i] View scaffolding
+        if(View::exists('layouts.common')) $this->layout = 'layouts.common';
+
+        if ( ! is_null($this->layout))
+        {
+            $this->layout = View::make($this->layout);
+            $this->layout->page = false;
+        }
+    }
+
+
+    public function getRegister($role='admin::user'){
+        //[i] View scaffolding
+        if($role == 'admin::user' && View::exists('user.register')) $role = 'user';
+
+        //[i] Loading view
         $this->layout->content = View::make($role.'.register');
     }
 
 
-    public function postRegister($role='user'){
+    public function postRegister($role='admin::user'){
         $view = 'register';
         $data = Input::flash();
 
         try{
             //[i] Register user
-            $user = Sentry::register(Input::only('email','first_name','last_name','password'));
+            $user = \Sentry::register(Input::only('email','first_name','last_name','password'));
 
+            //[i] Preparing data
             $data = array(
                 'id'            => $user->id,
                 'name'          => $user->first_name . ' ' . $user->last_name,
@@ -25,10 +57,12 @@ class AuthController extends Controller {
                 'activation_code' => $user->getActivationCode()
             );
 
-            Mail::queue('emails.auth.activation',$data,function($message) use ($data){
-                $message->to($data['email'],$data['name'])->subject('Account Activation');
+            //[i] Send activation email to user
+            Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
+                $message->to($data['email'],$data['name'])->subject(trans('admin::user.activation_email_subject',$data));
             });
 
+            //[i] Change view to registered
             $view = 'registered';
 
         }catch (\Exception $e){
@@ -37,6 +71,11 @@ class AuthController extends Controller {
                 'message' => $e->getMessage()
             );
         }
+
+        //[i] View scaffolding
+        if(!View::exists($role . '.' . $view)) $role = 'admin::user';
+
+        if($role == 'admin::user' && View::exists('user.'.$view)) $role = 'user';
 
         //[i] Display error
         $this->layout->content = View::make($role . '.' . $view ,$data);
@@ -48,15 +87,15 @@ class AuthController extends Controller {
 
         if(!empty($code)){
             try{
-                $user = Sentry::findUserByActivationCode($code);
+                $user = \Sentry::findUserByActivationCode($code);
 
                 if($user->attemptActivation($code)){
                     $data['status'] = array(
                         'type' => 'success',
-                        'message' => 'Pengaktifan anda berjaya sila login ke sistem untuk selanjutnya.'
+                        'message' => trans('admin::user.activation_success')
                     );
                 }else{
-                    throw new Exception('Pengaktifan anda tidak berjaya.');
+                    throw new Exception(trans('admin::user.activation_error'));
                 }
             }catch(\Exception $e){
                 $data['status'] = array(
@@ -66,8 +105,12 @@ class AuthController extends Controller {
             }
         }
 
+        //[i] View scaffolding
+        $view = 'admin::user.activation';
+        if(View::exists('user.activation')) $view = 'user.activation';
+
         //[i] Display view
-        $this->layout->content = View::make('user.activation',compact('data'));
+        $this->layout->content = View::make($view,compact('data'));
     }
 
 
@@ -76,7 +119,7 @@ class AuthController extends Controller {
 
         if(isset($data['login'])){
             try{
-                $user = Sentry::findUserByLogin($data['login']);
+                $user = \Sentry::findUserByLogin($data['login']);
 
                 $data = array(
                     'id'            => $user->id,
@@ -85,13 +128,13 @@ class AuthController extends Controller {
                     'activation_code' => $user->getActivationCode()
                 );
 
-                Mail::queue('emails.auth.activation',$data,function($message) use ($data){
-                    $message->to($data['email'],$data['name'])->subject('Account Activation');
+                \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
+                    $message->to($data['email'],$data['name'])->subject(trans('admin::user.activation_email_subject',$data));
                 });
 
                 $data['status'] = array(
                     'type' => 'success',
-                    'message' => 'Kod aktivasi telah berjaya di hantar semula ke email ' . $data['email']
+                    'message' => trans('admin::user.activation_resend_success', array('email' => $data['email']))
                 );
 
             }catch(\Exception $e){
@@ -102,12 +145,23 @@ class AuthController extends Controller {
             }
         }
 
-        $this->layout->content = View::make('user.activation',compact('data'));
+        //[i] View scaffolding
+        $view = 'admin::user.activation';
+        if(View::exists('user.activation')) $view = 'user.activation';
+
+        //[i] Loading view
+        $this->layout->content = View::make($view,compact('data'));
     }
 
 
-    public function getLogin($role='user'){
-        if( Sentry::check() ) return Redirect::to($role.'/home');
+    public function getLogin($role='admin::user'){
+        //[i] View scaffolding
+        if($role == 'admin::user' && View::exists('user.login')) $role = 'user';
+
+        //[i] Sentry auth check
+        if( \Sentry::check() ) return Redirect::to($role.'/home');
+
+        //[i] Loading view
         $this->layout->content = View::make($role.'.login');
     }
 
@@ -118,7 +172,7 @@ class AuthController extends Controller {
         try{
             //[i] Authenticate
             $credential = Input::only('email','password');
-            $granted = Sentry::authenticate($credential,false);
+            $granted = \Sentry::authenticate($credential,false);
 
             //[i] Redirect to student home if granted
             if($granted){
@@ -136,8 +190,9 @@ class AuthController extends Controller {
         $this->layout->content = View::make($role . '.login',$post);
     }
 
+
     public function getLogout(){
-        Sentry::logout();
+        \Sentry::logout();
         return Redirect::to('public/page');
     }
 }

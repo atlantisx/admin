@@ -6,18 +6,25 @@
  * Routes : User
  */
 Route::group(array('prefix' => 'user'), function(){
+    $controller = 'Atlantis\Admin\AuthController';
+    try{
+        if( class_exists('AuthController') ){
+            $controller = 'AuthController';
+        }
+    }catch (Exception $e){ }
+
     //[i] Login & Logout
-    Route::get('login/{role?}','AuthController@getLogin');
-    Route::post('login/{role?}','AuthController@postLogin');
-    Route::get('logout','AuthController@getLogout');
+    Route::get('login/{role?}', $controller.'@getLogin');
+    Route::post('login/{role?}', $controller.'@postLogin');
+    Route::get('logout', $controller.'@getLogout');
 
     //[i] Registration
-    Route::get('register/{role?}','AuthController@getRegister');
-    Route::post('register/{role?}','AuthController@postRegister');
+    Route::get('register/{role?}', $controller.'@getRegister');
+    Route::post('register/{role?}', $controller.'@postRegister');
 
     //[i] Activation
-    Route::get('activation/{code?}','AuthController@getActivation');
-    Route::post('activation','AuthController@postActivation');
+    Route::get('activation/{code?}', $controller.'@getActivation');
+    Route::post('activation', $controller.'@postActivation');
 });
 
 

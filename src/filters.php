@@ -1,6 +1,37 @@
 <?php
 
-//Filters
+/*
+|--------------------------------------------------------------------------
+| Application Filter
+|--------------------------------------------------------------------------
+*/
+
+App::before(function($request)
+{
+    $title = Config::get('admin::admin.title');
+    View::share('title',$title);
+
+    if(Sentry::check()){
+        $user = Sentry::getUser();
+        View::share(compact('user'));
+    }
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Route Filters
+|--------------------------------------------------------------------------
+*/
+
+Route::filter('auth.sentry', function()
+{
+    if ( ! Sentry::check())
+    {
+        return Redirect::to('public/page');
+    }
+});
+
 
 //validate_admin filter
 Route::filter('validate_admin', function ()

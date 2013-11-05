@@ -15,7 +15,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'title' => 'Admin',
+	'title' => 'Atlantis Admin',
 
 
 	/**
