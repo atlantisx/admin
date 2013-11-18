@@ -40,7 +40,7 @@ View::composer('admin::index', function($view)
 
 
 //admin settings view
-View::composer('admin::settings', function($view)
+View::composer('admin::admin.settings', function($view)
 {
 	$config = App::make('itemconfig');
 	$fieldFactory = App::make('admin_field_factory');
@@ -73,26 +73,78 @@ View::composer(array('admin::partials.header'), function($view)
 View::composer(array('admin::layouts.common'), function($view){
     $locale = Config::get('app.locale');
 
-    if (!$view->page){
+    if (!isset($view->page)){
         Basset::collection('common', function($collection){
+            $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
+                //$collection->stylesheet('css/main.css');
+            })->apply('CssMin');
+
             $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
-                $collection->javascript('knockout/knockout-2.2.0.js');
+                $collection->javascript('knockout/knockout.js');
                 $collection->javascript('knockout/knockout.mapping.js');
                 $collection->javascript('knockout/KnockoutNotification.knockout.min.js');
                 $collection->javascript('knockout/knockout.updateData.js');
-                $collection->javascript('knockout/custom-bindings.js');
                 $collection->javascript('markdown/markdown.js');
             });
         });
 
-        Basset::collection('common', function($collection){
+        Basset::collection('admin', function($collection){
             $collection->directory('packages/atlantis/admin/javascript', function($collection){
-                $collection->requireDirectory('js');
-                $collection->javascript('history/history.min.js');
+                $collection->javascript('js/knockout.binding.js');
+                $collection->javascript('js/accounting.js');
+                $collection->javascript('libs/history/history.min.js');
+                $collection->javascript('js/admin.js');
+                $collection->javascript('js/settings.js');
             });
         });
     }
 
-    //'page' => asset('packages/atlantis/admin/js/page.js')
-    //'main' => asset('packages/atlantis/admin/css/main.css')
+    Basset::collection('admin', function($collection){
+        $collection->javascript('packages/atlantis/admin/javascript/js/page.js');
+    });
+});
+
+
+
+View::composer(array('admin::admin.admin'), function($view){
+    //
+});
+
+
+
+View::composer(array('admin::admin.settings'), function($view){
+    //
+});
+
+
+View::composer(array('admin::layouts.user'), function($view){
+    /*$menu_sidebar = Config::get('packages/mara/menu.sidebar');
+     $sidebar = Menu::handler('sidebar');
+     foreach(new RecursiveArrayIterator($menu_sidebar) as $key => $item){
+         if($item['parent'] == null){
+             $sidebar->add(
+                 $item['route'],
+                 '<i class="icon-dashboard icon-2x"></i><span>'.$item['description'].'</span>',
+                 Menu::items($key)
+             );
+         }else{
+             $sidebar
+                 ->find($item['parent'])
+                 ->prefix_parents()
+                 ->add(
+                     $item['route'],
+                     '<i class="icon-dashboard icon-2x"></i><span>'.$item['description'].'</span>',
+                     Menu::items($key)
+                 );
+         }
+     }*/
+
+        //$sidebar = Config::get('packages/mara/menu.sidebar');
+        //View::share(compact('sidebar'));
+
+    $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();
+    $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
+    $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
+
+    $view->menu_admin = App::make('admin_menu')->getMenu();
 });

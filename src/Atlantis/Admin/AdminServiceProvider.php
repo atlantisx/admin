@@ -95,7 +95,7 @@ class AdminServiceProvider extends ServiceProvider {
 
 		//include our filters, view composers, and routes
 		include __DIR__.'/../../filters.php';
-		include __DIR__.'/../../viewComposers.php';
+		include __DIR__.'/../../views.php';
 		include __DIR__.'/../../routes.php';
 
 		$this->app['events']->fire('admin.ready');
