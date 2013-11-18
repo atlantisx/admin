@@ -287,11 +287,11 @@ class Config extends ConfigBase implements ConfigInterface {
 		}
 
 		//set up the model with the edit fields new data
-		$model->setAttribute('administrator_edit_fields', $fieldFactory->getEditFieldsArrays(true));
+		$model->setAttribute('admin_edit_fields', $fieldFactory->getEditFieldsArrays(true));
 
 		//set up the new actions data
-		$model->setAttribute('administrator_actions', $actionFactory->getActionsOptions(true));
-		$model->setAttribute('administrator_action_permissions', $actionFactory->getActionPermissions(true));
+		$model->setAttribute('admin_actions', $actionFactory->getActionsOptions(true));
+		$model->setAttribute('admin_action_permissions', $actionFactory->getActionPermissions(true));
 
 		return $model;
 	}

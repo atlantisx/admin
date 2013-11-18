@@ -15,27 +15,27 @@ class Factory {
 	 * @var array
 	 */
 	protected $fieldTypes = array(
-		'key' => 'Frozennode\\Administrator\\Fields\\Key',
-		'text' => 'Frozennode\\Administrator\\Fields\\Text',
-		'textarea' => 'Frozennode\\Administrator\\Fields\\Text',
-		'wysiwyg' => 'Frozennode\\Administrator\\Fields\\Text',
-		'markdown' => 'Frozennode\\Administrator\\Fields\\Text',
-		'password' => 'Frozennode\\Administrator\\Fields\\Password',
-		'date' => 'Frozennode\\Administrator\\Fields\\Time',
-		'time' => 'Frozennode\\Administrator\\Fields\\Time',
-		'datetime' => 'Frozennode\\Administrator\\Fields\\Time',
-		'number' => 'Frozennode\\Administrator\\Fields\\Number',
-		'bool' => 'Frozennode\\Administrator\\Fields\\Bool',
-		'enum' => 'Frozennode\\Administrator\\Fields\\Enum',
-		'image' => 'Frozennode\\Administrator\\Fields\\Image',
-		'file' => 'Frozennode\\Administrator\\Fields\\File',
-		'color' => 'Frozennode\\Administrator\\Fields\\Color',
+		'key' => 'Atlantis\\Admin\\Fields\\Key',
+		'text' => 'Atlantis\\Admin\\Fields\\Text',
+		'textarea' => 'Atlantis\\Admin\\Fields\\Text',
+		'wysiwyg' => 'Atlantis\\Admin\\Fields\\Text',
+		'markdown' => 'Atlantis\\Admin\\Fields\\Text',
+		'password' => 'Atlantis\\Admin\\Fields\\Password',
+		'date' => 'Atlantis\\Admin\\Fields\\Time',
+		'time' => 'Atlantis\\Admin\\Fields\\Time',
+		'datetime' => 'Atlantis\\Admin\\Fields\\Time',
+		'number' => 'Atlantis\\Admin\\Fields\\Number',
+		'bool' => 'Atlantis\\Admin\\Fields\\Bool',
+		'enum' => 'Atlantis\\Admin\\Fields\\Enum',
+		'image' => 'Atlantis\\Admin\\Fields\\Image',
+		'file' => 'Atlantis\\Admin\\Fields\\File',
+		'color' => 'Atlantis\\Admin\\Fields\\Color',
 
 		//relationships
-		'belongs_to' => 'Frozennode\\Administrator\\Fields\\Relationships\\BelongsTo',
-		'belongs_to_many' => 'Frozennode\\Administrator\\Fields\\Relationships\\BelongsToMany',
-		'has_one' => 'Frozennode\\Administrator\\Fields\\Relationships\\HasOne',
-		'has_many' => 'Frozennode\\Administrator\\Fields\\Relationships\\HasMany',
+		'belongs_to' => 'Atlantis\\Admin\\Fields\\Relationships\\BelongsTo',
+		'belongs_to_many' => 'Atlantis\\Admin\\Fields\\Relationships\\BelongsToMany',
+		'has_one' => 'Atlantis\\Admin\\Fields\\Relationships\\HasOne',
+		'has_many' => 'Atlantis\\Admin\\Fields\\Relationships\\HasMany',
 
 	);
 

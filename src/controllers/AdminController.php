@@ -22,7 +22,7 @@ use Atlantis\Admin\Fields\Field;
  */
 class AdminController extends Controller
 {
-	protected $layout = "admin::layouts.default";
+	protected $layout = "admin::layouts.common";
 
 	/**
 	 * Setup the layout used by the controller.
@@ -227,7 +227,7 @@ class AdminController extends Controller
 		{
 			$file = $result->getFile()->getRealPath();
 			$headers = $result->headers->all();
-			Session::put('administrator_download_response', array('file' => $file, 'headers' => $headers));
+			Session::put('admin_download_response', array('file' => $file, 'headers' => $headers));
 
 			return Response::json(array('success' => true, 'download' => URL::route('admin_file_download')));
 		}
@@ -291,7 +291,7 @@ class AdminController extends Controller
 			{
 				$file = $result->getFile()->getRealPath();
 				$headers = $result->headers->all();
-				Session::put('administrator_download_response', array('file' => $file, 'headers' => $headers));
+				Session::put('admin_download_response', array('file' => $file, 'headers' => $headers));
 
 				$response['download'] = URL::route('admin_file_download');
 			}
@@ -325,7 +325,7 @@ class AdminController extends Controller
 
 			if (!$config)
 			{
-				throw new \InvalidArgumentException("Administrator: " .  trans('admin::admin.valid_home_page'));
+				throw new \InvalidArgumentException("Admin: " .  trans('admin::admin.valid_home_page'));
 			}
 			else if ($config->getType() === 'model')
 			{
@@ -437,9 +437,9 @@ class AdminController extends Controller
 	 */
 	public function fileDownload()
 	{
-		if ($response = Session::get('administrator_download_response'))
+		if ($response = Session::get('admin_download_response'))
 		{
-			Session::forget('administrator_download_response');
+			Session::forget('admin_download_response');
 			$filename = substr($response['headers']['content-disposition'][0], 22, -1);
 
 			return Response::download($response['file'], $filename, $response['headers']);
@@ -495,7 +495,7 @@ class AdminController extends Controller
 	public function settings($settingsName)
 	{
 		//set the layout content and title
-		$this->layout->content = View::make("admin::settings");
+		$this->layout->content = View::make("admin::admin.settings");
 	}
 
 
@@ -566,7 +566,7 @@ class AdminController extends Controller
 		{
 			$file = $result->getFile()->getRealPath();
 			$headers = $result->headers->all();
-			Session::put('administrator_download_response', array('file' => $file, 'headers' => $headers));
+			Session::put('admin_download_response', array('file' => $file, 'headers' => $headers));
 
 			return Response::json(array(
 				'success' => true,
@@ -595,7 +595,7 @@ class AdminController extends Controller
 	{
 		if (in_array($locale, Config::get('admin::admin.locales')))
 		{
-			Session::put('administrator_locale', $locale);
+			Session::put('admin_locale', $locale);
 		}
 
 		return Redirect::back();
