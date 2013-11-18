@@ -4,14 +4,16 @@
 @stop
 
 @section('navbar')
-    @include('layouts.partials.navbar')
-    @include('layouts.partials.sidebar')
+    @include('admin::partials.navbar')
+    @include('admin::partials.sidebar')
 @stop
 
 @section('base')
-<div class="main-content">
-    @section('container')
-    @show
+<div id="wrap">
+    <div class="main-content">
+        @section('container')
+        @show
+    </div>
 </div>
 @show
 

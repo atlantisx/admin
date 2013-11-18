@@ -16,6 +16,22 @@
     <div class="navbar-collapse navbar-collapse-top collapse">
         <div class="navbar-right">
             <ul class="nav navbar-nav navbar-left">
+                @if( $user->isSuperUser() )
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        Admin Menu
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach ($menu_admin as $key => $item)
+                            @include('admin::partials.menu_item')
+                        @endforeach
+                    </ul>
+                </li>
+                @endif
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
                         <span>
