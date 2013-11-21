@@ -116,7 +116,25 @@ class DataTable {
 		//get things going by grouping the set
 		$table = $model->getTable();
 		$keyName = $model->getKeyName();
-		$query = $model->groupBy($table . '.' . $keyName);
+
+        //set up initial array states for the selects
+        if( $db->connection()->getDriverName() == 'sqlsrv' ){
+            // Init query
+            $query = $model->groupBy($table . '.' . $keyName);
+            $selects = array($table.'.'.$keyName);
+
+            // Iterate all selectable column
+            foreach( $this->columnFactory->getColumns() as $column ){
+                if( ($column->getOption('column_name') != $keyName && !$column->getOption('is_related')) ){
+                    $query->groupBy($table . '.' . $column->getOption('column_name'));
+                    $selects = array_merge($selects, array($table.'.'.$column->getOption('column_name')));
+                }
+            }
+
+        }else{
+            $query = $model->groupBy($table . '.' . $keyName);
+            $selects = array($table.'.*');
+        }
 
 		//get the Illuminate\Database\Query\Builder instance and set up the count query
 		$dbQuery = $query->getQuery();
@@ -125,9 +143,6 @@ class DataTable {
 		//run the supplied query filter for both queries if it was provided
 		$this->config->runQueryFilter($dbQuery);
 		$this->config->runQueryFilter($countQuery);
-
-		//set up initial array states for the selects
-		$selects = array($table.'.*');
 
 		//set the filters
 		$this->setFilters($filters, $dbQuery, $countQuery, $selects);
