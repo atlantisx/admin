@@ -50,7 +50,7 @@ class AdminController extends Controller
 	public function index($modelName)
 	{
 		// set the layout content and title
-		$this->layout->content = View::make("admin::index");
+		$this->layout->content = View::make("admin::admin.admin");
 	}
 
 
@@ -88,7 +88,7 @@ class AdminController extends Controller
 		}
 		else
 		{
-			$view = View::make("admin::index", array(
+			$view = View::make("admin::admin.admin", array(
 				'itemId' => $itemId,
 			));
 

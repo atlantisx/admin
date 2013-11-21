@@ -9,8 +9,8 @@
                 <div id="content" data-bind="template: 'adminTemplate'"></div>
             </div>
             <div class="col-md-4">
-                <div id="sidebar">
-                    <div class="panel sidebar_section" id="filters_sidebar_section" data-bind="template: 'filtersTemplate'"></div>
+                <div id="sidebar" class="box">
+                    <div class="sidebar_section" id="filters_sidebar_section" data-bind="template: 'filtersTemplate'"></div>
                 </div>
             </div>
         </div>
@@ -19,25 +19,25 @@
 
 @section('javascript')
     <script type="text/javascript">
-        var site_url = "<?php echo Url::to('/') ?>",
-            base_url = "<?php echo $baseUrl ?>/",
-            asset_url = "<?php echo $assetUrl ?>",
-            file_url = "<?php echo URL::route('admin_display_file', array($config->getOption('name'))) ?>",
-            rows_per_page_url = "<?php echo URL::route('admin_rows_per_page', array($config->getOption('name'))) ?>",
-            route = "<?php echo $route ?>",
-            csrf = "<?php echo Session::token() ?>",
-            language = "<?php echo Config::get('app.locale') ?>",
+        var site_url = "{{ URL::to('/') }}",
+            base_url = "{{ $baseUrl }}/",
+            asset_url = "{{ $assetUrl }}",
+            file_url = "{{ URL::route('admin_display_file', array($config->getOption('name'))) }}",
+            rows_per_page_url = "{{ URL::route('admin_rows_per_page', array($config->getOption('name'))) }}",
+            route = "{{ $route }}",
+            csrf = "{{ Session::token() }}",
+            language = "{{ Config::get('app.locale') }}",
             adminData = {
-                primary_key: "<?php echo $primaryKey ?>",
+                primary_key: "{{ $primaryKey }}",
                 <?php if ($itemId !== null) {?>
                     id: <?php echo $itemId ?>,
                 <?php } ?>
                 rows: <?php echo json_encode($rows) ?>,
                 rows_per_page: <?php echo $dataTable->getRowsPerPage() ?>,
                 sortOptions: <?php echo json_encode($dataTable->getSort()) ?>,
-                model_name: "<?php echo $config->getOption('name') ?>",
-                model_title: "<?php echo $config->getOption('title') ?>",
-                model_single: "<?php echo $config->getOption('single') ?>",
+                model_name: "{{ $config->getOption('name') }}",
+                model_title: "{{ $config->getOption('title') }}",
+                model_single: "{{ $config->getOption('single') }}",
                 expand_width: <?php echo $formWidth ?>,
                 actions: <?php echo json_encode($actions) ?>,
                 global_actions: <?php echo json_encode($globalActions) ?>,
@@ -78,18 +78,15 @@
         }
     </style>
 
-    <?php echo Form::token() ?>
-
+    {{ Form::token() }}
     <script id="adminTemplate" type="text/html">
-        <?php echo View::make("admin::templates.admin")?>
+        {{ View::make("admin::clients.admin") }}
     </script>
-
     <script id="itemFormTemplate" type="text/html">
-        <?php echo View::make("admin::templates.edit", array('config' => $config))?>
+        {{ View::make("admin::clients.edit", array('config' => $config)) }}
     </script>
-
     <script id="filtersTemplate" type="text/html">
-        <?php echo View::make("admin::templates.filters")?>
+        {{ View::make("admin::clients.filters") }}
     </script>
     @parent
     @javascripts('admin')

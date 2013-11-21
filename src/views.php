@@ -6,7 +6,7 @@ use Atlantis\Admin\Fields\Field;
 //View Composers
 
 //admin index view
-View::composer('admin::index', function($view)
+View::composer('admin::admin.admin', function($view)
 {
 	//get a model instance that we'll use for constructing stuff
 	$config = App::make('itemconfig');
@@ -73,14 +73,14 @@ View::composer(array('admin::partials.header'), function($view)
 View::composer(array('admin::layouts.common'), function($view){
     $locale = Config::get('app.locale');
 
-    if (!isset($view->page)){
+    //if (!$view->page){
         Basset::collection('common', function($collection){
             $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
                 //$collection->stylesheet('css/main.css');
             })->apply('CssMin');
 
             $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
-                $collection->javascript('knockout/knockout.js');
+                $collection->javascript('knockout/knockout-2.2.0.js');
                 $collection->javascript('knockout/knockout.mapping.js');
                 $collection->javascript('knockout/KnockoutNotification.knockout.min.js');
                 $collection->javascript('knockout/knockout.updateData.js');
@@ -97,7 +97,7 @@ View::composer(array('admin::layouts.common'), function($view){
                 $collection->javascript('js/settings.js');
             });
         });
-    }
+    //}
 
     Basset::collection('admin', function($collection){
         $collection->javascript('packages/atlantis/admin/javascript/js/page.js');
@@ -146,5 +146,6 @@ View::composer(array('admin::layouts.user'), function($view){
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
     $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
 
+    //[i] Menu : Admin
     $view->menu_admin = App::make('admin_menu')->getMenu();
 });

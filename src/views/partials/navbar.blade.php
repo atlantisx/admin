@@ -16,6 +16,10 @@
     <div class="navbar-collapse navbar-collapse-top collapse">
         <div class="navbar-right">
             <ul class="nav navbar-nav navbar-left">
+
+                <!--==========================================
+                 Superuser menu
+                 ==========================================-->
                 @if( $user->isSuperUser() )
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -32,6 +36,9 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
+                <!--==========================================
+                 User menu
+                 ==========================================-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
                         <span>
