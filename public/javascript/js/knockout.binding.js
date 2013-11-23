@@ -18,7 +18,6 @@
 			{
 				$tableContainer.css('margin-right', 290);
 				$element.hide();
-				$child.css('marginLeft', expandWidth + 2);
 			}
 			else
 			{
@@ -37,7 +36,7 @@
 			//if the value is false, we want to hide the form, otherwise show it
 			if (!valueAccessor())
 			{
-				$child.stop().animate({marginLeft: expandWidth + 2}, 150, function()
+                $child.stop().animate({marginLeft: expandWidth + 2}, 150, function()
 				{
 					$element.hide();
 				});
@@ -51,7 +50,8 @@
 			{
 				if (viewModel.lastItem === null)
 				{
-					$element.show();
+                    $element.insertAfter('#sidebar');
+                    $element.show();
 					$child.stop().animate({marginLeft: 2}, 150);
 					$tableContainer.stop().animate({marginRight: expandWidth + 5}, 150, function()
 					{
