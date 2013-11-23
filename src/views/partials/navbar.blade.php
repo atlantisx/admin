@@ -23,7 +23,7 @@
                 @if( $user->isSuperUser() )
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        Admin Menu
+                        <?php echo trans('admin::admin.system') ?>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">

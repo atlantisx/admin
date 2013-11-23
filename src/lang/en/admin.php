@@ -11,6 +11,7 @@ return array(
 	|
 	*/
 
+    'system' => 'System',
 	'dashboard' => 'Dashboard',
 	'edit' => 'Edit',
 	'filters' => 'Filters',
