@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="#">{{ $title }}</a>
+        <a class="navbar-brand" href="{{ $role_home_path }}">{{ $title }}</a>
         @if( isset($sidebar) )
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
             <span class="sr-only">Toggle Side Navigation</span>
@@ -20,7 +20,7 @@
                 <!--==========================================
                  Superuser menu
                  ==========================================-->
-                @if( $user->isSuperUser() )
+                @if( isset($menu_admin) )
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <?php echo trans('admin::admin.system') ?>
@@ -42,7 +42,7 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
                         <span>
-                        <img src="{{ Gravatar::src($user->email) }}" class="menu-avatar"> <span>{{ $user->first_name .' '. $user->last_name  }} <i class="icon-caret-down"></i></span>
+                        <img src="{{ Gravatar::src($user->email) }}" class="menu-avatar"></span>
                         <span class="badge badge-dark-red">0</span>
                         </span>
                     </a>
