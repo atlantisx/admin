@@ -28,7 +28,7 @@
             "src/views"
         ],
         "psr-0": {
-            "Atlantis\\Admin\\": "src/"
+            "Atlantis": "src/"
         }
     },
     "minimum-stability": "dev"
