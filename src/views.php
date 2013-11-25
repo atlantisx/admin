@@ -142,10 +142,13 @@ View::composer(array('admin::layouts.user'), function($view){
         //$sidebar = Config::get('packages/mara/menu.sidebar');
         //View::share(compact('sidebar'));
 
+    $permissions = Config::get('admin::admin.permissions');
     $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
     $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
 
     //[i] Menu : Admin
-    $view->menu_admin = App::make('admin_menu')->getMenu();
+    if( Sentry::getUser()->hasAnyAccess($permissions) ){
+        $view->menu_admin = App::make('admin_menu')->getMenu();
+    }
 });
