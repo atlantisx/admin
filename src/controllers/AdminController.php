@@ -20,23 +20,9 @@ use Atlantis\Admin\Fields\Field;
 /**
  * Handles all requests related to managing the data models
  */
-class AdminController extends Controller
+class AdminController extends BaseController
 {
 	protected $layout = "admin::layouts.common";
-
-	/**
-	 * Setup the layout used by the controller.
-	 *
-	 * @return void
-	 */
-	protected function setupLayout()
-	{
-		if ( ! is_null($this->layout))
-		{
-			$this->layout = View::make($this->layout);
-			$this->layout->page = false;
-		}
-	}
 
 
     /**

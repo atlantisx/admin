@@ -15,21 +15,8 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-class AuthController extends Controller {
+class AuthController extends BaseController {
     protected $layout = 'admin::layouts.common';
-
-
-    protected function setupLayout()
-    {
-        //[i] View scaffolding
-        if(View::exists('layouts.common')) $this->layout = 'layouts.common';
-
-        if ( ! is_null($this->layout))
-        {
-            $this->layout = View::make($this->layout);
-            $this->layout->page = false;
-        }
-    }
 
 
     public function getRegister($role='admin::user'){
