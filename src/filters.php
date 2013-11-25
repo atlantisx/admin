@@ -14,6 +14,25 @@ App::before(function($request)
     if(Sentry::check()){
         $user = Sentry::getUser();
         View::share(compact('user'));
+
+        //[i] User role config
+        $user_home = Config::get('admin::admin.user_home','home');
+        $user_default_role = Config::get('admin::admin.user_default_role','user');
+
+        //[i] Checking user role
+        $groups = $user->getGroups();
+
+        if( $groups->count() == 1 ){
+            $group_permission = $groups->first()->getPermissions();
+
+            if( count($group_permission) == 1){
+                $role_home_path = url(key($group_permission) . '/' . $user_home);
+            }
+        }else{
+            $role_home_path = url($user_default_role . '/' . $user_home);
+        }
+
+        View::share(compact('role_home_path'));
     }
 });
 
@@ -34,21 +53,27 @@ Route::filter('auth.sentry', function()
 
 
 //validate_admin filter
-Route::filter('validate_admin', function ()
+Route::filter('auth.admin', function ()
 {
-	$configFactory = App::make('admin_config_factory');
+    if ( ! Sentry::check())
+    {
+        return Redirect::to('public/page');
+    }
+
+	//$configFactory = App::make('admin_config_factory');
+    $user = Sentry::getUser();
 
 	//get the admin check closure that should be supplied in the config
-	$permission = Config::get('admin::admin.permission');
-	$response = $permission();
+	$permissions = Config::get('admin::admin.permissions');
+    $loginUrl = URL::to(Config::get('admin::admin.login_path', 'user/login'));
+    $redirectKey = Config::get('admin::admin.login_redirect_key', 'redirect');
+    $redirectUri = Request::url();
+
+    $response = $user->hasAnyAccess($permissions);
 
 	//if this is a simple false value, send the user to the login redirect
 	if (!$response)
 	{
-		$loginUrl = URL::to(Config::get('admin::admin.login_path', 'user/login'));
-		$redirectKey = Config::get('admin::admin.login_redirect_key', 'redirect');
-		$redirectUri = Request::url();
-
 		return Redirect::to($loginUrl)->with($redirectKey, $redirectUri);
 	}
 	//otherwise if this is a response, return that

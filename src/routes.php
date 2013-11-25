@@ -25,6 +25,11 @@ Route::group(array('prefix' => 'user'), function(){
     //[i] Activation
     Route::get('activation/{code?}', $controller.'@getActivation');
     Route::post('activation', $controller.'@postActivation');
+
+    //[i] User method
+    Route::group(array('before'=>'auth.sentry'), function(){
+        Route::get('home','Atlantis\Admin\UserController@getHome');
+    });
 });
 
 
@@ -32,7 +37,7 @@ Route::group(array('prefix' => 'user'), function(){
 /**
  * Routes
  */
-Route::group(array('prefix' => Config::get('admin::admin.uri'), 'before' => 'validate_admin'), function()
+Route::group(array('prefix' => Config::get('admin::admin.uri'), 'before' => 'auth.admin'), function()
 {
 	//Admin Dashboard
 	Route::get('/', array(
