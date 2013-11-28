@@ -5,16 +5,20 @@
 
 @section('navbar')
     @include('admin::partials.navbar')
-    @include('admin::partials.sidebar')
 @stop
 
 @section('base')
-<div id="wrap">
+    @if( isset($sidebar) )
     <div class="main-content">
         @section('container')
         @show
     </div>
-</div>
+    @else
+    <div id="wrap">
+        @section('container')
+        @show
+    </div>
+    @endif
 @show
 
 @section('javascript')

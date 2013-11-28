@@ -17,9 +17,16 @@
 <body>
 @include('layouts.partials.iesupport')
 
+<!-- Navbar & Sidebar Section
+================================================== -->
 @section('navbar')
 @show
+@section('sidebar')
+    @include('admin::partials.sidebar')
+@show
 
+<!-- Base Section
+================================================== -->
 @section('base')
 <div id="wrap">
     @if (isset($errors) && count($errors->all()) > 0)
@@ -34,6 +41,10 @@
 <!-- JavaScripts
 ================================================== -->
 @section('javascript')
+    <script>
+        var appBase = '@yield('appbase')';
+    </script>
+
     @javascripts('common')
 @show
 

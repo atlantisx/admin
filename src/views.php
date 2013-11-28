@@ -102,6 +102,7 @@ View::composer(array('admin::layouts.common'), function($view){
     Basset::collection('admin', function($collection){
         $collection->javascript('packages/atlantis/admin/javascript/js/page.js');
     });
+
 });
 
 
@@ -118,37 +119,19 @@ View::composer(array('admin::admin.settings'), function($view){
 
 
 View::composer(array('admin::layouts.user'), function($view){
-    /*$menu_sidebar = Config::get('packages/mara/menu.sidebar');
-     $sidebar = Menu::handler('sidebar');
-     foreach(new RecursiveArrayIterator($menu_sidebar) as $key => $item){
-         if($item['parent'] == null){
-             $sidebar->add(
-                 $item['route'],
-                 '<i class="icon-dashboard icon-2x"></i><span>'.$item['description'].'</span>',
-                 Menu::items($key)
-             );
-         }else{
-             $sidebar
-                 ->find($item['parent'])
-                 ->prefix_parents()
-                 ->add(
-                     $item['route'],
-                     '<i class="icon-dashboard icon-2x"></i><span>'.$item['description'].'</span>',
-                     Menu::items($key)
-                 );
-         }
-     }*/
-
-        //$sidebar = Config::get('packages/mara/menu.sidebar');
-        //View::share(compact('sidebar'));
-
     $permissions = Config::get('admin::admin.permissions');
     $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
     $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
 
-    //[i] Menu : Admin
+    //[i] (User Role Only) Menu : Admin
     if( Sentry::getUser()->hasAnyAccess($permissions) ){
         $view->menu_admin = App::make('admin_menu')->getMenu();
     }
+
+    //[i] (Global Role) Sidebar : Applications
+    View::share( array('sidebar' => array(
+        'applications' => Config::get('admin::admin.sidebar.applications'),
+        'user' => Config::get('admin::admin.sidebar.user'),
+    )));
 });
