@@ -1,13 +1,30 @@
 <?php return array(
-    'register_title'            => 'User Registration', //Pendaftaran Pengguna
-    'register_label_email'      => 'Email',
-    'register_label_first_name' => 'First Name', //'nama'
-    'register_label_last_name'  => 'Last Name',
-    'register_label_password'   => 'Password',
-    'register_label_password_confirm' => 'Password Confirmation', //pengesahan katalaluan
-    'register_btn_register'     => 'Register', //Daftar
+    'menu_label_home'           => 'Home',
 
-    'registered_title'          => 'Registration sucessful',
+    'title_register'            => 'User Registration', //Pendaftaran Pengguna
+    'title_account'            => 'Account',
+    'title_profile'            => 'Profile',
+    'title_address'            => 'Address',
+
+    'label_email'               => 'Email',
+    'label_fullname'            => 'Fullname',
+    'label_first_name'          => 'First Name', //'nama'
+    'label_last_name'           => 'Last Name',
+    'label_password'            => 'Password',
+    'label_password_confirm'    => 'Password Confirmation', //pengesahan katalaluan
+    'label_birth_date'          => 'Birth Date',
+    'label_birth_place'         => 'Birth Place',
+    'label_contact_home'        => 'Phone Home',
+    'label_contact_mobile'      => 'Phone Mobile',
+    'label_address_area'        => 'Area',
+    'label_address_postcode'    => 'Postcode',
+
+
+
+    'btn_register'              => 'Register', //Daftar
+    'btn_update'                => 'Update', //Daftar
+
+    'title_registered'          => 'Registration sucessful',
     'registered_text_success'   => 'Your registration is successful, activation email have been sent to <strong>:email</strong> and please click the link provided to activate you account. ' .
                                    'Please save the activation code below for your future reference if you unable to activate you account through your email.',
     'registered_label_activation_code' => 'Activation Code',

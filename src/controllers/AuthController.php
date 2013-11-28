@@ -1,5 +1,6 @@
 <?php namespace Atlantis\Admin;
 
+use Cartalyst\Sentry\Facades\CI\Sentry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Routing\Controllers\Controller;
@@ -142,11 +143,13 @@ class AuthController extends BaseController {
 
 
     public function getLogin($role='admin::user'){
+        $home = \Config::get('admin::admin.user_home','home');
+
         //[i] View scaffolding
         if($role == 'admin::user' && View::exists('user.login')) $role = 'user';
 
         //[i] Sentry auth check
-        if( \Sentry::check() ) return Redirect::to($role.'/home');
+        if( \Sentry::check() ) return Redirect::to($role.'/'.$home);
 
         //[i] Loading view
         $this->layout->content = View::make($role.'.login');
@@ -155,15 +158,16 @@ class AuthController extends BaseController {
 
     public function postLogin($role='user'){
         $post = Input::flash();
+        $home = \Config::get('admin::admin.user_home','home');
 
         try{
             //[i] Authenticate
             $credential = Input::only('email','password');
             $granted = \Sentry::authenticate($credential,false);
 
-            //[i] Redirect to student home if granted
+            //[i] Redirect to user home if granted
             if($granted){
-                return Redirect::to($role.'/home');
+                return Redirect::to($role.'/'.$home);
             }
 
         }catch ( \Exception $e){
@@ -174,7 +178,7 @@ class AuthController extends BaseController {
         }
 
         //[i] Return to login page with error if any
-        $this->layout->content = View::make($role . '.login',$post);
+        $this->layout->content = View::make($role . '.login', $post);
     }
 
 
