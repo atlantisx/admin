@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ $role_home_path }}">{{ $title }}</a>
+        <a class="navbar-brand" href="{{ $user_role->homePath }}">{{ $title }}</a>
         @if( isset($sidebar) )
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
             <span class="sr-only">Toggle Side Navigation</span>
@@ -52,8 +52,8 @@
                         </li>
 
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon-user"></i> <span>Profile</span></a></li>
-                        <li><a href="#"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">0</span></a></li>
+                        <li><a href="{{ url('user/profile') }}"><i class="icon-user"></i> <span>Profile</span></a></li>
+                        <li><a href="{{ url('message/list/' . $user->id) }}"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">0</span></a></li>
                         <li><a href="{{ url('user/logout') }}"><i class="icon-off"></i> <span>Logout</span></a></li>
                     </ul>
                 </li>

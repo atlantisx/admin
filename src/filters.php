@@ -12,27 +12,13 @@ App::before(function($request)
     View::share('title',$title);
 
     if(Sentry::check()){
+        //[i] Get user
         $user = Sentry::getUser();
         View::share(compact('user'));
 
-        //[i] User role config
-        $user_home = Config::get('admin::admin.user_home','home');
-        $user_default_role = Config::get('admin::admin.user_default_role','user');
-
-        //[i] Checking user role
-        $groups = $user->getGroups();
-
-        if( $groups->count() == 1 ){
-            $group_permission = $groups->first()->getPermissions();
-
-            if( count($group_permission) == 1){
-                $role_home_path = url(key($group_permission) . '/' . $user_home);
-            }
-        }else{
-            $role_home_path = url($user_default_role . '/' . $user_home);
-        }
-
-        View::share(compact('role_home_path'));
+        //[i] Get user role home path
+        $user_role = Atlantis::users()->getUserRoleById($user->id);
+        View::share(compact('user_role'));
     }
 });
 
@@ -47,7 +33,7 @@ Route::filter('auth.sentry', function()
 {
     if ( ! Sentry::check())
     {
-        return Redirect::to('public/page');
+        return Redirect::to( Config::get('admin::admin.page.public') );
     }
 });
 
@@ -57,36 +43,37 @@ Route::filter('auth.admin', function ()
 {
     if ( ! Sentry::check())
     {
-        return Redirect::to('public/page');
+        return Redirect::to( Config::get('admin::admin.page.public') );
     }
 
 	//$configFactory = App::make('admin_config_factory');
     $user = Sentry::getUser();
 
-	//get the admin check closure that should be supplied in the config
+	//[i] Get the admin check closure that should be supplied in the config
 	$permissions = Config::get('admin::admin.permissions');
-    $loginUrl = URL::to(Config::get('admin::admin.login_path', 'user/login'));
+    $loginUrl = URL::to(Config::get('admin::admin.page.login', 'user/login'));
     $redirectKey = Config::get('admin::admin.login_redirect_key', 'redirect');
     $redirectUri = Request::url();
 
     $response = $user->hasAnyAccess($permissions);
 
-	//if this is a simple false value, send the user to the login redirect
+	//[i] If this is a simple false value, send the user to the login redirect
 	if (!$response)
 	{
 		return Redirect::to($loginUrl)->with($redirectKey, $redirectUri);
 	}
-	//otherwise if this is a response, return that
+	//[i] Otherwise if this is a response, return that
 	else if (is_a($response, 'Illuminate\Http\JsonResponse') || is_a($response, 'Illuminate\Http\Response'))
 	{
 		return $response;
 	}
-	//if it's a redirect, send it back with the redirect uri
+	//[i] if it's a redirect, send it back with the redirect uri
 	else if (is_a($response, 'Illuminate\\Http\\RedirectResponse'))
 	{
 		return $response->with($redirectKey, $redirectUri);
 	}
 });
+
 
 //validate_model filter
 Route::filter('validate_model', function($route, $request)
@@ -100,6 +87,7 @@ Route::filter('validate_model', function($route, $request)
 	});
 });
 
+
 //validate_settings filter
 Route::filter('validate_settings', function($route, $request)
 {
@@ -112,6 +100,8 @@ Route::filter('validate_settings', function($route, $request)
 	});
 });
 
+
+//post_validate filter
 Route::filter('post_validate', function($route, $request)
 {
 	$config = App::make('itemconfig');
