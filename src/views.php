@@ -73,12 +73,29 @@ View::composer(array('admin::partials.header'), function($view)
 View::composer(array('admin::layouts.common'), function($view){
     $locale = Config::get('app.locale');
 
+    /* Common Assets
+    * ---------------------------------------------------------------------*/
+    Basset::collection('common', function($collection){
+        $collection->directory('../vendor/twitter/bootstrap/dist/css', function($collection){
+            $collection->stylesheet('bootstrap.css');
+            $collection->stylesheet('bootstrap-theme.css');
+        })->apply('CssMin');
+
+        //$collection->javascript('../components/require.js')->apply('JsMin');
+        $collection->javascript('../components/jquery/jquery.js')->apply('JsMin');
+        $collection->javascript('../components/jquery/jquery-migrate.js')->apply('JsMin');
+        $collection->javascript('../vendor/twitter/bootstrap/dist/js/bootstrap.js')->apply('JsMin');
+        $collection->javascript('../components/angularjs/angular.js')->apply('JsMin');
+    });
+
     //if (!$view->page){
         Basset::collection('common', function($collection){
             $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
                 //$collection->stylesheet('css/main.css');
             })->apply('CssMin');
+        });
 
+        Basset::collection('admin', function($collection){
             $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
                 $collection->javascript('knockout/knockout-2.2.0.js');
                 $collection->javascript('knockout/knockout.mapping.js');
@@ -86,9 +103,7 @@ View::composer(array('admin::layouts.common'), function($view){
                 $collection->javascript('knockout/knockout.updateData.js');
                 $collection->javascript('markdown/markdown.js');
             });
-        });
 
-        Basset::collection('admin', function($collection){
             $collection->directory('packages/atlantis/admin/javascript', function($collection){
                 $collection->javascript('js/knockout.binding.js');
                 $collection->javascript('js/accounting.js');
@@ -99,22 +114,42 @@ View::composer(array('admin::layouts.common'), function($view){
         });
     //}
 
-    Basset::collection('admin', function($collection){
-        $collection->javascript('packages/atlantis/admin/javascript/js/page.js');
+    Basset::collection('user', function($collection){
+        $collection->directory('assets/stylesheet', function($collection)
+        {
+            $collection->stylesheet('less/user.less')->apply('Less');
+            $collection->requireDirectory('css')->except('application.css');
+            $collection->requireDirectory('libs/jquery.ui');
+            $collection->requireDirectory('libs/jquery.ui.timepicker');
+            $collection->requireDirectory('libs/jquery.ui.colorpicker');
+            $collection->requireDirectory('libs/jquery.customscroll');
+            //$collection->stylesheet('css/application.css');
+        })->apply('CssMin')
+            ->andApply('UriRewriteFilter')
+            ->andApply('UriPrependFilter')
+            ->whenEnvironmentIs('local')
+            ->setArguments('/ependahuluan');
+
+        $collection->directory('assets/javascript', function($collection)
+        {
+            $collection->requireDirectory('coffee')->only('user.coffee')->apply('CoffeeScript');
+            $collection->requireDirectory('libs/jquery.ui');
+            $collection->requireDirectory('libs/jquery.icheck');
+            $collection->requireDirectory('libs/jquery.uniform');
+            $collection->requireDirectory('libs/jquery.select2');
+            $collection->requireDirectory('libs/jquery.colocpicker');
+            $collection->requireDirectory('libs/jquery.customscroll');
+            $collection->requireDirectory('libs/jquery.ui.timepicker');
+            $collection->requireDirectory('libs/jquery.ui.slider');
+            $collection->requireDirectory('libs/bootstrap.wizard');
+            $collection->requireDirectory('libs/bootstrap.datepicker');
+            $collection->javascript('libs/jquery.validation/jquery.validationEngine.js');
+            $collection->javascript('libs/ckeditor/ckeditor.js');
+            $collection->javascript('libs/ckeditor/adapters/jquery.js');
+            $collection->javascript('libs/plupload/plupload.full.js');
+        })->apply('JsMin');
     });
 
-});
-
-
-
-View::composer(array('admin::admin.admin'), function($view){
-    //
-});
-
-
-
-View::composer(array('admin::admin.settings'), function($view){
-    //
 });
 
 
