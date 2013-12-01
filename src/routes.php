@@ -187,3 +187,9 @@ Route::group(array('prefix' => Config::get('admin::admin.uri'), 'before' => 'aut
 		'uses' => 'Atlantis\Admin\AdminController@switchLocale'
 	));
 });
+
+
+//[i] API
+Route::group(array('prefix'=>'api/v1'), function(){
+    Route::resource('users','Atlantis\Admin\Api\V1\UserController');
+});
