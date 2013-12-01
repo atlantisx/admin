@@ -27,6 +27,10 @@
     <script>
         $(document).ready(function(){
             elementRefresh();
+
+            angular.element(document).ready(function() {
+                angular.bootstrap(document, ['asng']);
+            });
         });
 
         function elementRefresh(){
