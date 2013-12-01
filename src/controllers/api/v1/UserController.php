@@ -1,6 +1,8 @@
 <?php namespace Atlantis\Admin\Api\V1;
 
 
+use Aws\CloudFront\Exception\Exception;
+
 class UserController extends \BaseController{
 
     public function index(){
@@ -23,4 +25,38 @@ class UserController extends \BaseController{
         return \Response::json(array('Error in query'),400);
     }
 
+    public function update($id){
+        $put = \Input::all();
+
+        try{
+            //[i] Search user
+            $user = \User::find($id);
+
+            //[i] Update user
+            if($user){
+                $user->fill($put);
+                $user->profile->fill($put['profile']);
+
+                $user->push();
+            }
+
+        }catch (Exception $e){
+            return \Response::json(array('Error in query!'),400);
+        }
+
+        $put = array('status'=>'success','message'=>'Successfully update user!');
+        return \Response::json($put);;
+    }
+
+    public function destroy($id){
+        //[i] Search user
+        $user = \User::find($id);
+
+        if($user){
+            $user->delete();
+            return \Response::json(array('message'=>'Successfully delete user!'));
+        }else{
+            return \Response::json(array('Error in query'),400);
+        }
+    }
 }
