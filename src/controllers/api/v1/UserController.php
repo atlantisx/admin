@@ -36,7 +36,6 @@ class UserController extends \BaseController{
             if($user){
                 $user->fill($put);
                 $user->profile->fill($put['profile']);
-
                 $user->push();
             }
 
@@ -44,7 +43,7 @@ class UserController extends \BaseController{
             return \Response::json(array('Error in query!'),400);
         }
 
-        $put = array('status'=>'success','message'=>'Successfully update user!');
+        $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
         return \Response::json($put);;
     }
 
