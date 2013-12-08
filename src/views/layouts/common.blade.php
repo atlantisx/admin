@@ -42,7 +42,7 @@
 ================================================== -->
 @section('javascript')
     <script>
-        var appBase = '@yield('appbase')';
+        var appBase = '{{ $appbase }}';
     </script>
 
     @javascripts('common')

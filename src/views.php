@@ -15,11 +15,14 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->stylesheet('bootstrap-theme.css');
         })->apply('CssMin');
 
+        $collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
+
         $collection->javascript('../components/require.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery-migrate.js')->apply('JsMin');
         $collection->javascript('../vendor/twitter/bootstrap/dist/js/bootstrap.js')->apply('JsMin');
         $collection->javascript('../components/angularjs/angular.js')->apply('JsMin');
+        $collection->javascript('../components/angularjs/angular-resource.js')->apply('JsMin');
 
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             //$collection->stylesheet('css/main.css');
@@ -40,7 +43,6 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->requireDirectory('libs/jquery.ui.timepicker');
             $collection->requireDirectory('libs/jquery.ui.colorpicker');
             $collection->requireDirectory('libs/jquery.customscroll');
-            //$collection->stylesheet('css/application.css');
         })->apply('CssMin')
             ->andApply('UriRewriteFilter')
             ->andApply('UriPrependFilter')
@@ -70,17 +72,26 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
             $collection->javascript('jquery.noty/themes/default.js');
+
+            //[i] Angular Modules
+            $collection->javascript('angular.xeditable/js/xeditable.js');
+
+            //[i] Atlantis-Angular Modules
+            $collection->javascript('atlantis/plugins/angular.atlantis.ui.js');
+            $collection->javascript('atlantis/plugins/angular.atlantis.api.js');
             $collection->javascript('atlantis/plugins/angular.atlantis.js');
+
+            //[i] Atlantis Core
             $collection->javascript('atlantis/atlantis.js');
             $collection->javascript('atlantis/core/atlantis.alert.js');
-        });
+        })->apply('JsMin');
 
         $collection->directory('assets/javascript/libs', function($collection) use($locale){
             $collection->javascript('plupload/i18n/'.$locale.'.js');
             $collection->javascript('jquery.ui/i18n/jquery.ui.datepicker-'.$locale.'.js');
             $collection->javascript('jquery.ui.timepicker/i18n/jquery-ui-timepicker-'.$locale.'.js');
             $collection->javascript('jquery.validation/jquery.validationEngine-'.$locale.'.js');
-        });
+        })->apply('JsMin');
     });
 
 
