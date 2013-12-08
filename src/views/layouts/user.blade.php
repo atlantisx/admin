@@ -44,7 +44,7 @@
 
             $('.datepicker').datepicker({
                 todayBtn: false,
-                dateFormat: 'd MM, y'
+                dateFormat: 'yy-mm-dd'//'d MM, y'
             });
 
             $("form.validatable").validationEngine({
