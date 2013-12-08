@@ -42,9 +42,10 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
                         <span>
-                        <img src="{{ Gravatar::src($user->email) }}" class="menu-avatar"></span>
-                        <span class="badge badge-dark-red">0</span>
+                            <!--<img src="{{ Gravatar::src($user->email) }}" class="menu-avatar">-->
+                            <span>{{ $user->first_name }} <i class="icon-caret-down"></i></span>
                         </span>
+                        <!--<span class="badge badge-dark-red">0</span>-->
                     </a>
                     <ul class="dropdown-menu">
                         <li class="with-image">
