@@ -5,6 +5,7 @@
     'title_account'            => 'Account',
     'title_profile'            => 'Profile',
     'title_address'            => 'Address',
+    'title_permission'            => 'Permission',
 
     'label_email'               => 'Email',
     'label_fullname'            => 'Fullname',
@@ -23,6 +24,7 @@
 
     'btn_register'              => 'Register', //Daftar
     'btn_update'                => 'Update', //Daftar
+    'btn_update_profile'              => 'Update Profile', //Daftar
 
     'title_registered'          => 'Registration sucessful',
     'registered_text_success'   => 'Your registration is successful, activation email have been sent to <strong>:email</strong> and please click the link provided to activate you account. ' .

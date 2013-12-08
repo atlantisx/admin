@@ -11,23 +11,15 @@ class UserController extends BaseController {
     }
 
     public function getProfile(){
-
+        //[i] Get current user
         $user = \Sentry::getUser();
         $user = \User::find($user->id);
 
+        //[i] Inline data populate
         Former::populate($user);
 
-        $data = array(
-            'form_action' => 'edit',
-            'roles' => array(
-                array( 'user' => 'User' ),
-                array( 'student' => 'Student' )
-            ),
-            'user_status'   => array(
-                0 => 'Tidak Aktif',
-                1 => 'Aktif'
-            )
-        );
+        //[i] View data
+        $data = array();
 
         $this->layout->content = \View::make('admin::user.profile',$data);
     }
