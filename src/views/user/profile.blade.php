@@ -23,27 +23,48 @@
                     <div class="box-header">
                         <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
                             <li class="active"><a href="#tab-account" data-toggle="tab">{{ trans('admin::user.title_account') }}</a></li>
-                            <li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_permission') }}</a></li>
+                            <li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>
                         </ul>
                     </div>
 
                     <div class="box-content">
                         <div class="tab-content">
                             <div id="tab-account" class="tab-pane padded active">
-                                <div class="input-group">
-                                    {{ Former::label('name')->class('control-label col-lg-2') }}
-                                    <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]') }}</div>
-                                    <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]') }}</div>
-                                </div>
-                                <div class="input-group">
-                                    {{ Former::label('email')->class('control-label col-lg-2') }}
-                                    <div class="col-lg-5">
-                                        <a href="#" editable-text="user.email">[[ user.email || "{{ $user['email'] }}"]]</a>
+                                <div class="form-flat">
+                                    <div class="input-group">
+                                        {{ Former::label('name')->class('control-label col-lg-2') }}
+                                        <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]')->ng_model('user.first_name') }}</div>
+                                        <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]')->ng_model('user.last_name') }}</div>
+                                    </div>
+                                    <div class="input-group">
+                                        {{ Former::label('email')->class('control-label col-lg-2') }}
+                                        <div class="col-lg-5">
+                                            <a href="#" editable-text="user.email">[[ user.email || "{{ $user['email'] }}"]]</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div id="tab-permission" class="tab-pane padded">
+                                <div class="form-flat">
+                                    <div class="input-group">
+                                        {{ Former::label('role')->class('control-label col-lg-2') }}
+                                        <div class="col-lg-10">
+                                            {{ Former::select('role')->class('uniform')->fromQuery( Code::byCategory('location.state'), 'value', 'name' ) }}
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        {{ Former::label('group')->class('control-label col-lg-2') }}
+                                        <div class="col-lg-10">
+                                            {{ Former::select('group')->class('select2')->multiple('multiple')->fromQuery( Code::byCategory('location.state'), 'value', 'name' ) }}
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        {{ Former::label('permission')->class('control-label col-lg-2') }}
+                                        <div class="col-lg-10">
 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

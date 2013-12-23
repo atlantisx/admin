@@ -2,10 +2,11 @@
     'menu_label_home'           => 'Home',
 
     'title_register'            => 'User Registration', //Pendaftaran Pengguna
-    'title_account'            => 'Account',
-    'title_profile'            => 'Profile',
-    'title_address'            => 'Address',
-    'title_permission'            => 'Permission',
+    'title_account'             => 'Account',
+    'title_profile'             => 'Profile',
+    'title_address'             => 'Address',
+    'title_permission'          => 'Permission',
+    'title_access'              => 'Access',
 
     'label_email'               => 'Email',
     'label_fullname'            => 'Fullname',
