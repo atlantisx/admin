@@ -17,7 +17,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
         $collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
 
-        $collection->javascript('../components/require.js')->apply('JsMin');
+        //$collection->javascript('../components/require.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery-migrate.js')->apply('JsMin');
         $collection->javascript('../vendor/twitter/bootstrap/dist/js/bootstrap.js')->apply('JsMin');
