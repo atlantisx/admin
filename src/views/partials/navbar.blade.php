@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ $user_role->homePath }}">{{ $title }}</a>
+        <a class="navbar-brand" href="{{ url('/') }}/">{{ $title }}</a>
         @if( isset($sidebar) )
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
             <span class="sr-only">Toggle Side Navigation</span>
