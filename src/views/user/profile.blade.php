@@ -23,7 +23,7 @@
                     <div class="box-header">
                         <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
                             <li class="active"><a href="#tab-account" data-toggle="tab">{{ trans('admin::user.title_account') }}</a></li>
-                            <li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>
+                            <!--<li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>-->
                         </ul>
                     </div>
 
@@ -39,7 +39,7 @@
                                     <div class="input-group">
                                         {{ Former::label('email')->class('control-label col-lg-2') }}
                                         <div class="col-lg-5">
-                                            <a href="#" editable-text="user.email">[[ user.email || "{{ $user['email'] }}"]]</a>
+                                            <a href="#" editable-text="user.email" onbeforesave="validateEmail($data)">[[ user.email || "{{ $user['email'] }}"]]</a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
             $('#profile\\.birth_date').datepicker("option","maxDate",'-15Y');
         });
 
-        function controllerProfile($scope,Api){
+        function controllerProfile($scope,$http,$q,Api){
             var params = {model:'users', id:'{{ $user->id }}'};
 
             //[i] Getting user model
@@ -169,6 +169,24 @@
                 if( $('#form_profile').validationEngine('validate') ){
                     $scope.user.$update(params);
                 }
+            }
+
+            //[i] Changing email
+            $scope.validateEmail = function(data){
+                var d = $q.defer();
+
+                $http.post(urlAPIUser + 'change-email', {email: data}).success(function(res){
+                    res = res || {};
+                    if( res.status === 'success' ){
+                        d.resolve();
+                    }else{
+                        d.resolve(res.message);
+                    }
+                }).error(function(e){
+                    d.reject('Server error!');
+                });
+
+                return d.promise;
             }
         }
 

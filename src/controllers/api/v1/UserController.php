@@ -44,7 +44,7 @@ class UserController extends \BaseController{
         }
 
         $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
-        return \Response::json($put);;
+        return \Response::json($put);
     }
 
     public function destroy($id){
@@ -58,4 +58,36 @@ class UserController extends \BaseController{
             return \Response::json(array('Error in query'),400);
         }
     }
+
+    public function changeEmail(){
+        $post = \Input::all();
+
+        //[i] Email validation
+        $validator = \Validator::make(
+            array('email'=>$post['email']),
+            array('email'=>'required|email|unique:users')
+        );
+
+        try{
+            if( $validator->passes() ){
+                //[i] Find user by email
+                $user = \Sentry::getUser();
+                $user->email = $post['email'];
+                $user->save();
+
+                $post = array('status'=>'success','message'=>'Successfully changed email!');
+            }else{
+                $post = array('status'=>'error','message'=>'Error while updating email!');
+            }
+        }catch (Exception $e){
+            return \Response::json(array('Error in query'),400);
+        }
+
+        return \Response::json($post);
+    }
+
+    public function missingMethod($parameters = array()){
+
+    }
+
 }

@@ -192,4 +192,5 @@ Route::group(array('prefix' => Config::get('admin::admin.uri'), 'before' => 'aut
 //[i] API
 Route::group(array('prefix'=>'api/v1'), function(){
     Route::resource('users','Atlantis\Admin\Api\V1\UserController');
+    Route::post('users/change-email', 'Atlantis\Admin\Api\V1\UserController@changeEmail');
 });
