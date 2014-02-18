@@ -60,6 +60,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->requireDirectory('libs/jquery.customscroll');
             $collection->requireDirectory('libs/jquery.ui.timepicker');
             $collection->requireDirectory('libs/jquery.ui.slider');
+            $collection->requireDirectory('libs/jquery.psteps');
             $collection->requireDirectory('libs/bootstrap.wizard');
             $collection->requireDirectory('libs/bootstrap.datepicker');
             $collection->javascript('libs/jquery.validation/jquery.validationEngine.js');
