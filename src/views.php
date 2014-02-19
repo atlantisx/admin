@@ -10,22 +10,26 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
     /* Common Assets
     * ---------------------------------------------------------------------*/
     Basset::collection('common', function($collection){
+        //[i] CSS Framework
         $collection->directory('../vendor/twitter/bootstrap/dist/css', function($collection){
             $collection->stylesheet('bootstrap.css');
             $collection->stylesheet('bootstrap-theme.css');
         })->apply('CssMin');
 
+        //[i] Fonts
         $collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
 
-        //$collection->javascript('../components/require.js')->apply('JsMin');
+        //[i] Core JS
+        #$collection->javascript('../components/require.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery.js')->apply('JsMin');
         $collection->javascript('../components/jquery/jquery-migrate.js')->apply('JsMin');
         $collection->javascript('../vendor/twitter/bootstrap/dist/js/bootstrap.js')->apply('JsMin');
         $collection->javascript('../components/angularjs/angular.js')->apply('JsMin');
         $collection->javascript('../components/angularjs/angular-resource.js')->apply('JsMin');
 
+        //[i] Atlantis CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
-            //$collection->stylesheet('css/main.css');
+            #$collection->stylesheet('css/main.css');
         })->apply('CssMin');
     });
 

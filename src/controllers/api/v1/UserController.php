@@ -1,8 +1,6 @@
 <?php namespace Atlantis\Admin\Api\V1;
 
 
-use Aws\CloudFront\Exception\Exception;
-
 class UserController extends \BaseController{
 
     public function index(){
