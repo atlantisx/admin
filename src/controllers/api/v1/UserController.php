@@ -36,12 +36,13 @@ class UserController extends \BaseController{
                 $user->profile->fill($put['profile']);
                 $user->push();
             }
+            $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
 
         }catch (Exception $e){
-            return \Response::json(array('Error in query!'),400);
+            //return \Response::json(array('Error in query!'),400);
+            $put = array_merge($put,array('status'=>'error','message'=>$e->getMessage()));
         }
 
-        $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
         return \Response::json($put);
     }
 
