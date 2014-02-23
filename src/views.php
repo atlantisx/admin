@@ -70,7 +70,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('libs/jquery.validation/jquery.validationEngine.js');
             $collection->javascript('libs/ckeditor/ckeditor.js');
             $collection->javascript('libs/ckeditor/adapters/jquery.js');
-            $collection->javascript('libs/plupload/plupload.full.js');
+            $collection->javascript('libs/jquery.fineuploader/jquery.fineuploader-4.3.1.js');
         })->apply('JsMin');
 
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
