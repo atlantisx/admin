@@ -21,11 +21,16 @@
     'label_address_area'        => 'Area',
     'label_address_postcode'    => 'Postcode',
 
-
+    'title_task'                => 'Task Toolbox',
 
     'btn_register'              => 'Register', //Daftar
     'btn_update'                => 'Update', //Daftar
-    'btn_update_profile'              => 'Update Profile', //Daftar
+    'btn_update_profile'        => 'Update Profile', //Daftar
+
+    'btn_next'                  => 'Next',
+    'btn_back'                  => 'Back',
+    'btn_submit'                => 'Submit',
+    'btn_draft'                 => 'Save Draft',
 
     'title_registered'          => 'Registration sucessful',
     'registered_text_success'   => 'Your registration is successful, activation email have been sent to <strong>:email</strong> and please click the link provided to activate you account. ' .
