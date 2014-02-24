@@ -9,7 +9,7 @@
 
     <div class="input-group addon-left">
         <span class="input-group-addon" href="#"><i class="icon-envelope"></i></span>
-        {{ Form::text('email',Input::old('email'),array('placeholder'=>trans('admin::user.register_label_email'))) }}
+        {{ Form::text('email',Input::old('email'),array('class'=>'validate[required,custom[email]]','placeholder'=>trans('admin::user.register_label_email'))) }}
     </div>
 
     <div class="input-group addon-left">
@@ -24,7 +24,7 @@
 
     <div class="input-group addon-left">
         <span class="input-group-addon" href="#"><i class="icon-key"></i></span>
-        {{ Form::password('password',array( 'id'=>'password', 'placeholder'=>trans('admin::user.register_label_password'))) }}
+        {{ Form::password('password',array( 'class'=>'validate[required]', 'id'=>'password', 'placeholder'=>trans('admin::user.register_label_password'))) }}
     </div>
 
     <div class="input-group addon-left">
