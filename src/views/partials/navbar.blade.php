@@ -56,7 +56,7 @@
                         -->
 
                         <li><a href="{{ url('user/profile') }}"><i class="icon-user"></i> <span>Profile</span></a></li>
-                        <li><a href="{{ url('message/list/' . $user->id) }}"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">0</span></a></li>
+                        <!--<li><a href="{{ url('message/list/' . $user->id) }}"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">0</span></a></li>-->
                         <li><a href="{{ url('user/logout') }}"><i class="icon-off"></i> <span>Logout</span></a></li>
                     </ul>
                 </li>
