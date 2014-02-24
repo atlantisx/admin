@@ -33,7 +33,12 @@ class UserController extends \BaseController{
             //[i] Update user
             if($user){
                 $user->fill($put);
-                $user->profile->fill($put['profile']);
+                if($user->profile){
+                    $user->profile->fill($put['profile']);
+                }else{
+                    $profile = new \People($put['profile']);
+                    $user->profile()->save($profile);
+                }
                 $user->push();
             }
             $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
