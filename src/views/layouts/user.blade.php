@@ -48,7 +48,8 @@
             });
 
             $("form.validatable").validationEngine({
-                promptPosition: "topLeft"
+                promptPosition: "topLeft",
+                scroll: false
             });
 
             $("select.select2").select2();
