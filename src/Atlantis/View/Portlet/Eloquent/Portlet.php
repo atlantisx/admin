@@ -51,6 +51,7 @@ class Portlet extends Model implements PortletInterface {
     }
 
     public function template($data=array()){
+        if( $this->status == 0 ) return '';
 
         if( $this->type == 'model' ){
             return $this->body;
