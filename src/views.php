@@ -51,7 +51,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             ->andApply('UriRewriteFilter')
             ->andApply('UriPrependFilter')
             ->whenEnvironmentIs('local')
-            ->setArguments('/ependahuluan');
+            ->setArguments(Config::get('app.url'));
 
         $collection->directory('assets/javascript', function($collection)
         {
