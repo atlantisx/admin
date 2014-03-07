@@ -48,6 +48,8 @@
             });
 
             $("form.validatable").validationEngine({
+                validateNonVisibleFields: true,
+                autoPositionUpdate: true,
                 promptPosition: "topLeft",
                 scroll: false
             });
