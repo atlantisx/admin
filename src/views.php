@@ -29,7 +29,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
         //[i] Atlantis CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
-            #$collection->stylesheet('css/main.css');
+            $collection->requireDirectory('../javascript/libs/atlantis/css');
         })->apply('CssMin');
     });
 
