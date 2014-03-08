@@ -67,6 +67,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->requireDirectory('libs/jquery.psteps');
             $collection->requireDirectory('libs/bootstrap.wizard');
             $collection->requireDirectory('libs/bootstrap.datepicker');
+            $collection->requireDirectory('libs/bootstrap.bootbox');
             $collection->javascript('libs/jquery.validation/jquery.validationEngine.js');
             $collection->javascript('libs/ckeditor/ckeditor.js');
             $collection->javascript('libs/ckeditor/adapters/jquery.js');
