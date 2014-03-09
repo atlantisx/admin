@@ -3,7 +3,7 @@
 use Cartalyst\Sentry\Facades\CI\Sentry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Routing\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Request;
@@ -138,7 +138,7 @@ class AuthController extends BaseController {
 
     public function getActivate($code=null){
         $get = Input::get();
-        if( empty($code) ) $code = $get['code'];
+        if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
 
         //[i] Activate if activation code provide
         if(!empty($code)){

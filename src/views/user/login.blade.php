@@ -5,24 +5,24 @@
 @show
 
 @section('box-content')
-    {{ Form::open(array('class'=>'separate-sections')) }}
+    {{ Former::open()->class('separate-sections') }}
         <div class="input-group addon-left">
             <span class="input-group-addon" href="#"><i class="icon-user"></i></span>
-            {{ Form::text('email','',array('placeholder'=>trans('admin::user.login_label_login'))) }}
+            {{ Former::text('email')->placeholder(trans('admin::user.login_label_login')) }}
         </div>
 
         <div class="input-group addon-left">
             <span class="input-group-addon" href="#"><i class="icon-key"></i></span>
-            {{ Form::password('password',array('placeholder'=>trans('admin::user.login_label_password'))) }}
+            {{ Former::password('password')->placeholder(trans('admin::user.login_label_password')) }}
         </div>
 
         <div>
             <btn id="submit" class="btn btn-blue btn-block">{{ trans('admin::user.login_btn_login') }} <i class="icon-signin"></i></btn>
         </div>
-    {{ Form::close() }}
+    {{ Former::close() }}
 
     <div>
-        {{ trans('admin::user.login_text_register', array('link'=>url('user/register'))) }}
+        <i class="icon icon-umbrella"></i> {{ trans('admin::user.login_text_help', array('link'=>url('public/page/help'))) }}
     </div>
 @show
 

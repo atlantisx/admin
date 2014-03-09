@@ -54,5 +54,6 @@
     'login_label_login'         => 'Username \ email',
     'login_label_password'      => 'Password',
     'login_btn_login'           => 'Login',
-    'login_text_register'       => 'Please <a href=":link"><strong>register</strong></a> if you dont have an account'
+    'login_text_register'       => 'Login <a href=":link"><strong>register</strong></a> if you dont have an account',
+    'login_text_help'           => '<a href=":link">Login help</strong></a>'
 );
