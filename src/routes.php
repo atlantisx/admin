@@ -23,8 +23,15 @@ Route::group(array('prefix' => 'user'), function(){
     Route::post('register/{role?}', $controller.'@postRegister');
 
     //[i] Activation
-    Route::get('activation/{code?}', $controller.'@getActivation');
+    Route::get('activation', $controller.'@getActivation');
     Route::post('activation', $controller.'@postActivation');
+
+    //[i] Activation
+    Route::get('activate/{code?}', $controller.'@getActivate');
+
+    //[i] Recovery
+    Route::get('recovery/{object}', $controller.'@getRecovery');
+    Route::post('recovery', $controller.'@postRecovery');
 
     //[i] User method
     Route::group(array('before'=>'auth.sentry'), function(){

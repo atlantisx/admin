@@ -70,28 +70,14 @@ class AuthController extends BaseController {
     }
 
 
-    public function getActivation($code=null){
+    public function getActivation(){
         $data = Input::get();
 
-        if(!empty($code)){
-            try{
-                $user = \Sentry::findUserByActivationCode($code);
-
-                if($user->attemptActivation($code)){
-                    $data['status'] = array(
-                        'type' => 'success',
-                        'message' => trans('admin::user.activation_success')
-                    );
-                }else{
-                    throw new Exception(trans('admin::user.activation_error'));
-                }
-            }catch(\Exception $e){
-                $data['status'] = array(
-                    'type' => 'error',
-                    'message' => $e->getMessage()
-                );
-            }
-        }
+        //[i] Provide activation info
+        $data['status'] = array(
+            'type' => 'info',
+            'message' => trans('admin::user.activation_prompt')
+        );
 
         //[i] View scaffolding
         $view = 'admin::user.activation';
@@ -107,19 +93,27 @@ class AuthController extends BaseController {
 
         if(isset($data['login'])){
             try{
+                //[i] Find user by login
                 $user = \Sentry::findUserByLogin($data['login']);
 
+                //[i] Prepare email variable if found
                 $data = array(
-                    'id'            => $user->id,
-                    'name'          => $user->first_name . ' ' . $user->last_name,
-                    'email'         => $user->email,
-                    'activation_code' => $user->getActivationCode()
+                    'id'                => $user->id,
+                    'name'              => $user->first_name . ' ' . $user->last_name,
+                    'email'             => $user->email,
+                    'activation_code'   => $user->getActivationCode()
                 );
 
+                //[i] Queue job for activation email
                 \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
-                    $message->to($data['email'],$data['name'])->subject(trans('admin::user.activation_email_subject',$data));
+                    $message->to(
+                        $data['email'],
+                        $data['name'])->subject(trans('admin::user.activation_email_subject',
+                        $data
+                    ));
                 });
 
+                //[i] Response
                 $data['status'] = array(
                     'type' => 'success',
                     'message' => trans('admin::user.activation_resend_success', array('email' => $data['email']))
@@ -139,6 +133,49 @@ class AuthController extends BaseController {
 
         //[i] Loading view
         $this->layout->content = View::make($view,compact('data'));
+    }
+
+
+    public function getActivate($code=null){
+        $get = Input::get();
+        if( empty($code) ) $code = $get['code'];
+
+        //[i] Activate if activation code provide
+        if(!empty($code)){
+            try{
+                //[i] Find activation code by user
+                $user = \Sentry::findUserByActivationCode($code);
+
+                //[i] Attempt to activate, throw error if unsuccess
+                if($user->attemptActivation($code)){
+                    $get['status'] = array(
+                        'type' => 'success',
+                        'message' => trans('admin::user.activation_success')
+                    );
+                }else{
+                    throw new Exception(trans('admin::user.activation_error'));
+                }
+
+            }catch(\Exception $e){
+                $get['status'] = array(
+                    'type' => 'error',
+                    'message' => $e->getMessage()
+                );
+            }
+        }else{
+            //[i] Provide info if no activation code provide
+            $get['status'] = array(
+                'type' => 'info',
+                'message' => trans('admin::user.activate_prompt')
+            );
+        }
+
+        //[i] View scaffolding
+        $view = 'admin::user.activate';
+        if(View::exists('user.activate')) $view = 'user.activate';
+
+        //[i] Display view
+        $this->layout->content = View::make($view,compact('get'));
     }
 
 

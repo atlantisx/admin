@@ -21,18 +21,16 @@
                 <div class="alert alert-{{ $data['status']['type'] }}">
                     {{ $data['status']['message'] }}
                 </div>
-            @else
-                {{ Form::open(array('class'=>'separate-sections')) }}
+            @endif
+            {{ Former::open()->class('separate-sections') }}
                 <div class="input-group addon-left">
                     <span class="input-group-addon" href="#"><i class="icon-user"></i></span>
-                    {{ Form::text('login','',array('placeholder'=>'email / username')) }}
+                    {{ Form::text('login','',array('placeholder'=>trans('admin::user.login_label_login'))) }}
                 </div>
-
                 <div>
                     <btn id="submit" class="btn btn-blue btn-block">{{ trans('admin::user.activation_btn_send') }} <i class="icon-signin"></i></btn>
                 </div>
-                {{ Form::close() }}
-            @endif
+            {{ Former::close() }}
             </div>
         </div>
 
