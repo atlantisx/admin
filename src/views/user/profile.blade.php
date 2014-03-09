@@ -18,7 +18,6 @@
                 </div>
             </div>
             <div class="col-md-9">
-
                 <div class="box">
                     <div class="box-header">
                         <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
@@ -26,15 +25,16 @@
                             <!--<li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>-->
                         </ul>
                     </div>
-
                     <div class="box-content">
                         <div class="tab-content">
                             <div id="tab-account" class="tab-pane padded active">
                                 <div class="form-flat">
                                     <div class="input-group">
-                                        {{ Former::label('name')->class('control-label col-lg-2') }}
-                                        <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]')->ng_model('user.first_name') }}</div>
-                                        <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]')->ng_model('user.last_name') }}</div>
+                                        {{ Former::open()->name('form_account') }}
+                                            {{ Former::label('name')->class('control-label col-lg-2') }}
+                                            <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]')->ng_model('user.first_name') }}</div>
+                                            <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]')->ng_model('user.last_name') }}</div>
+                                        {{ Former::close() }}
                                     </div>
                                     <div class="input-group">
                                         {{ Former::label('email')->class('control-label col-lg-2') }}
@@ -70,7 +70,8 @@
                     </div>
                 </div>
 
-                <form id="form_profile" ng-submit="processForm()" class="form-horizontal fill-up validatable">
+
+                {{ Former::open()->name('form_profile')->class('form-horizontal fill-up validatable')->ng_submit('processForm()') }}
                     <div class="box">
                         <div class="box-header">
                             <span class="title">{{ trans('admin::user.title_profile') }}</span>
@@ -142,7 +143,7 @@
                             <button id="btnUpdateProfile" type="submit" class="btn btn-green">{{ trans('admin::user.btn_update_profile') }}</button>
                         </div>
                     </div>
-                </form>
+                {{ Former::close() }}
             </div>
     </div>
 </div>
