@@ -89,7 +89,7 @@ class AuthController extends BaseController {
 
 
     public function postActivation(){
-        $data = Input::get();
+        $data = Input::all();
 
         if(isset($data['login'])){
             try{
@@ -106,11 +106,9 @@ class AuthController extends BaseController {
 
                 //[i] Queue job for activation email
                 \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
-                    $message->to(
-                        $data['email'],
-                        $data['name'])->subject(trans('admin::user.activation_email_subject',
-                        $data
-                    ));
+                    $message
+                        ->to($data['email'],$data['name'])
+                        ->subject(trans('admin::user.activation_email_subject',$data));
                 });
 
                 //[i] Response
@@ -137,7 +135,7 @@ class AuthController extends BaseController {
 
 
     public function getActivate($code=null){
-        $get = Input::get();
+        $get = Input::all();
         if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
 
         //[i] Activate if activation code provide
@@ -178,6 +176,118 @@ class AuthController extends BaseController {
         $this->layout->content = View::make($view,compact('get'));
     }
 
+
+    public function getRecovery($login=null,$code=null){
+        $get = Input::get();
+        if( empty($login) ) $login = (isset($get['login']) ? $get['login'] : null);
+        if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
+
+        //[i] Activate if activation code provide
+        if(!empty($login) && !empty($code)){
+            try{
+                //[i] Get and check user
+                $user = \Sentry::findUserByLogin($login);
+
+                //[i] Check activation code
+                if( !$user->checkResetPasswordCode($code) ) throw new \Exception(trans('admin::user.recovery_password_error'));
+
+                //[i] Provide info on providing new login info
+                $get['user_id'] = $user->id;
+                $get['code'] = $code;
+                $get['status'] = array(
+                    'type' => 'info',
+                    'message' => trans('admin::user.recovery_password_prompt_new')
+                );
+
+            }catch(\Exception $e){
+                $get['status'] = array(
+                    'type' => 'error',
+                    'message' => $e->getMessage()
+                );
+            }
+
+        }else{
+            //[i] Provide info if no login & code provide
+            $get['status'] = array(
+                'type' => 'info',
+                'message' => trans('admin::user.recovery_password_prompt')
+            );
+        }
+
+        //[i] View scaffolding
+        $view = 'admin::user.recovery';
+        if(View::exists('user.recovery')) $view = 'user.recovery';
+
+        //[i] Display view
+        $this->layout->content = View::make($view,compact('get'));
+    }
+
+
+    public function postRecovery(){
+        $post = Input::all();
+
+        try{
+            //[i] Get user
+            $user = \Sentry::findUserByLogin($post['login']);
+
+            //[i] Reset code generation
+            if( $user && empty($post['code']) ){
+                //[i] Get reset code for user
+                $reset_code = $user->getResetPasswordCode();
+
+                if($reset_code){
+                    //[i] Prepare email variable
+                    $data = array(
+                        'id'                => $user->id,
+                        'name'              => $user->first_name . ' ' . $user->last_name,
+                        'email'             => $user->email,
+                        'reset_code'   => $reset_code
+                    );
+
+                    //[i] Queue job for reset password email
+                    \Mail::queue('admin::emails.auth.recovery',$data,function($message) use ($data){
+                        $message
+                            ->to($data['email'],$data['name'])
+                            ->subject(trans('admin::user.recovery_password_email_subject',$data));
+                    });
+
+                    //[i] Response
+                    $get['status'] = array(
+                        'type' => 'success',
+                        'message' => trans('admin::user.recovery_password_sended')
+                    );
+                }else{
+                    throw new Exception(trans('admin::user.activation_error'));
+                }
+
+            //[i] Reset code verification
+            }elseif( $user && !empty($post['code']) ){
+                //[i] Verify reset code
+                if( $user->checkResetPasswordCode($post['code']) ){
+                    $user->attemptResetPasswors($post['code'],$post['password']);
+
+                    //[i] Response
+                    $get['status'] = array(
+                        'type' => 'success',
+                        'message' => trans('admin::user.recovery_password_success')
+                    );
+                }
+            }
+
+        }catch(\Exception $e){
+            $get['status'] = array(
+                'type' => 'error',
+                'message' => $e->getMessage()
+            );
+        }
+
+        //[i] View scaffolding
+        $view = 'admin::user.recovery';
+        if(View::exists('user.recovery')) $view = 'user.recovery';
+
+        //[i] Display view
+        $this->layout->content = View::make($view,compact('get'));
+    }
 
     public function getLogin($role='admin::user'){
         $home = \Config::get('admin::admin.user_home','home');

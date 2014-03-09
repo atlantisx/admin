@@ -31,6 +31,7 @@
     'btn_back'                  => 'Back',
     'btn_submit'                => 'Submit',
     'btn_draft'                 => 'Save Draft',
+    'btn_send'                  => 'Send',
 
     'title_registered'          => 'Registration sucessful',
     'registered_text_success'   => 'Your registration is successful, activation email have been sent to <strong>:email</strong> and please click the link provided to activate you account. ' .
@@ -43,12 +44,22 @@
     'activation_success'        => 'Your activation is successful! Please login to system with credential provided in registration.',
     'activation_error'          => 'Your activation is unsuccessful, please contact system administration for help.',
     'activation_resend_success' => 'Your activation code have been successfully send to :email',
-    'activation_email_subject'  => 'Account Activation for User :name',
+    'activation_email_subject'  => 'Account Activation for user :name',
     'activation_email_text'     => 'Please click below link to activate your account',
     'activation_prompt'         => 'Please enter your login credential to resend activation email',
     'activate_title'            => 'Manual Activation',
     'activate_code'             => 'Activation Code',
     'activate_prompt'           => 'Please enter you activation code to activate an account',
+
+    'recovery_password_title'           => 'Password Reset',
+    'recovery_password_sended'          => 'Password recovery link successfully send to your email, please click provided link to reset your password.',
+    'recovery_password_prompt'          => 'Please provide an email that you use to register the account to receive a reset password link',
+    'recovery_password_prompt_new'      => 'Please provide a new password for your account',
+    'recovery_password_success'         => 'Sucessfully reset a password, please login to your account with the new password provided',
+    'recovery_password_btn_reset'       => 'Reset Password',
+    'recovery_password_error'           => 'Your reset password link is invalid!',
+    'recovery_password_email_subject'   => 'Password recovery for user :name',
+    'recovery_password_email_text'      => 'Please click below link to reset your password',
 
     'login_title'               => 'User Login',
     'login_label_login'         => 'Username \ email',

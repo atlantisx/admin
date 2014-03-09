@@ -30,7 +30,7 @@ Route::group(array('prefix' => 'user'), function(){
     Route::get('activate/{code?}', $controller.'@getActivate');
 
     //[i] Recovery
-    Route::get('recovery/{object}', $controller.'@getRecovery');
+    Route::get('recovery/{login?}/{code?}', $controller.'@getRecovery');
     Route::post('recovery', $controller.'@postRecovery');
 
     //[i] User method
