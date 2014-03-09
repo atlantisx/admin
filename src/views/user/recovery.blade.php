@@ -24,7 +24,9 @@
             @endif
 
             @if( isset($get['user_id']) && isset($get['code']) )
-                {{ Former::open()->class('separate-sections') }}
+                {{ Former::open(URL::to('user/recovery'))->class('separate-sections') }}
+                    {{ Former::input('login')->type('hidden')->value($get['login']) }}
+                    {{ Former::input('code')->type('hidden')->value($get['code']) }}
                     {{ Former::label(trans('admin::user.label_password')) }}
                     <div class="input-group addon-left">
                         <span class="input-group-addon" href="#"><i class="icon-key"></i></span>

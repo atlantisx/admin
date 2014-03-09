@@ -193,6 +193,7 @@ class AuthController extends BaseController {
 
                 //[i] Provide info on providing new login info
                 $get['user_id'] = $user->id;
+                $get['login'] = $login;
                 $get['code'] = $code;
                 $get['status'] = array(
                     'type' => 'info',
@@ -264,7 +265,7 @@ class AuthController extends BaseController {
             }elseif( $user && !empty($post['code']) ){
                 //[i] Verify reset code
                 if( $user->checkResetPasswordCode($post['code']) ){
-                    $user->attemptResetPasswors($post['code'],$post['password']);
+                    $user->attemptResetPassword($post['code'],$post['password']);
 
                     //[i] Response
                     $get['status'] = array(
