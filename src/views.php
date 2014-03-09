@@ -7,38 +7,42 @@ use Atlantis\Admin\Fields\Field;
 View::composer(array('admin::layouts.common','layouts.common'), function($view){
     $view->appbase = url('/') . '/';
 
-    /* Common Assets
-    * ---------------------------------------------------------------------*/
+    /*================================================================
+        Common Assets
+    ================================================================*/
     Basset::collection('common', function($collection){
-        //[i] CSS Framework
-        $collection->directory('../vendor/twitter/bootstrap/dist/css', function($collection){
-            $collection->stylesheet('bootstrap.css');
-            $collection->stylesheet('bootstrap-theme.css');
-        })->apply('CssMin');
+
+        //[i]========================================================= CSS Framework
+        $collection->stylesheet('components/bootstrap/css/bootstrap.css')->apply('JsMin');
+        $collection->stylesheet('components/bootstrap/css/bootstrap-theme.css')->apply('JsMin');
 
         //[i] Fonts
         $collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
 
-        //[i] Core JS
-        #$collection->javascript('../components/require.js')->apply('JsMin');
-        $collection->javascript('../components/jquery/jquery.js')->apply('JsMin');
-        $collection->javascript('../components/jquery/jquery-migrate.js')->apply('JsMin');
-        $collection->javascript('../vendor/twitter/bootstrap/dist/js/bootstrap.js')->apply('JsMin');
-        $collection->javascript('../components/angularjs/angular.js')->apply('JsMin');
-        $collection->javascript('../components/angularjs/angular-resource.js')->apply('JsMin');
+        //[i]========================================================= Core JS
+        $collection->directory('components', function($collection){
+            #$collection->javascript('require.js');
+            $collection->javascript('jquery/jquery.js');
+            $collection->javascript('jquery/jquery-migrate.js');
+            $collection->javascript('angularjs/angular.js');
+            $collection->javascript('angularjs/angular-resource.js');
+            $collection->javascript('bootstrap/js/bootstrap.js');
+        })->apply('JsMin');
 
-        //[i] Atlantis CSS
+        //[i]========================================================= Atlantis CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             $collection->requireDirectory('../javascript/libs/atlantis/css');
         })->apply('CssMin');
     });
 
 
-    /* User Assets
-    * ---------------------------------------------------------------------*/
+    /*================================================================
+        User Assets
+    ================================================================*/
     Basset::collection('user', function($collection){
         $locale = Config::get('app.locale');
 
+        //[i]========================================================= User CSS
         $collection->directory('assets/stylesheet', function($collection)
         {
             $collection->stylesheet('less/user.less')->apply('Less');
@@ -53,6 +57,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             ->whenEnvironmentIs('local')
             ->setArguments(Config::get('app.url'));
 
+        //[i]========================================================= User JS
         $collection->directory('assets/javascript', function($collection)
         {
             $collection->requireDirectory('coffee')->only('user.coffee')->apply('CoffeeScript');
@@ -74,6 +79,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('libs/jquery.fineuploader/jquery.fineuploader-4.3.1.js');
         })->apply('JsMin');
 
+        //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
@@ -92,6 +98,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('atlantis/core/atlantis.alert.js');
         })->apply('JsMin');
 
+        //[i]========================================================= Assets JS
         $collection->directory('assets/javascript/libs', function($collection) use($locale){
             $collection->javascript('plupload/i18n/'.$locale.'.js');
             $collection->javascript('jquery.ui/i18n/jquery.ui.datepicker-'.$locale.'.js');
@@ -101,8 +108,9 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
     });
 
 
-    /* Admin Assets
-    * ---------------------------------------------------------------------*/
+    /*================================================================
+        Admin Assets
+    ================================================================*/
     Basset::collection('admin', function($collection){
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
             $collection->javascript('knockout/knockout-2.2.0.js');
