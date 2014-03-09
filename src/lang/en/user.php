@@ -58,7 +58,7 @@
     'recovery_password_success'         => 'Sucessfully reset a password, please login to your account with the new password provided',
     'recovery_password_btn_reset'       => 'Reset Password',
     'recovery_password_error'           => 'Your reset password link is invalid!',
-    'recovery_password_email_subject'   => 'Password recovery for user :name',
+    'recovery_password_email_subject'   => 'Password recovery for user :full_name',
     'recovery_password_email_text'      => 'Please click below link to reset your password',
 
     'login_title'               => 'User Login',

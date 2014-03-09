@@ -239,16 +239,15 @@ class AuthController extends BaseController {
                 if($reset_code){
                     //[i] Prepare email variable
                     $data = array(
-                        'id'                => $user->id,
-                        'name'              => $user->first_name . ' ' . $user->last_name,
-                        'email'             => $user->email,
-                        'reset_code'   => $reset_code
+                        'full_name' => $user->first_name . ' ' . $user->last_name,
+                        'email'         => $user->email,
+                        'reset_link'    => URL::to('user/recovery', array($user->email,$reset_code))
                     );
 
                     //[i] Queue job for reset password email
                     \Mail::queue('admin::emails.auth.recovery',$data,function($message) use ($data){
                         $message
-                            ->to($data['email'],$data['name'])
+                            ->to($data['email'],$data['full_name'])
                             ->subject(trans('admin::user.recovery_password_email_subject',$data));
                     });
 

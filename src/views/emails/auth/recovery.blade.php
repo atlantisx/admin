@@ -6,11 +6,10 @@
 	<body>
 		<div>
             <p>
-            {{ $name }},<br><br>
+            {{ $full_name }},<br><br>
 			{{ trans('admin::user.recovery_password_email_text') }}<br>
-            <a href="{{ URL::to('user/recovery', array($email,$reset_code)) }}">{{ trans('admin::user.recovery_password_btn_reset') }}</a>
+            <a href="{{ $reset_link }}">{{ trans('admin::user.recovery_password_btn_reset') }}</a>
             </p>
-
             <br>
             System Administrator
 		</div>
