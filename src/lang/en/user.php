@@ -44,7 +44,7 @@
     'activation_success'        => 'Your activation is successful! Please login to system with credential provided in registration.',
     'activation_error'          => 'Your activation is unsuccessful, please contact system administration for help.',
     'activation_resend_success' => 'Your activation code have been successfully send to :email',
-    'activation_email_subject'  => 'Account Activation for user :name',
+    'activation_email_subject'  => 'Account activation for user :full_name',
     'activation_email_text'     => 'Please click below link to activate your account',
     'activation_prompt'         => 'Please enter your login credential to resend activation email',
     'activate_title'            => 'Manual Activation',

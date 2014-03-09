@@ -6,12 +6,10 @@
 	<body>
 		<div>
             <p>
-            {{ $name }},<br><br>
-
+            {{ $full_name }},<br><br>
 			{{ trans('admin::user.activation_email_text') }}<br>
-            <a href="{{ URL::to('user/activation', array($activation_code)) }}">{{ trans('admin::user.activation_btn_activate') }}</a>
+            <a href="{{ $activation_link }}">{{ trans('admin::user.activation_btn_activate') }}</a>
             </p>
-
             <br>
             System Administrator
 		</div>

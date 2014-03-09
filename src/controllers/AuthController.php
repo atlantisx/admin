@@ -71,7 +71,7 @@ class AuthController extends BaseController {
 
 
     public function getActivation(){
-        $data = Input::get();
+        $data = Input::all();
 
         //[i] Provide activation info
         $data['status'] = array(
@@ -98,16 +98,15 @@ class AuthController extends BaseController {
 
                 //[i] Prepare email variable if found
                 $data = array(
-                    'id'                => $user->id,
-                    'name'              => $user->first_name . ' ' . $user->last_name,
+                    'full_name'         => $user->first_name . ' ' . $user->last_name,
                     'email'             => $user->email,
-                    'activation_code'   => $user->getActivationCode()
+                    'activation_link'   => URL::to('user/activate', array($user->getActivationCode()))
                 );
 
                 //[i] Queue job for activation email
                 \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
                     $message
-                        ->to($data['email'],$data['name'])
+                        ->to($data['email'],$data['full_name'])
                         ->subject(trans('admin::user.activation_email_subject',$data));
                 });
 
