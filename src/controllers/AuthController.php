@@ -34,23 +34,30 @@ class AuthController extends BaseController {
         $data = Input::flash();
 
         try{
-            //[i] Register user
+            #i: Register user
             $user = \Sentry::register(Input::only('email','first_name','last_name','password'));
 
-            //[i] Preparing data
+            #i: Preparing data
             $data = array(
-                'id'            => $user->id,
-                'name'          => $user->first_name . ' ' . $user->last_name,
-                'email'         => $user->email,
-                'activation_code' => $user->getActivationCode()
+                'id'                => $user->id,
+                'full_name'         => $user->first_name . ' ' . $user->last_name,
+                'email'             => $user->email,
+                'activation_code'   => $user->getActivationCode(),
+                'activation_link'   => URL::to('user/activate', array($user->getActivationCode()))
             );
 
-            //[i] Send activation email to user
+            #i: Send activation email to user
             Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
-                $message->to($data['email'],$data['name'])->subject(trans('admin::user.activation_email_subject',$data));
+                $message
+                    ->to($data['email'],$data['full_name'])
+                    ->subject(trans('admin::user.activation_email_subject',$data));
             });
 
-            //[i] Change view to registered
+            #e: Trigger user registered
+            $user = \User::find($user->id);
+            \Event::fire('user.registered', array($user,$role));
+
+            #i: Change view to registered
             $view = 'registered';
 
         }catch (\Exception $e){
@@ -60,9 +67,8 @@ class AuthController extends BaseController {
             );
         }
 
-        //[i] View scaffolding
+        #i: View scaffolding
         if(!View::exists($role . '.' . $view)) $role = 'admin::user';
-
         if($role == 'admin::user' && View::exists('user.'.$view)) $role = 'user';
 
         //[i] Display error
