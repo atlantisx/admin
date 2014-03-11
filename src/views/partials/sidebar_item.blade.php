@@ -2,7 +2,7 @@
 	<li class="dark-nav">
         <span class="glow"></span>
         <a href="#{{$key}}" data-toggle="collapse" class="accordion-toggle collapsed ">
-            <i class="icon-beaker icon-2x"></i>
+            <i class="icon-laptop icon-2x"></i>
             <span>{{$key}}<i class="icon-caret-down"></i></span>
         </a>
 		<ul class="collapse" id="{{$key}}">
