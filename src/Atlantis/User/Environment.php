@@ -41,12 +41,15 @@ class Environment extends BaseEnvironment {
 
         //[i] Checking user role
         $user_groups = $user->getGroups();
-        if( $user_groups->count() == 1 ){
+        /*if( $user_groups->count() == 1 ){
             $group_permission = $user_groups->first()->getPermissions();
 
             if( count($group_permission) == 1){
                 $user_role = key($group_permission);
             }
+        }*/
+        if( $user_groups ){
+            $user_role = strtolower($user_groups->first()->name);
         }
 
         return new Role($user_role);
