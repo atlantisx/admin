@@ -12,7 +12,9 @@
 		</ul>
 	</li>
 @else
+    @if( User::find($user->id)->can($key) )
 	<li>
-        <a href="{{ URL::to($item) }}"><i class="icon-hand-up"></i> {{$key}}</a>
+        <a href="{{ route($key,array('name'=>'advance')) }}"><i class="icon-hand-up"></i> {{$item}}</a>
 	</li>
+    @endif
 @endif
