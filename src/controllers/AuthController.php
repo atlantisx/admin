@@ -1,5 +1,6 @@
 <?php namespace Atlantis\Admin;
 
+use Atlantis\Atlantis;
 use Cartalyst\Sentry\Facades\CI\Sentry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -313,12 +314,17 @@ class AuthController extends BaseController {
         $home = \Config::get('admin::admin.user_home','home');
 
         try{
-            //[i] Authenticate
+            #i: Authenticate
             $credential = Input::only('email','password');
             $granted = \Sentry::authenticate($credential,false);
 
-            //[i] Redirect to user home if granted
+            #i: Redirect to user home if granted
             if($granted){
+                #i: Check user role
+                $user_role = \Atlantis::users()->getUserRoleById(\Sentry::getUser()->id)->name;
+                if( $user_role ) $role = $user_role;
+
+                #i: Redirect to home
                 return Redirect::to($role.'/'.$home);
             }
 
@@ -329,7 +335,7 @@ class AuthController extends BaseController {
             );
         }
 
-        //[i] Return to login page with error if any
+        #i: Return to login page with error if any
         $this->layout->content = View::make($role . '.login', $post);
     }
 
