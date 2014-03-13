@@ -79,6 +79,12 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('libs/jquery.fineuploader/jquery.fineuploader-4.3.1.js');
         })->apply('JsMin');
 
+        //[i]========================================================= Atlantis CSS
+        $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
+            $collection->stylesheet('css/custom.css');
+            $collection->requireDirectory('../javascript/libs/angular.table/ng-table.css');
+        })->apply('CssMin');
+
         //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
             $collection->javascript('jquery.noty/jquery.noty.js');
@@ -87,6 +93,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
             //[i] Angular Modules
             $collection->javascript('angular.xeditable/js/xeditable.js');
+            $collection->javascript('angular.table/ng-table.src.js');
 
             //[i] Atlantis-Angular Modules
             $collection->javascript('atlantis/plugins/angular.atlantis.ui.js');
