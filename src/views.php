@@ -87,6 +87,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
         //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
+            $collection->javascript('jquery.datatables/jquery.datatables.js');
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
             $collection->javascript('jquery.noty/themes/default.js');
