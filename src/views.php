@@ -82,11 +82,12 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         //[i]========================================================= Atlantis CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             $collection->stylesheet('css/custom.css');
-            $collection->requireDirectory('../javascript/libs/angular.table/ng-table.css');
+            $collection->stylesheet('../javascript/libs/jquery.touch/jquery.touch.css');
         })->apply('CssMin');
 
         //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
+            $collection->javascript('jquery.touch/jquery.touch.js');
             $collection->javascript('jquery.datatables/jquery.datatables.js');
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');

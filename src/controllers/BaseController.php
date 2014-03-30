@@ -15,12 +15,19 @@ use Illuminate\Support\Facades\Mail;
 
 
 class BaseController extends Controller {
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Global Attributes
+     -----------------------------------------------------------------------------------------------------------------*/
+    protected $user;
+    protected $user_role;
+    protected $route_name;
 
-	/**
+
+	/**-----------------------------------------------------------------------------------------------------------------
 	 * Setup the layout used by the controller.
 	 *
 	 * @return void
-	 */
+     -----------------------------------------------------------------------------------------------------------------*/
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))
@@ -28,6 +35,11 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
             $this->layout->page = false;
 		}
+        if( \Sentry::getUser() ){
+            $this->user = \Sentry::getUser();
+            $this->user_role = \Atlantis::users()->getUserRoleById($this->user->id)->name;
+        }
+        $this->route_name = \Route::currentRouteName();
 	}
 
 }
