@@ -1,12 +1,12 @@
 @if (is_array($item))
 	<li class="dark-nav">
         <span class="glow"></span>
-        <a href="#{{$key}}" data-toggle="collapse" class="accordion-toggle collapsed ">
+        <a href="#{{ $key }}" data-toggle="collapse" class="accordion-toggle collapsed ">
             <i class="icon-laptop icon-2x"></i>
-            <span>{{$key}}<i class="icon-caret-down"></i></span>
+            <span>{{ $item['title'] }}<i class="icon-caret-down"></i></span>
         </a>
 		<ul class="collapse" id="{{$key}}">
-			@foreach ($item as $key => $item)
+			@foreach ($item['items'] as $key => $item)
                 @include('admin::partials.sidebar_item')
 			@endforeach
 		</ul>

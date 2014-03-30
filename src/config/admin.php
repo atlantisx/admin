@@ -56,14 +56,36 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
-        'Manage' => 'admin_index'
+        'System Settings' => array('settings.site'),
+
+        'Users' => array('users','groups'),
+
+        'Localization' => array('states','codes')
+    ),
+
+    'sidebar' => array(
+        'applications' => array(
+            'advance' => array(
+                'title' => 'EPendahuluan',
+                'route' => 'application',
+                'items' => array(
+                    'application' => 'Senarai Permohonan',
+                    'application.new' => 'Permohonan Baru',
+                    'application.review' => 'Semakan Permohonan',
+                    'application.approve' => 'Kelulusan Permohonan',
+                    'application.statistic' => 'Statistik Permohonan',
+                )
+            )
+        )
     ),
 
 
 	/**
 	 * The permission option is the highest-level authentication check that lets you define a closure that should return true if the current user
-	 * is allowed to view the admin section. Any "falsey" response will send the user back to the 'login_path' defined below.
+	 * is allowed to view the admin section.
 	 *
+     * e.g: array( 'admin' , 'user' )
+     *
 	 * @type closure
 	 */
 	'permission'=> function()
@@ -94,11 +116,45 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => '',
+	'home_page' => 'settings.site',
 
+
+    /**
+     *
+     *
+     * @type string
+     */
+    'user_default_role' => 'user',
+
+    /**
+     * Default page configurations
+     *
+     * @type string
+     */
+    'page' => array(
+        //[i] Public page
+        'public'    => 'public/page',
+
+        //[i] User home
+        'home'      => 'home',
+
+        //[i] The login path is the path where Atlantis/Admin will send the user if they fail a permission check.
+        'login'     => 'user/login',
+
+        //[i] The logout path is the path where Atlantis/Admin will send the user when they click the logout link.
+        'logout'    => 'user/logout',
+    ),
+
+    /**
+     * !! Deprecating
+     *
+     * @type string
+     */
+    'user_home' => 'home',
 
 	/**
-	 * The login path is the path where Administrator will send the user if they fail a permission check
+	 * !! Deprecating
+     * The login path is the path where Administrator will send the user if they fail a permission check
 	 *
 	 * @type string
 	 */
@@ -110,7 +166,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'logout_path' => false,
+	'logout_path' => 'user/logout',
 
 
 	/**
