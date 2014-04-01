@@ -92,6 +92,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
             $collection->javascript('jquery.noty/themes/default.js');
+            $collection->requireDirectory('bootstrap.wysihtml');
 
             //[i] Angular Modules
             $collection->javascript('angular.xeditable/js/xeditable.js');
