@@ -54,7 +54,6 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         })->apply('CssMin')
             ->andApply('UriRewriteFilter')
             ->andApply('UriPrependFilter')
-            ->whenEnvironmentIs('local')
             ->setArguments(Config::get('app.url'));
 
         //[i]========================================================= User JS
