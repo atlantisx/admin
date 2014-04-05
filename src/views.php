@@ -100,6 +100,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             //[i] Atlantis-Angular Modules
             $collection->javascript('atlantis/plugins/angular.atlantis.ui.js');
             $collection->javascript('atlantis/plugins/angular.atlantis.api.js');
+            $collection->javascript('atlantis/plugins/angular.atlantis.rest.js');
             $collection->javascript('atlantis/plugins/angular.atlantis.js');
 
             //[i] Atlantis Core
