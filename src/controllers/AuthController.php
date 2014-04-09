@@ -1,10 +1,7 @@
 <?php namespace Atlantis\Admin;
 
-use Atlantis\Atlantis;
-use Cartalyst\Sentry\Facades\CI\Sentry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Request;
@@ -16,11 +13,15 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 
 
-
 class AuthController extends BaseController {
     protected $layout = 'admin::layouts.common';
 
 
+    /*******************************************************************************************************************
+     * User Register [GET]
+     *
+     * @params $role - User role
+     ******************************************************************************************************************/
     public function getRegister($role='admin::user'){
         #i: View scaffolding
         if($role == 'admin::user' && View::exists('user.register')) $role = 'user';
@@ -30,6 +31,11 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Register [POST]
+     *
+     * @params $role - User role
+     ******************************************************************************************************************/
     public function postRegister($role='admin::user'){
         $view = 'register';
         $data = Input::flash();
@@ -86,6 +92,10 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Activation [GET]
+     *
+     ******************************************************************************************************************/
     public function getActivation(){
         $data = Input::all();
 
@@ -104,6 +114,10 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Activation [POST]
+     *
+     ******************************************************************************************************************/
     public function postActivation(){
         $data = Input::all();
 
@@ -149,6 +163,10 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Activate [GET]
+     *
+     ******************************************************************************************************************/
     public function getActivate($code=null){
         $get = Input::all();
         if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
@@ -165,6 +183,13 @@ class AuthController extends BaseController {
                         'type' => 'success',
                         'message' => trans('admin::user.activation_success')
                     );
+
+                    #i: Inject role into params
+                    $get['role'] = \Atlantis::users()->getUserRoleById($user->id)->name or '';
+
+                    #i: Redirect to login
+                    return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$get);
+
                 }else{
                     throw new Exception(trans('admin::user.activation_error'));
                 }
@@ -175,6 +200,7 @@ class AuthController extends BaseController {
                     'message' => $e->getMessage()
                 );
             }
+
         }else{
             #i: Provide info if no activation code provide
             $get['_status'] = array(
@@ -192,6 +218,12 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Recovery [GET]
+     *
+     * @params $login - Login credential
+     * @param $code - Recovery code
+     ******************************************************************************************************************/
     public function getRecovery($login=null,$code=null){
         $get = Input::get();
         if( empty($login) ) $login = (isset($get['login']) ? $get['login'] : null);
@@ -239,6 +271,10 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Recovery [POST]
+     *
+     ******************************************************************************************************************/
     public function postRecovery(){
         $post = Input::all();
 
@@ -267,10 +303,11 @@ class AuthController extends BaseController {
                     });
 
                     #i: Response
-                    $get['_status'] = array(
+                    $post['_status'] = array(
                         'type' => 'success',
                         'message' => trans('admin::user.recovery_password_sended')
                     );
+
                 }else{
                     throw new Exception(trans('admin::user.activation_error'));
                 }
@@ -279,18 +316,25 @@ class AuthController extends BaseController {
             }elseif( $user && !empty($post['code']) ){
                 #i: Verify reset code
                 if( $user->checkResetPasswordCode($post['code']) ){
+                    #i: Resetting password
                     $user->attemptResetPassword($post['code'],$post['password']);
 
                     #i: Response
-                    $get['_status'] = array(
+                    $post['_status'] = array(
                         'type' => 'success',
                         'message' => trans('admin::user.recovery_password_success')
                     );
+
+                    #i: Inject role into params
+                    $post['role'] = \Atlantis::users()->getUserRoleById($user->id)->name or '';
+
+                    #i: Redirect to login
+                    return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$post);
                 }
             }
 
         }catch(\Exception $e){
-            $get['_status'] = array(
+            $post['_status'] = array(
                 'type' => 'error',
                 'message' => $e->getMessage()
             );
@@ -301,11 +345,19 @@ class AuthController extends BaseController {
         if(View::exists('user.recovery')) $view = 'user.recovery';
 
         #i: Display view
-        $this->layout->content = View::make($view,$get);
+        $this->layout->content = View::make($view,$post);
     }
 
 
+    /*******************************************************************************************************************
+     * User Login [GET]
+     *
+     * @params $role User role
+     ******************************************************************************************************************/
     public function getLogin($role='admin::user'){
+        $get = Input::all();
+
+        #i: Get default home
         $home = \Config::get('admin::admin.user_home','home');
 
         #i: View scaffolding
@@ -315,12 +367,17 @@ class AuthController extends BaseController {
         if( \Sentry::check() ) return Redirect::to($role.'/'.$home);
 
         #i: Loading view
-        $this->layout->content = View::make($role.'.login');
+        $this->layout->content = View::make($role.'.login',$get);
     }
 
 
+    /*******************************************************************************************************************
+     * User Login [GET]
+     *
+     * @params $role User role
+     ******************************************************************************************************************/
     public function postLogin($role='user'){
-        $post = Input::flash();
+        $post = Input::all();
         $home = \Config::get('admin::admin.user_home','home');
 
         try{
@@ -350,6 +407,10 @@ class AuthController extends BaseController {
     }
 
 
+    /*******************************************************************************************************************
+     * User Logout
+     *
+     ******************************************************************************************************************/
     public function getLogout(){
         \Sentry::logout();
         return Redirect::to('public/page');
