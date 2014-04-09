@@ -1,4 +1,4 @@
-@extends('layouts.box')
+@extends('admin::layouts.box')
 
 @section('box-header')
     <div class="title">{{ trans('admin::user.register_title') }}</div>
