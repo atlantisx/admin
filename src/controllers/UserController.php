@@ -11,16 +11,16 @@ class UserController extends BaseController {
     }
 
     public function getProfile(){
-        //[i] Get current user
+        $get = Input::all();
+
+        #i: Get current user
         $user = \Sentry::getUser();
         $user = \User::find($user->id);
 
-        //[i] Inline data populate
+        #i: Inline data populate
         Former::populate($user);
 
-        //[i] View data
-        $data = array();
-
-        $this->layout->content = \View::make('admin::user.profile',$data);
+        #i: Display view
+        $this->layout->content = \View::make('admin::user.profile',$get);
     }
 }
