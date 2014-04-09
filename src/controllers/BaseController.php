@@ -20,6 +20,7 @@ class BaseController extends Controller {
      -----------------------------------------------------------------------------------------------------------------*/
     protected $user;
     protected $user_role;
+    protected $superuser;
     protected $route_name;
 
 
@@ -35,10 +36,20 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
             $this->layout->page = false;
 		}
+
+        #i: Current User
         if( \Sentry::getUser() ){
             $this->user = \Sentry::getUser();
             $this->user_role = \Atlantis::users()->getUserRoleById($this->user->id)->name;
         }
+
+        #i: Superuser
+        $superuser = \Sentry::findAllUsersWithAccess('superuser')[0];
+        if( $superuser ){
+            $this->superuser = $superuser;
+        }
+
+        #i: Current route name
         $this->route_name = \Route::currentRouteName();
 	}
 
