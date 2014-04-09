@@ -17,9 +17,9 @@
                 <div class="title">{{ trans('admin::user.activate_title') }}</div>
             </div>
             <div class="box-content padded">
-            @if( isset($get['status']) )
-                <div class="alert alert-{{ $get['status']['type'] }}">
-                    {{ $get['status']['message'] }}
+            @if( isset($_status) )
+                <div class="alert alert-{{ $_status['type'] }}">
+                    {{ $_status['message'] }}
                 </div>
             @endif
             {{ Former::open()->method('GET')->class('separate-sections') }}

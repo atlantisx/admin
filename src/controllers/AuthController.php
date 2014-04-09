@@ -22,10 +22,10 @@ class AuthController extends BaseController {
 
 
     public function getRegister($role='admin::user'){
-        //[i] View scaffolding
+        #i: View scaffolding
         if($role == 'admin::user' && View::exists('user.register')) $role = 'user';
 
-        //[i] Loading view
+        #i: Loading view
         $this->layout->content = View::make($role.'.register');
     }
 
@@ -35,6 +35,9 @@ class AuthController extends BaseController {
         $data = Input::flash();
 
         try{
+            #i: Start database transaction
+            \DB::beginTransaction();
+
             #i: Register user
             $user = \Sentry::register(Input::only('email','first_name','last_name','password'));
 
@@ -61,18 +64,24 @@ class AuthController extends BaseController {
             #i: Change view to registered
             $view = 'registered';
 
+            #i: Commit DB transaction
+            \DB::commit();
+
         }catch (\Exception $e){
-            $data['status'] = array(
+            $data['_status'] = array(
                 'type' => 'error',
                 'message' => $e->getMessage()
             );
+
+            #i: Rollback DB transaction
+            \DB::rollback();
         }
 
         #i: View scaffolding
         if(!View::exists($role . '.' . $view)) $role = 'admin::user';
         if($role == 'admin::user' && View::exists('user.'.$view)) $role = 'user';
 
-        //[i] Display error
+        #i: Display view
         $this->layout->content = View::make($role . '.' . $view ,$data);
     }
 
@@ -80,18 +89,18 @@ class AuthController extends BaseController {
     public function getActivation(){
         $data = Input::all();
 
-        //[i] Provide activation info
-        $data['status'] = array(
+        #i: Provide activation info
+        $data['_status'] = array(
             'type' => 'info',
             'message' => trans('admin::user.activation_prompt')
         );
 
-        //[i] View scaffolding
+        #i: View scaffolding
         $view = 'admin::user.activation';
         if(View::exists('user.activation')) $view = 'user.activation';
 
-        //[i] Display view
-        $this->layout->content = View::make($view,compact('data'));
+        #i: Display view
+        $this->layout->content = View::make($view,$data);
     }
 
 
@@ -100,43 +109,43 @@ class AuthController extends BaseController {
 
         if(isset($data['login'])){
             try{
-                //[i] Find user by login
+                #i: Find user by login
                 $user = \Sentry::findUserByLogin($data['login']);
 
-                //[i] Prepare email variable if found
+                #i: Prepare email variable if found
                 $data = array(
                     'full_name'         => $user->first_name . ' ' . $user->last_name,
                     'email'             => $user->email,
                     'activation_link'   => URL::to('user/activate', array($user->getActivationCode()))
                 );
 
-                //[i] Queue job for activation email
+                #i: Queue job for activation email
                 \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
                     $message
                         ->to($data['email'],$data['full_name'])
                         ->subject(trans('admin::user.activation_email_subject',$data));
                 });
 
-                //[i] Response
-                $data['status'] = array(
+                #i: Response
+                $data['_status'] = array(
                     'type' => 'success',
                     'message' => trans('admin::user.activation_resend_success', array('email' => $data['email']))
                 );
 
             }catch(\Exception $e){
-                $data['status'] = array(
+                $data['_status'] = array(
                     'type' => 'error',
                     'message' => $e->getMessage()
                 );
             }
         }
 
-        //[i] View scaffolding
+        #i: View scaffolding
         $view = 'admin::user.activation';
         if(View::exists('user.activation')) $view = 'user.activation';
 
-        //[i] Loading view
-        $this->layout->content = View::make($view,compact('data'));
+        #i: Loading view
+        $this->layout->content = View::make($view,$data);
     }
 
 
@@ -144,15 +153,15 @@ class AuthController extends BaseController {
         $get = Input::all();
         if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
 
-        //[i] Activate if activation code provide
+        #i: Activate if activation code provide
         if(!empty($code)){
             try{
-                //[i] Find activation code by user
+                #i: Find activation code by user
                 $user = \Sentry::findUserByActivationCode($code);
 
-                //[i] Attempt to activate, throw error if unsuccess
+                #i: Attempt to activate, throw error if unsuccess
                 if($user->attemptActivation($code)){
-                    $get['status'] = array(
+                    $get['_status'] = array(
                         'type' => 'success',
                         'message' => trans('admin::user.activation_success')
                     );
@@ -161,25 +170,25 @@ class AuthController extends BaseController {
                 }
 
             }catch(\Exception $e){
-                $get['status'] = array(
+                $get['_status'] = array(
                     'type' => 'error',
                     'message' => $e->getMessage()
                 );
             }
         }else{
-            //[i] Provide info if no activation code provide
-            $get['status'] = array(
+            #i: Provide info if no activation code provide
+            $get['_status'] = array(
                 'type' => 'info',
                 'message' => trans('admin::user.activate_prompt')
             );
         }
 
-        //[i] View scaffolding
+        #i: View scaffolding
         $view = 'admin::user.activate';
         if(View::exists('user.activate')) $view = 'user.activate';
 
-        //[i] Display view
-        $this->layout->content = View::make($view,compact('get'));
+        #i: Display view
+        $this->layout->content = View::make($view,$get);
     }
 
 
@@ -188,45 +197,45 @@ class AuthController extends BaseController {
         if( empty($login) ) $login = (isset($get['login']) ? $get['login'] : null);
         if( empty($code) ) $code = (isset($get['code']) ? $get['code'] : null);
 
-        //[i] Activate if activation code provide
+        #i: Activate if activation code provide
         if(!empty($login) && !empty($code)){
             try{
-                //[i] Get and check user
+                #i: Get and check user
                 $user = \Sentry::findUserByLogin($login);
 
-                //[i] Check activation code
+                #i: Check activation code
                 if( !$user->checkResetPasswordCode($code) ) throw new \Exception(trans('admin::user.recovery_password_error'));
 
-                //[i] Provide info on providing new login info
+                #i: Provide info on providing new login info
                 $get['user_id'] = $user->id;
                 $get['login'] = $login;
                 $get['code'] = $code;
-                $get['status'] = array(
+                $get['_status'] = array(
                     'type' => 'info',
                     'message' => trans('admin::user.recovery_password_prompt_new')
                 );
 
             }catch(\Exception $e){
-                $get['status'] = array(
+                $get['_status'] = array(
                     'type' => 'error',
                     'message' => $e->getMessage()
                 );
             }
 
         }else{
-            //[i] Provide info if no login & code provide
-            $get['status'] = array(
+            #i: Provide info if no login & code provide
+            $get['_status'] = array(
                 'type' => 'info',
                 'message' => trans('admin::user.recovery_password_prompt')
             );
         }
 
-        //[i] View scaffolding
+        #i: View scaffolding
         $view = 'admin::user.recovery';
         if(View::exists('user.recovery')) $view = 'user.recovery';
 
-        //[i] Display view
-        $this->layout->content = View::make($view,compact('get'));
+        #i: Display view
+        $this->layout->content = View::make($view,$get);
     }
 
 
@@ -234,31 +243,31 @@ class AuthController extends BaseController {
         $post = Input::all();
 
         try{
-            //[i] Get user
+            #i: Get user
             $user = \Sentry::findUserByLogin($post['login']);
 
-            //[i] Reset code generation
+            #i: Reset code generation
             if( $user && empty($post['code']) ){
-                //[i] Get reset code for user
+                #i: Get reset code for user
                 $reset_code = $user->getResetPasswordCode();
 
                 if($reset_code){
-                    //[i] Prepare email variable
+                    #i: Prepare email variable
                     $data = array(
                         'full_name' => $user->first_name . ' ' . $user->last_name,
                         'email'         => $user->email,
                         'reset_link'    => URL::to('user/recovery', array($user->email,$reset_code))
                     );
 
-                    //[i] Queue job for reset password email
+                    #i: Queue job for reset password email
                     \Mail::queue('admin::emails.auth.recovery',$data,function($message) use ($data){
                         $message
                             ->to($data['email'],$data['full_name'])
                             ->subject(trans('admin::user.recovery_password_email_subject',$data));
                     });
 
-                    //[i] Response
-                    $get['status'] = array(
+                    #i: Response
+                    $get['_status'] = array(
                         'type' => 'success',
                         'message' => trans('admin::user.recovery_password_sended')
                     );
@@ -266,14 +275,14 @@ class AuthController extends BaseController {
                     throw new Exception(trans('admin::user.activation_error'));
                 }
 
-            //[i] Reset code verification
+            #i: Reset password
             }elseif( $user && !empty($post['code']) ){
-                //[i] Verify reset code
+                #i: Verify reset code
                 if( $user->checkResetPasswordCode($post['code']) ){
                     $user->attemptResetPassword($post['code'],$post['password']);
 
-                    //[i] Response
-                    $get['status'] = array(
+                    #i: Response
+                    $get['_status'] = array(
                         'type' => 'success',
                         'message' => trans('admin::user.recovery_password_success')
                     );
@@ -281,30 +290,31 @@ class AuthController extends BaseController {
             }
 
         }catch(\Exception $e){
-            $get['status'] = array(
+            $get['_status'] = array(
                 'type' => 'error',
                 'message' => $e->getMessage()
             );
         }
 
-        //[i] View scaffolding
+        #i: View scaffolding
         $view = 'admin::user.recovery';
         if(View::exists('user.recovery')) $view = 'user.recovery';
 
-        //[i] Display view
-        $this->layout->content = View::make($view,compact('get'));
+        #i: Display view
+        $this->layout->content = View::make($view,$get);
     }
+
 
     public function getLogin($role='admin::user'){
         $home = \Config::get('admin::admin.user_home','home');
 
-        //[i] View scaffolding
+        #i: View scaffolding
         if($role == 'admin::user' && View::exists('user.login')) $role = 'user';
 
-        //[i] Sentry auth check
+        #i: Sentry auth check
         if( \Sentry::check() ) return Redirect::to($role.'/'.$home);
 
-        //[i] Loading view
+        #i: Loading view
         $this->layout->content = View::make($role.'.login');
     }
 
@@ -329,7 +339,7 @@ class AuthController extends BaseController {
             }
 
         }catch ( \Exception $e){
-            $post['status'] = array(
+            $post['_status'] = array(
                 'type' => 'error',
                 'message' => $e->getMessage()
             );

@@ -3,10 +3,10 @@
 @section('container')
 <div class="container" ng-controller="controllerProfile">
     <div class="row padded">
-        @if( isset($status) )
+        @if( isset($_status) )
         <div class="alert alert-{{ $status['type'] }}">
             <button class="close" data-dismiss="alert" type="button">x</button>
-            {{ $status['message'] }}
+            {{ $_status['message'] }}
         </div>
         @endif
     </div>

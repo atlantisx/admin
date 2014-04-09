@@ -17,9 +17,9 @@
                 <div class="title">{{ trans('admin::user.activation_title') }}</div>
             </div>
             <div class="box-content padded">
-            @if( isset($data['status']) )
-                <div class="alert alert-{{ $data['status']['type'] }}">
-                    {{ $data['status']['message'] }}
+            @if( isset($_status) )
+                <div class="alert alert-{{ $_status['type'] }}">
+                    {{ $_status['message'] }}
                 </div>
             @endif
             {{ Former::open()->class('separate-sections') }}

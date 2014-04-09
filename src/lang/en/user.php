@@ -33,7 +33,7 @@
     'btn_draft'                 => 'Save Draft',
     'btn_send'                  => 'Send',
 
-    'title_registered'          => 'Registration sucessful',
+    'registered_title'          => 'Registration sucessful',
     'registered_text_success'   => 'Your registration is successful, activation email have been sent to <strong>:email</strong> and please click the link provided to activate you account. ' .
                                    'Please save the activation code below for your future reference if you unable to activate you account through your email.',
     'registered_label_activation_code' => 'Activation Code',

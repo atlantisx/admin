@@ -17,16 +17,16 @@
                 <div class="title">{{ trans('admin::user.recovery_password_title') }}</div>
             </div>
             <div class="box-content padded">
-            @if( isset($get['status']) )
-                <div class="alert alert-{{ $get['status']['type'] }}">
-                    {{ $get['status']['message'] }}
+            @if( isset($_status) )
+                <div class="alert alert-{{ $_status['type'] }}">
+                    {{ $_status['message'] }}
                 </div>
             @endif
 
-            @if( isset($get['user_id']) && isset($get['code']) )
+            @if( isset($user_id) && isset($code) )
                 {{ Former::open(URL::to('user/recovery'))->class('separate-sections') }}
-                    {{ Former::input('login')->type('hidden')->value($get['login']) }}
-                    {{ Former::input('code')->type('hidden')->value($get['code']) }}
+                    {{ Former::input('login')->type('hidden')->value($login) }}
+                    {{ Former::input('code')->type('hidden')->value($code) }}
                     {{ Former::label(trans('admin::user.label_password')) }}
                     <div class="input-group addon-left">
                         <span class="input-group-addon" href="#"><i class="icon-key"></i></span>

@@ -3,9 +3,9 @@
 @section('container')
     <div class="container">
         <div class="row padded">
-            @if( isset($status) )
+            @if( isset($_status) )
             <div class="alert alert-{{ $status['type'] }}">
-                {{ $status['message'] }}
+                {{ $_status['message'] }}
             </div>
             @endif
         </div>
