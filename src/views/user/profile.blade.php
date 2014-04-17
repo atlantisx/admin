@@ -88,11 +88,11 @@
                                     {{ Former::select('profile.race')->class('uniform')->fromQuery( Code::byParentName('native') )->ng_model('user.profile.race') }}
                                 </div>
                                 <div class="col-lg-2">
-                                    <input type="radio" name="profile.gender" class="validate[required]" value="male" ng-model="user.profile.gender" icheck>
+                                    <input type="radio" name="profile.gender" class="validate[required]" value="male" ng-model="user.profile.gender" as-ui-icheck>
                                     {{ Former::label('gender_male') }}
                                 </div>
                                 <div class="col-lg-2">
-                                    <input type="radio" name="profile.gender" class="validate[required]" value="female" ng-model="user.profile.gender" icheck>
+                                    <input type="radio" name="profile.gender" class="validate[required]" value="female" ng-model="user.profile.gender" as-ui-icheck>
                                     {{ Former::label('gender_female') }}
                                 </div>
                             </div>
