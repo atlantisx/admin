@@ -50,7 +50,8 @@
             $("form.validatable").validationEngine({
                 validateNonVisibleFields: true,
                 autoPositionUpdate: true,
-                promptPosition: "topLeft",
+                promptPosition: "inline",
+                showArrow: false,
                 scroll: false
             });
 
