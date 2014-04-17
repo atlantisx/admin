@@ -61,6 +61,7 @@
     'recovery_password_error'           => 'Your reset password link is invalid!',
     'recovery_password_email_subject'   => 'Password recovery for user :full_name',
     'recovery_password_email_text'      => 'Please click below link to reset your password',
+    'recovery_email_regards'            => 'Thank You,<br> System Administrator',
 
     'login_title'               => 'User Login',
     'login_label_login'         => 'Username \ email',

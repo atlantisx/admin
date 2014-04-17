@@ -11,7 +11,7 @@
             <a href="{{ $reset_link }}">{{ trans('admin::user.recovery_password_btn_reset') }}</a>
             </p>
             <br>
-            System Administrator
+            {{ trans('admin::user.recovery_email_regards') }}
 		</div>
 	</body>
 </html>
