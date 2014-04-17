@@ -46,6 +46,7 @@
     'activation_resend_success' => 'Your activation code have been successfully send to :email',
     'activation_email_subject'  => 'Account activation for user :full_name',
     'activation_email_text'     => 'Please click below link to activate your account',
+    'activation_email_regards'  => 'Thank You,<br> System Administrator',
     'activation_prompt'         => 'Please enter your login credential to resend activation email',
     'activate_title'            => 'Manual Activation',
     'activate_code'             => 'Activation Code',
