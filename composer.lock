@@ -7,17 +7,17 @@
     "packages": [
         {
             "name": "illuminate/support",
-            "version": "v4.1.24",
+            "version": "v4.1.27",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "ff32e707fa8b6e975ee46e5277b6270ec2f7029f"
+                "reference": "69b248f240719e8d764ee6ec0384819fa57d60bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/ff32e707fa8b6e975ee46e5277b6270ec2f7029f",
-                "reference": "ff32e707fa8b6e975ee46e5277b6270ec2f7029f",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/69b248f240719e8d764ee6ec0384819fa57d60bb",
+                "reference": "69b248f240719e8d764ee6ec0384819fa57d60bb",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2014-03-13 01:02:42"
+            "time": "2014-03-22 20:29:54"
         }
     ],
     "packages-dev": [
