@@ -41,6 +41,9 @@ class AuthController extends BaseController {
         $data = Input::flash();
 
         try{
+            #e: Trigger user registering
+            \Event::fire('user.registering', array($role));
+
             #i: Start database transaction
             \DB::beginTransaction();
 
