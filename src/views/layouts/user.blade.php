@@ -47,14 +47,6 @@
                 dateFormat: 'yy-mm-dd'//'d MM, y'
             });
 
-            $("form.validatable").validationEngine({
-                validateNonVisibleFields: true,
-                autoPositionUpdate: true,
-                promptPosition: "inline",
-                showArrow: false,
-                scroll: false
-            });
-
             $("select.select2").select2();
 
             $("select.uniform, input:file, .dataTables_length select").uniform();
