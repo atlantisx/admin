@@ -395,7 +395,12 @@ class AuthController extends BaseController {
                 if( $user_role ) $role = $user_role;
 
                 #i: Redirect to home
-                return Redirect::to($role.'/'.$home);
+                if( View::exists($role.'/'.$home) ){
+                    return Redirect::to($role.'/'.$home);
+                }else{
+                    return Redirect::to('user/'.$home);
+                }
+
             }
 
         }catch ( \Exception $e){
