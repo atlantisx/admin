@@ -95,7 +95,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
             //[i] Angular Modules
             $collection->javascript('angular.xeditable/js/xeditable.js');
-            $collection->javascript('angular.table/ng-table.src.js');
+            $collection->javascript('angular.uibootstrap/angular.uibootstrap.js');
 
             //[i] Atlantis-Angular Modules
             $collection->javascript('atlantis/plugins/angular.atlantis.ui.js');
