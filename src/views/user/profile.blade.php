@@ -49,13 +49,13 @@
                                 <div class="input-group">
                                     {{ Former::label('role')->class('control-label col-lg-2') }}
                                     <div class="col-lg-10">
-                                        {{ Former::select('role')->class('uniform')->fromQuery( Code::byCategory('location.state'), 'value', 'name' ) }}
+                                        {{ Former::select('role')->class('uniform')->fromQuery( Code::category('state')->get(), 'value', 'name' ) }}
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     {{ Former::label('group')->class('control-label col-lg-2') }}
                                     <div class="col-lg-10">
-                                        {{ Former::select('group')->class('select2')->multiple('multiple')->fromQuery( Code::byCategory('location.state'), 'value', 'name' ) }}
+                                        {{ Former::select('group')->class('select2')->multiple('multiple')->fromQuery( Code::category('state')->get(), 'value', 'name' ) }}
                                     </div>
                                 </div>
                                 <div class="input-group">
@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 {{ Former::label('race')->class('control-label col-lg-2') }}
                                 <div class="col-lg-6">
-                                    {{ Former::select('profile.race')->class('uniform')->fromQuery( Code::byParentName('native') )->ng_model('user.profile.race') }}
+                                    {{ Former::select('profile.race')->class('uniform')->fromQuery( Code::parentName('native'), 'value', 'name' )->ng_model('user.profile.race') }}
                                 </div>
                                 <div class="col-lg-2">
                                     <input type="radio" name="profile.gender" class="validate[required]" value="male" ng-model="user.profile.gender" as-ui-icheck>
@@ -131,8 +131,8 @@
                             </div>
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
-                                <div class="col-lg-5">{{ Former::select('address_city')->class('uniform')->fromQuery( Code::byCategory('location.state'), 'value', 'name' )->ng_model('user.profile.address_city') }}</div>
-                                <div class="col-lg-5">{{ Former::select('address_state')->class('uniform')->fromQuery( Code::byCategory('location.state'), 'value', 'name' )->ng_model('user.profile.address_state') }}</div>
+                                <div class="col-lg-5">{{ Former::select('address_city')->class('uniform')->fromQuery( Code::category('city')->get(), 'value', 'name' )->ng_model('user.profile.address_city') }}</div>
+                                <div class="col-lg-5">{{ Former::select('address_state')->class('uniform')->fromQuery( Code::category('state')->get(), 'value', 'name' )->ng_model('user.profile.address_state') }}</div>
                             </div>
                         </div>
                     </div>
