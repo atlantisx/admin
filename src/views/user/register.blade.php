@@ -43,7 +43,13 @@
     @parent
     <script>
         $(document).ready(function(){
-            $('form').validationEngine();
+            $('form').validationEngine({
+                validateNonVisibleFields: true,
+                autoPositionUpdate: true,
+                promptPosition: "inline",
+                showArrow: false,
+                scroll: false
+            });
 
             $('#submit').on('click',function(){
                 $('form').submit();

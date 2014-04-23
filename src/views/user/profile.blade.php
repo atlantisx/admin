@@ -71,7 +71,7 @@
             </div>
 
 
-            {{ Former::open()->name('form_profile')->class('form-horizontal fill-up validatable')->ng_submit('processForm()') }}
+            {{ Former::open()->name('form_profile')->class('form-horizontal fill-up')->ng_submit('processForm()') }}
                 <div class="box">
                     <div class="box-header">
                         <span class="title">{{ trans('admin::user.title_profile') }}</span>
@@ -157,6 +157,14 @@
         $(document).ready(function(){
             $('#profile\\.birth_date').datepicker("option","changeYear",true);
             $('#profile\\.birth_date').datepicker("option","maxDate",'-15Y');
+
+            $('form').validationEngine({
+                validateNonVisibleFields: true,
+                autoPositionUpdate: true,
+                promptPosition: "inline",
+                showArrow: false,
+                scroll: false
+            });
         });
 
         function controllerProfile($scope,$http,$q,Api){
