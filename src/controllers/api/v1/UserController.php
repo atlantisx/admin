@@ -11,12 +11,25 @@ class UserController extends \BaseController{
     }
 
     public function show($id){
+        $get = \Input::all();
+
         //[i] Search user
         $user = \User::find($id);
 
         //[i] Return user
         if($user){
             $user->load('profile');
+            if( !empty($get['access']) ){
+                if( $get['access'] == 'simple' ){
+                    $user->_groups = $user->groups->lists('id');
+                    $user->_roles = $user->roles->lists('id');
+
+                }else{
+                    $user->load('groups');
+                    $user->load('roles');
+                }
+            }
+
             return $user;
         }
 
