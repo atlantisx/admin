@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="thumbnail" style="width: 200px; height: 200px;">
-                <img class="media-object" src="{{ Gravatar::src($user->email,200) }}" width="200" height="200" alt="avatar" />
+                <a href="http://www.gravatar.com/{{ md5($user->email) }}.hcard" target="_blank"><img class="media-object" src="{{ Gravatar::src($user->email,200) }}" width="200" height="200" alt="avatar" /></a>
             </div>
         </div>
         <div class="col-md-9">
@@ -22,7 +22,7 @@
                 <div class="box-header">
                     <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
                         <li class="active"><a href="#tab-account" data-toggle="tab">{{ trans('admin::user.title_account') }}</a></li>
-                        <!--<li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>-->
+                        <li><a href="#tab-permission" data-toggle="tab">{{ trans('admin::user.title_access') }}</a></li>
                     </ul>
                 </div>
                 <div class="box-content">
@@ -46,24 +46,33 @@
                         </div>
                         <div id="tab-permission" class="tab-pane padded">
                             <div class="form-flat">
+                            {{ Former::open()->name('form_access') }}
                                 <div class="input-group">
                                     {{ Former::label('role')->class('control-label col-lg-2') }}
                                     <div class="col-lg-10">
-                                        {{ Former::select('role')->class('uniform')->fromQuery( Code::category('state')->get(), 'value', 'name' ) }}
+                                        {{ Former::select('role')
+                                            ->fromQuery( Role::all(), 'name', 'id' )
+                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) )
+                                            ->ng_model('user._roles')
+                                            ->ui_select2()
+                                            ->multiple() }}
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     {{ Former::label('group')->class('control-label col-lg-2') }}
                                     <div class="col-lg-10">
-                                        {{ Former::select('group')->class('select2')->multiple('multiple')->fromQuery( Code::category('state')->get(), 'value', 'name' ) }}
+                                        {{ Former::select('group')
+                                            ->fromQuery( Group::all(), 'name', 'id' )
+                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) )
+                                            ->ng_model('user._groups')
+                                            ->ui_select2()
+                                            ->multiple() }}
                                     </div>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group hidden">
                                     {{ Former::label('permission')->class('control-label col-lg-2') }}
-                                    <div class="col-lg-10">
-
-                                    </div>
                                 </div>
+                            {{ Former::close() }}
                             </div>
                         </div>
                     </div>
@@ -85,7 +94,10 @@
                             <div class="form-group">
                                 {{ Former::label('race')->class('control-label col-lg-2') }}
                                 <div class="col-lg-6">
-                                    {{ Former::select('profile.race')->class('uniform')->fromQuery( Code::parentName('native'), 'value', 'name' )->ng_model('user.profile.race') }}
+                                    {{ Former::select('profile.race')
+                                        ->fromQuery( Code::parentName('native'), 'value', 'name' )
+                                        ->ng_model('user.profile.race')
+                                        ->ui_select2() }}
                                 </div>
                                 <div class="col-lg-2">
                                     <input type="radio" name="profile.gender" class="validate[required]" value="male" ng-model="user.profile.gender" as-ui-icheck>
@@ -131,8 +143,14 @@
                             </div>
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
-                                <div class="col-lg-5">{{ Former::select('address_city')->class('uniform')->fromQuery( Code::category('city')->get(), 'value', 'name' )->ng_model('user.profile.address_city') }}</div>
-                                <div class="col-lg-5">{{ Former::select('address_state')->class('uniform')->fromQuery( Code::category('state')->get(), 'value', 'name' )->ng_model('user.profile.address_state') }}</div>
+                                <div class="col-lg-5">{{ Former::select('address_city')
+                                                        ->fromQuery( Code::category('city')->get(), 'value', 'name' )
+                                                        ->ng_model('user.profile.address_city')
+                                                        ->ui_select2() }}</div>
+                                <div class="col-lg-5">{{ Former::select('address_state')
+                                                        ->fromQuery( Code::category('state')->get(), 'value', 'name' )
+                                                        ->ng_model('user.profile.address_state')
+                                                        ->ui_select2() }}</div>
                             </div>
                         </div>
                     </div>
@@ -168,7 +186,7 @@
         });
 
         function controllerProfile($scope,$http,$q,Api){
-            var params = {model:'users', id:'{{ $user->id }}'};
+            var params = {model:'users', id:'{{ $user->id }}', 'access':'simple'};
 
             //[i] Getting user model
             $scope.user = Api.get(params);
