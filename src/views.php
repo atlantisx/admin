@@ -57,11 +57,9 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             ->setArguments(Config::get('app.url'));
 
         //[i]========================================================= User JS
-        $collection->directory('assets/javascript', function($collection)
+        $collection->directory('assets/javascript', function($collection) use($locale)
         {
-            $collection->requireDirectory('coffee')->only('user.coffee')->apply('CoffeeScript');
             $collection->requireDirectory('libs/jquery.ui');
-
             $collection->requireDirectory('libs/jquery.uniform');
             $collection->requireDirectory('libs/jquery.colocpicker');
             $collection->requireDirectory('libs/jquery.customscroll');
@@ -70,6 +68,8 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->requireDirectory('libs/bootstrap.wizard');
             $collection->requireDirectory('libs/bootstrap.datepicker');
 
+            //$collection->javascript('jquery.ui/i18n/jquery.ui.datepicker-'.$locale.'.js');
+            //$collection->javascript('jquery.ui.timepicker/i18n/jquery-ui-timepicker-'.$locale.'.js');
         })->apply('JsMin');
 
         //[i]========================================================= Atlantis CSS
@@ -79,10 +79,10 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         })->apply('CssMin');
 
         //[i]========================================================= Atlantis Package JS
-        $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
-            $collection->requireDirectory('jquery.select2');
+        $collection->directory('packages/atlantis/admin/javascript/libs', function($collection) use($locale){
             $collection->requireDirectory('jquery.icheck');
             $collection->requireDirectory('jquery.psteps');
+            $collection->javascript('jquery.select2/jquery.select2.js');
             $collection->javascript('jquery.validation/jquery.validationEngine.js');
             $collection->javascript('jquery.touch/jquery.touch.js');
             $collection->javascript('jquery.datatables/jquery.datatables.js');
@@ -107,14 +107,10 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             //[i] Atlantis Core
             $collection->javascript('atlantis/atlantis.js');
             $collection->javascript('atlantis/core/atlantis.alert.js');
-        })->apply('JsMin');
 
-        //[i]========================================================= Assets JS
-        $collection->directory('assets/javascript/libs', function($collection) use($locale){
-            $collection->javascript('plupload/i18n/'.$locale.'.js');
-            $collection->javascript('jquery.ui/i18n/jquery.ui.datepicker-'.$locale.'.js');
-            $collection->javascript('jquery.ui.timepicker/i18n/jquery-ui-timepicker-'.$locale.'.js');
+            #i: Locale
             $collection->javascript('jquery.validation/jquery.validationEngine-'.$locale.'.js');
+            //$collection->javascript('jquery.select2/i18n/select2_locale_'.$locale.'.js');
         })->apply('JsMin');
     });
 
