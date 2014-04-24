@@ -24,24 +24,56 @@
 
 	_a.alert = {
 		server: function(response){
+
 			if(response != undefined) {
-				if( response.status == '1' || response.status == 'success'){
-					this.success(response.message);
-				} else {
-					this.error(response.message);
+
+                //[i] Check if _status object not defined
+                if(response._status == undefined) {
+
+                    //[i] Check for Laravel API error response
+                    if( response.error != undefined ){
+                        this.error(response.error.message);
+
+                    //[i] Check for direct status response
+                    }else if( response.status == 'success' || response.status == true){
+                        if( response.message != '' )
+                            this.success(response.message)
+                        else
+                            this.success('Success!');
+
+                    //[i] Unrecognized response
+                    }else{
+                        this.warning('Unrecognized response from server !')
+                    }
+
+                //[i] Default Atlantis API success response
+                } else if( response._status.type == 'success' || response._status.type == true || response._status.type == '1'){
+					this.success(response._status.message);
+
+                //[i] Default Atlantis API error response
+				} else if( response._status.type == 'error' ){
+					this.error(response._status.message);
 				}
 			} else {
 				this.error('Fatal error!');
 			}
 		},
-		error: function(message, modal, callback){
+
+        success: function(message, modal, callback){
+            if(typeof(modal)==='undefined') modal=false;
+            this.custom(message, 'success', 'topRight', modal, 3000, callback);
+        },
+
+		warning: function(message, modal, callback){
 			if(typeof(modal)==='undefined') modal=false;
-			this.custom(message, 'error', 'topRight', modal, false, callback);
+			this.custom(message, 'warning', 'topRight', modal, false, callback);
 		},
-		success: function(message, modal, callback){
-			if(typeof(modal)==='undefined') modal=false;
-			this.custom(message, 'success', 'topRight', modal, 3000, callback);
-		},
+
+        error: function(message, modal, callback){
+            if(typeof(modal)==='undefined') modal=false;
+            this.custom(message, 'error', 'topRight', modal, false, callback);
+        },
+
 		progress: function(){
 			var notyID = noty({
 				text: 'Loading..',
@@ -51,7 +83,9 @@
 				modal: false,
 				template: '<div class="spinner" style="margin: 5px;"></div>'
 			})
+            return notyID;
 		},
+
 		confirm: function(message, modal, successFunc){
 			var notyID = noty({
 				text: message,
@@ -73,7 +107,10 @@
 			      }
 			    ]
 			});
+
+            return notyID;
 		},
+
 		custom: function(message,type,layout,modal,timeout,callback){
 			if(typeof(modal)==='undefined') modal=false;
 			
@@ -83,9 +120,13 @@
 				type: type,
 				timeout: timeout,
 				modal: modal,
-				onClose: callback,
+                callback: {
+                    onClose: callback
+                }
 			})
+            return notyID;
 		},
+
 		clear: function(){
 			$.noty.closeAll();
 		}

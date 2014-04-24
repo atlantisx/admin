@@ -20,92 +20,77 @@
  */
 
 
-
-/***************************************************************************************************
- * API Service
- * 
- ***************************************************************************************************/
-
-
-
 /***************************************************************************************************
  * Rest Service
- * 
+ *
+ * For dynamic parameter, model could modified params variable directly from return
+ * Rest object. This service is not singleton.
  ***************************************************************************************************/
+angular.module('rest.service',[]).
+	factory('Rest', function($http){
 
+        var serviceProvider = function(url, params){
+            this.params = {};
+            this.url = url;
+            this.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
-angular.module('rest.service', ['ngResource']).
-	factory('Rest', function($resource, $http){
-		var restService = {};
-		/*restService.Init = function(params){
-			return $resource( 
-				appBase + 'api/:controller', 
-				params, 
-				{
-					get: {method:'GET', params:{format:'json'}},
-					query: {method:'GET', params:{format:'json'}, isArray:true},
-					put: {method:'PUT', params:{format:'json'}}
-				}
-			);
-		}*/
-		
-		restService.Init = function(controller, params){
-			restService.controller = appBase + 'api/' + controller;
-			restService.params = params;
-			
-			return $resource( 
-				restService.controller, 
-				params, 
-				{
-					get: {method:'GET', params:{format:'json'}},
-					query: {method:'GET', params:{format:'json'}, isArray:true},
-					put: {method:'PUT', params:{format:'json'}}
-				}
-			);
-			//return this;
-		}
-		
-		/*restService.$get = function(){
-			return $resource( 
-				restService.controller, 
-				restService.params,
-				{
-					put: {method:'PUT', params:{format:'json'}}
-				}
-			).get();
-		}
-		
-		restService.$put = function(params){
-			var new_params = $.extend({}, restService.params, params);
+            //[i] Check default params supplied
+            if( typeof params == 'object' ){
+                this.params = params;
+            }
+        }
 
-			return $http({method:'PUT', url:restService.controller, params:restService.params})
-			.success(function(data, status){
-				processResponse(data);
-			})
-			.error(function(data,status){
-				_a.alert.error('Fatal error!');
-			});
-		}
-		
-		restService.$delete = function(){
-			return $http({method:'DELETE', url:restService.controller, params:restService.params})
-			.success(function(data, status){
-				processResponse(data);
-			})
-			.error(function(data, status){
-				_a.alert.error('Fatal error!');
-			});
-		}
-		*/
-		function processResponse(response){
-			if(response != undefined) {
-				if( response.status == '1'){
-					_a.alert.success(data.message);
-				} else {
-					_a.alert.error(data.message);
-				}
-			}
-		}
-		
-		return restService;
-});
+        serviceProvider.prototype.index = function(callback){
+            return $http({
+                method: 'GET',
+                url: this.url,
+                headers : this.headers
+            }).success(function(response){
+                _a.alert.server(response);
+                if( typeof callback == 'function' ) callback(response);
+
+            }).error(function(response){
+                _a.alert.server(response);
+            });
+        }
+
+        serviceProvider.prototype.store = function(callback){
+            $http({
+                method: 'POST',
+                url: this.url,
+                data: $.param(this.params),
+                headers : this.headers
+
+            }).success(function(response){
+                _a.alert.server(response);
+                if( typeof callback == 'function' ) callback(response);
+
+            }).error(function(response){
+                _a.alert.server(response);
+            });
+        }
+
+        serviceProvider.prototype.show = function(value,callback){
+            $http({
+                method: 'POST',
+                url: this.url + '/' + value,
+                data: $.param(this.params),
+                headers : rest.headers
+
+            }).success(function(response){
+                _a.alert.server(response);
+                if( typeof callback == 'function' ) callback(response);
+
+            }).error(function(response){
+                _a.alert.server(response);
+            });
+        }
+
+        var serviceFactory = {
+            new: function(url, params){
+                return new serviceProvider(url, params)
+            }
+        }
+
+        return serviceFactory;
+    });

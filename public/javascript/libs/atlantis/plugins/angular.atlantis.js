@@ -25,18 +25,15 @@
  * 
  ***************************************************************************************************/
 var ansg_module = [
-	//'ui',
-	//'filters',
-	//'global.service',
-	//'api.service',
-	//'rest.service',
-	//'statement.service',
-	//'dialog.service',
-	//'form.directive',
-	//'form.service',
-	//'dialog.directive'
-	//'grid.service',
-	//'grid.directive',
+    //i: Core
+    'api.service',
+    'rest.service',
+    'atlantis.ui',
+
+    //i: Extension
+    'xeditable',
+    'ui.bootstrap',
+    'ui.select2'
 ];
 
 
@@ -68,8 +65,40 @@ asng.value('ui.config', {
 	     	vMin: '-9999999999.999',
 	     	aForm: true
 	    }
-	}
+	},
+    validation: {
+        validateNonVisibleFields: true,
+        autoPositionUpdate: true,
+        promptPosition: "inline",
+        showArrow: false,
+        scroll: false
+    },
+    wizardstep: {
+        traverse_titles: 'always',
+        validate_next_step: false,
+        ignore_errors_on_next: true,
+        shrink_step_names: false,
+        step_order: false
+    }
 });
+
+
+/***************************************************************************************************
+ * XEditable Config
+ *
+ ***************************************************************************************************/
+asng.run(function(editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
+
+
+/***************************************************************************************************
+ * UI Select2 Config
+ *
+ ***************************************************************************************************/
+asng.run(['uiSelect2Config', function(uiSelect2Config) {
+    //uiSelect2Config.placeholder = "Placeholder text";
+}]);
 
 
 /*

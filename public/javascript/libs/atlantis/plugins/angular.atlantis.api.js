@@ -20,12 +20,75 @@
  */
 
 
+/***************************************************************************************************
+ * API Service
+ *
+ ***************************************************************************************************/
 angular.module('api.service', ['ngResource']).
-    factory('API', function($resource){
+    factory('Api', function($rootScope,$resource,$q){
         return $resource(
-            appBase + 'api/:controller/', {},
+            appBase + 'api/:version/:model/:id',
+            {version:'v1', model:'table'},
             {
-                query: {method:'GET', params:{controller:'table', format:'json'}, isArray:true}
+                index: {method:'GET', isArray:true},
+
+                get: {method:'GET', param: {id:'@id'}, interceptor : {
+                    response: function(response){
+                        $rootScope.$broadcast('api.get');
+                        return response || $q.when(response);
+                    }
+                }},
+
+                save: {method:'POST', interceptor : {
+                    response: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.save');
+                        return response || $q.when(response);
+                    },
+                    responseError: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.save');
+                        return response || $q.when(response);
+                    }
+                }},
+
+                update: {method:'PUT', interceptor : {
+                    response: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.update');
+                        return response || $q.when(response);
+                    },
+                    responseError: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.update');
+                        return response || $q.when(response);
+                    }
+                }},
+
+                destroy: {method:'DELETE', interceptor : {
+                    response: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.destroy');
+                        return response || $q.when(response);
+                    },
+                    responseError: function(response){
+                        if(_a) _a.alert.server(response.data);
+                        $rootScope.$broadcast('api.destroy');
+                        return response || $q.when(response);
+                    }
+                }}
             }
         );
+    });
+
+
+
+/***************************************************************************************************
+ * Wire Service
+ * Direct connection with back-end controller
+ *
+ ***************************************************************************************************/
+angular.module('wire.service', ['ngResource']).
+    factory('Wire', function($rootScope,$resource,$q){
+
     });

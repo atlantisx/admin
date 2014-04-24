@@ -85,6 +85,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             $collection->stylesheet('css/custom.css');
             $collection->stylesheet('../javascript/libs/jquery.touch/jquery.touch.css');
+            $collection->stylesheet('../javascript/libs/bootstrap.ladda/bootstrap.ladda-themeless.css');
         })->apply('CssMin')
             ->andApply('UriRewriteFilter')
             ->andApply('UriPrependFilter')
@@ -104,6 +105,8 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('jquery.fineuploader/jquery.fineuploader-4.3.1.js');
             $collection->requireDirectory('bootstrap.wysihtml');
             $collection->requireDirectory('bootstrap.bootbox');
+            $collection->javascript('bootstrap.ladda/spin.js');
+            $collection->javascript('bootstrap.ladda/bootstrap.ladda.js');
 
             //[i] Angular Modules
             $collection->javascript('angular.xeditable/js/xeditable.js');
