@@ -13,11 +13,16 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
     Basset::collection('common', function($collection){
 
         //[i]========================================================= CSS Framework
-        $collection->stylesheet('components/bootstrap/css/bootstrap.css')->apply('JsMin');
-        $collection->stylesheet('components/bootstrap/css/bootstrap-theme.css')->apply('JsMin');
+        $collection->directory('components/bootstrap/css', function($collection){
+            $collection->stylesheet('bootstrap.css');
+            $collection->stylesheet('bootstrap-theme.css');
+        })->apply('CssMin')
+            ->andApply('UriRewriteFilter')
+            ->andApply('UriPrependFilter')
+            ->setArguments(Config::get('app.url'));
 
         //[i] Fonts
-        $collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
+        //$collection->stylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,600,800');
 
         //[i]========================================================= Core JS
         $collection->directory('components', function($collection){
@@ -32,7 +37,11 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         //[i]========================================================= Atlantis CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             $collection->requireDirectory('../javascript/libs/atlantis/css');
-        })->apply('CssMin');
+            $collection->stylesheet('css/fonts.css');
+        })->apply('CssMin')
+            ->andApply('UriRewriteFilter')
+            ->andApply('UriPrependFilter')
+            ->setArguments(Config::get('app.url'));
     });
 
 
@@ -72,11 +81,14 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             //$collection->javascript('jquery.ui.timepicker/i18n/jquery-ui-timepicker-'.$locale.'.js');
         })->apply('JsMin');
 
-        //[i]========================================================= Atlantis CSS
+        //[i]========================================================= Atlantis Package CSS
         $collection->directory('packages/atlantis/admin/stylesheet', function($collection){
             $collection->stylesheet('css/custom.css');
             $collection->stylesheet('../javascript/libs/jquery.touch/jquery.touch.css');
-        })->apply('CssMin');
+        })->apply('CssMin')
+            ->andApply('UriRewriteFilter')
+            ->andApply('UriPrependFilter')
+            ->setArguments(Config::get('app.url'));
 
         //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection) use($locale){
