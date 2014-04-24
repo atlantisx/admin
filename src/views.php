@@ -61,21 +61,15 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         {
             $collection->requireDirectory('coffee')->only('user.coffee')->apply('CoffeeScript');
             $collection->requireDirectory('libs/jquery.ui');
-            $collection->requireDirectory('libs/jquery.icheck');
+
             $collection->requireDirectory('libs/jquery.uniform');
-            $collection->requireDirectory('libs/jquery.select2');
             $collection->requireDirectory('libs/jquery.colocpicker');
             $collection->requireDirectory('libs/jquery.customscroll');
             $collection->requireDirectory('libs/jquery.ui.timepicker');
             $collection->requireDirectory('libs/jquery.ui.slider');
-            $collection->requireDirectory('libs/jquery.psteps');
             $collection->requireDirectory('libs/bootstrap.wizard');
             $collection->requireDirectory('libs/bootstrap.datepicker');
-            $collection->requireDirectory('libs/bootstrap.bootbox');
-            $collection->javascript('libs/jquery.validation/jquery.validationEngine.js');
-            $collection->javascript('libs/ckeditor/ckeditor.js');
-            $collection->javascript('libs/ckeditor/adapters/jquery.js');
-            $collection->javascript('libs/jquery.fineuploader/jquery.fineuploader-4.3.1.js');
+
         })->apply('JsMin');
 
         //[i]========================================================= Atlantis CSS
@@ -86,12 +80,18 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
         //[i]========================================================= Atlantis Package JS
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
+            $collection->requireDirectory('jquery.select2');
+            $collection->requireDirectory('jquery.icheck');
+            $collection->requireDirectory('jquery.psteps');
+            $collection->javascript('jquery.validation/jquery.validationEngine.js');
             $collection->javascript('jquery.touch/jquery.touch.js');
             $collection->javascript('jquery.datatables/jquery.datatables.js');
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
             $collection->javascript('jquery.noty/themes/default.js');
+            $collection->javascript('jquery.fineuploader/jquery.fineuploader-4.3.1.js');
             $collection->requireDirectory('bootstrap.wysihtml');
+            $collection->requireDirectory('bootstrap.bootbox');
 
             //[i] Angular Modules
             $collection->javascript('angular.xeditable/js/xeditable.js');
@@ -124,13 +124,13 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
     ================================================================*/
     Basset::collection('admin', function($collection){
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
-            $collection->javascript('knockout/knockout-2.2.0.js');
-            $collection->javascript('knockout/knockout.mapping.js');
-            $collection->javascript('knockout/KnockoutNotification.knockout.min.js');
-            $collection->javascript('knockout/knockout.updateData.js');
-            $collection->javascript('markdown/markdown.js');
-            $collection->javascript('accounting/accounting.js');
-            $collection->javascript('history/history.min.js');
+            $collection->javascript('admin/knockout-2.2.0.js');
+            $collection->javascript('admin/knockout.mapping.js');
+            $collection->javascript('admin/knockout.notification.min.js');
+            $collection->javascript('admin/knockout.update-data.js');
+            $collection->javascript('admin/markdown.js');
+            $collection->javascript('admin/accounting.js');
+            $collection->javascript('admin/history.min.js');
         });
 
         $collection->directory('packages/atlantis/admin/javascript', function($collection){
