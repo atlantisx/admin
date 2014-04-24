@@ -11,5 +11,6 @@
         <div class="well">
             {{ trans('admin::user.registered_label_activation_code') }} : {{ $activation_code }}
         </div>
+        <a href="{{ url('user/login/staff') }}" class="btn btn-blue btn-block">{{ trans('admin::user.login_btn_login') }} <i class="icon-signin"></i></a>
     </div>
 @stop
