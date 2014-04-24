@@ -34,22 +34,10 @@
         });
 
         function elementRefresh(){
-            $.uniform.defaults.fileButtonHtml = '+';
-            $.uniform.defaults.selectAutoWidth = false;
-
-            $('.icheck').iCheck({
-                checkboxClass: 'icheckbox_flat-aero',
-                radioClass: 'iradio_flat-aero'
-            });
-
             $('.datepicker').datepicker({
                 todayBtn: false,
                 dateFormat: 'yy-mm-dd'//'d MM, y'
             });
-
-            $("select.select2").select2();
-
-            $("select.uniform, input:file, .dataTables_length select").uniform();
         }
     </script>
 @stop

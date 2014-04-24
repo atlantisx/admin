@@ -48,6 +48,11 @@
                 action_permissions: <?php echo json_encode($actionPermissions) ?>,
                 languages: <?php echo json_encode(trans('admin::knockout')) ?>
             };
+
+        $.uniform.defaults.fileButtonHtml = '+';
+        $.uniform.defaults.selectAutoWidth = false;
+        $("select.select2").select2();
+        $("select.uniform, input:file, .dataTables_length select").uniform();
     </script>
 
     <style type="text/css">
