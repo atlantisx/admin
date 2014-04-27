@@ -11,7 +11,7 @@
             <a href="{{ $message_link }}">{{ trans('admin::message.title.read_message') }}</a>
             </p>
             <br>
-            {{ $sender['full_name'] }},
+            {{ trans('admin::user.recovery_email_regards') }},
 		</div>
 	</body>
 </html>
