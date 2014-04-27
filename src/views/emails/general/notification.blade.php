@@ -7,8 +7,8 @@
 		<div>
             <p>
             {{ $receiver['full_name'] }},<br><br>
-			<br>
-            <a href="{{ url('message/read') }}">{{ trans('message.title.read_message') }}</a>
+            {{ trans('admin::message.text.notification_body') }}<br>
+            <a href="{{ $message_link }}">{{ trans('admin::message.title.read_message') }}</a>
             </p>
             <br>
             {{ $sender['full_name'] }},
