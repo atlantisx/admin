@@ -11,7 +11,7 @@
             <a href="{{ url('message/read') }}">{{ trans('message.title.read_message') }}</a>
             </p>
             <br>
-            $sender['full_name'],
+            {{ $sender['full_name'] }},
 		</div>
 	</body>
 </html>
