@@ -1,6 +1,6 @@
 {
     "name": "atlantis/admin",
-    "description": "",
+    "description": "Atlantis X PHP Admin",
     "keywords": ["administrator", "admin", "database", "atlantis", "laravel", "cms"],
     "authors": [
         {
