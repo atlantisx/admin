@@ -60,6 +60,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->requireDirectory('libs/jquery.ui.timepicker');
             $collection->requireDirectory('libs/jquery.ui.colorpicker');
             $collection->requireDirectory('libs/jquery.customscroll');
+            $collection->stylesheet('less/custom.less')->apply('Less');
         })->apply('CssMin')
             ->andApply('UriRewriteFilter')
             ->andApply('UriPrependFilter')
