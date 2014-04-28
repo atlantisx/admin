@@ -8,9 +8,11 @@
 
 App::before(function($request)
 {
+    #i: Getting admin site title
     $title = Config::get('admin::admin.title');
     View::share('title',$title);
 
+    #i: Authentication check
     if(Sentry::check()){
         //[i] Get user
         $user = Sentry::getUser();
@@ -19,6 +21,18 @@ App::before(function($request)
         //[i] Get user role home path
         $user_role = Atlantis::users()->getUserRoleById($user->id);
         View::share(compact('user_role'));
+    }
+
+    #i: List of admin setting to load
+    $settings = array('site','user');
+
+    #i: Load admin config based on setting
+    foreach($settings as $setting){
+        $setting_items = json_decode(@file_get_contents(storage_path() . "/admin_settings/$setting.json")) ?: array();
+
+        foreach($setting_items as $key => $value){
+            Config::set("admin::$setting.$key", $value);
+        }
     }
 });
 
