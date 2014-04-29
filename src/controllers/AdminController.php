@@ -448,7 +448,7 @@ class AdminController extends BaseController
 		$dataTable = App::make('admin_datatable');
 
 		//get the inputted rows and the model rows
-		$rows = (int) Input::get('rows', 20);
+		$rows = (int) Input::get('rows', Config::get('admin::admin.global_rows_per_page'));
 		$dataTable->setRowsPerPage(App::make('session.store'), 0, $rows);
 
 		return Response::JSON(array('success' => true));
