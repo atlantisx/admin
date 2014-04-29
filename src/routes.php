@@ -36,7 +36,7 @@ Route::group(array('prefix' => 'user'), function(){
     //[i] User method
     Route::group(array('before'=>'auth.sentry'), function(){
         Route::get('home','Atlantis\Admin\UserController@getHome');
-        Route::get('profile','Atlantis\Admin\UserController@getProfile');
+        Route::get('profile/{user_id?}','Atlantis\Admin\UserController@getProfile');
     });
 });
 

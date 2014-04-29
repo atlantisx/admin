@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="thumbnail" style="width: 200px; height: 200px;">
-                <a href="http://www.gravatar.com/{{ md5($user->email) }}.hcard" target="_blank"><img class="media-object" src="{{ Gravatar::src($user->email,200) }}" width="200" height="200" alt="avatar" /></a>
+                <a href="http://www.gravatar.com/{{ md5($user_profile->email) }}.hcard" target="_blank"><img class="media-object" src="{{ Gravatar::src($user_profile->email,200) }}" width="200" height="200" alt="avatar" /></a>
             </div>
         </div>
         <div class="col-md-9">
@@ -186,7 +186,7 @@
         });
 
         function controllerProfile($scope,$http,$q,Api){
-            var params = {model:'users', id:'{{ $user->id }}', 'access':'simple'};
+            var params = {model:'users', id:'{{ $user_profile->id }}', 'access':'simple'};
 
             //[i] Getting user model
             $scope.user = Api.get(params);
