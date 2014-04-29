@@ -41,7 +41,7 @@ class BaseController extends Controller {
         #i: Current User
         if( \Sentry::getUser() ){
             $this->user = \Sentry::getUser();
-            $this->user_role = \Atlantis::users()->getUserRoleById($this->user->id)->name;
+            $this->user_role = \Atlantis::users()->getUserRealmById($this->user->id)->name;
         }
 
         #i: Superuser

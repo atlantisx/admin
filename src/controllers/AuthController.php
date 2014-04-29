@@ -188,7 +188,7 @@ class AuthController extends BaseController {
                     );
 
                     #i: Inject role into params
-                    $get['role'] = \Atlantis::users()->getUserRoleById($user->id)->name or '';
+                    $get['role'] = \Atlantis::users()->getUserRealmById($user->id)->name or '';
 
                     #i: Redirect to login
                     return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$get);
@@ -329,7 +329,7 @@ class AuthController extends BaseController {
                     );
 
                     #i: Inject role into params
-                    $post['role'] = \Atlantis::users()->getUserRoleById($user->id)->name or '';
+                    $post['role'] = \Atlantis::users()->getUserRealmById($user->id)->name or '';
 
                     #i: Redirect to login
                     return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$post);
@@ -411,7 +411,7 @@ class AuthController extends BaseController {
             #i: Redirect to user home if granted
             if($granted){
                 #i: Check user role
-                $user_realm = \Atlantis::users()->getUserRoleById(\Sentry::getUser()->id)->name;
+                $user_realm = \Atlantis::users()->getUserRealmById(\Sentry::getUser()->id)->name;
                 if( $user_realm ) $realm = $user_realm;
 
                 #i: Redirect to home

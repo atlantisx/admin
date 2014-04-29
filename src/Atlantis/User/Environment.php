@@ -33,7 +33,7 @@ class Environment extends BaseEnvironment {
     }
 
 
-    public function getUserRoleById($userId){
+    public function getUserRealmById($userId){
         $user_role = $user_default_role = \Config::get('admin::admin.user_default_role','user');
 
         //[i] Find user based on Id

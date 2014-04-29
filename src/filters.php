@@ -19,8 +19,8 @@ App::before(function($request)
         View::share(compact('user'));
 
         //[i] Get user role home path
-        $user_role = Atlantis::users()->getUserRoleById($user->id);
-        View::share(compact('user_role'));
+        $user_realm = Atlantis::users()->getUserRealmById($user->id);
+        View::share(compact('user_realm'));
     }
 
     #i: List of admin setting to load
