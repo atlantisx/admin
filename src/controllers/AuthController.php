@@ -379,29 +379,51 @@ class AuthController extends BaseController {
      *
      * @params $role User role
      ******************************************************************************************************************/
-    public function postLogin($role='user'){
-        $post = Input::all();
+    public function postLogin($realm='user'){
+        $post = \Input::all();
         $home = \Config::get('admin::admin.user_home','home');
 
         try{
-            #i: Authenticate
-            $credential = Input::only('email','password');
-            $granted = \Sentry::authenticate($credential,false);
+            #i: Get credential
+            $credential = \Input::only('email','password');
+
+            #i: Validate credentials
+            $validation = \Validator::make($credential, array('email'=>'email'));
+
+            if( $validation->passes() ){
+                #e: Login event
+                \Event::fire('auth.login', array($realm,$credential));
+
+                #i: Authenticate
+                $granted = \Sentry::authenticate($credential,false);
+
+            }else{
+                #e: Alternative login event, do your custom user searching and return user object
+                $user = \Event::fire('auth.login.alternative', array($realm,$credential));
+
+                #i: Get user email
+                if($user[0]) $credential['email'] = $user[0]->email;
+
+                #i: Authenticate
+                $granted = \Sentry::authenticate($credential,false);
+            }
 
             #i: Redirect to user home if granted
             if($granted){
                 #i: Check user role
-                $user_role = \Atlantis::users()->getUserRoleById(\Sentry::getUser()->id)->name;
-                if( $user_role ) $role = $user_role;
+                $user_realm = \Atlantis::users()->getUserRoleById(\Sentry::getUser()->id)->name;
+                if( $user_realm ) $realm = $user_realm;
 
                 #i: Redirect to home
-                if( View::exists($role.'/'.$home) ){
-                    return Redirect::to($role.'/'.$home);
+                if( View::exists($realm.'/'.$home) ){
+                    return \Redirect::to($realm.'/'.$home);
                 }else{
-                    return Redirect::to('user/'.$home);
+                    return \Redirect::to('user/'.$home);
                 }
-
             }
+
+            #i: Safe exception
+            throw new \Exception('Cannot authenticate user.');
 
         }catch ( \Exception $e){
             $post['_status'] = array(
@@ -411,7 +433,7 @@ class AuthController extends BaseController {
         }
 
         #i: Return to login page with error if any
-        $this->layout->content = View::make($role . '.login', $post);
+        $this->layout->content = View::make($realm . '.login', $post);
     }
 
 
