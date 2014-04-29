@@ -1,6 +1,6 @@
 <div class="alert alert-info loading" data-bind="visible: loadingItem"><?php echo trans('admin::admin.loading') ?></div>
 
-<form class="fill-up" data-bind="visible: !loadingItem(), submit: saveItem">
+<form class="fill-up admin-edit" data-bind="visible: !loadingItem(), submit: saveItem">
 <div class="box">
     <div class="box-header">
         <span class="title" data-bind="text: $root[$root.primaryKey]() ? '<?php echo trans('admin::admin.edit') ?>' : '<?php echo trans('admin::admin.createnew') ?>'"></span>
@@ -9,7 +9,7 @@
     <div class="box-content padded">
         <!-- ko if: $root[$root.primaryKey]() -->
         <!-- ko if: $root.itemLink() -->
-        <a class="item_link" target="_blank" data-bind="attr: {href: $root.itemLink()},
+        <a class="item-link" target="_blank" data-bind="attr: {href: $root.itemLink()},
                                     text: '<?php echo trans('admin::admin.viewitem', array('single' => $config->getOption('single'))) ?>'"></a>
         <!-- /ko -->
         <!-- /ko -->
