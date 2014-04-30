@@ -33,6 +33,9 @@ return array(
 	 */
 	'settings_config_path' => app('path') . '/config/settings',
 
+    'settings' => array(
+        'base_path' => 'admin'
+    ),
 
 	/**
 	 * The menu structure of the site. For models, you should either supply the name of a model config file or an array of names of model config
@@ -49,8 +52,6 @@ return array(
 	 *		'E-Commerce' => array('collections', 'products', 'product_images', 'orders'),
 	 *		'homepage_sliders',
 	 *		'users',
-	 *		'roles',
-	 *		'colors',
 	 *		'Settings' => array('settings.site', 'settings.ecommerce', 'settings.social'),
 	 * 		'Analytics' => array('E-Commerce' => 'page.ecommerce.analytics'),
 	 *	)
@@ -58,9 +59,9 @@ return array(
 	'menu' => array(
         'System Settings' => array('settings.site'),
 
-        'Users' => array('users','groups'),
+        'Users' => array('users','groups','roles','permissions'),
 
-        'Localization' => array('states','codes')
+        'Localization' => array('codes')
     ),
 
     'sidebar' => array(
@@ -90,7 +91,7 @@ return array(
 	 */
 	'permission'=> function()
 	{
-		return Auth::check();
+		return Sentry::check();
 	},
 
 
@@ -182,7 +183,7 @@ return array(
 	 *
 	 * @type NULL|int
 	 */
-	'global_rows_per_page' => 20,
+	'global_rows_per_page' => 10,
 
 
 	/**
@@ -191,6 +192,6 @@ return array(
 	 *
 	 * @type array
 	 */
-	'locales' => array(),
+	'locales' => array('en'),
 
 );
