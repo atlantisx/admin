@@ -16,11 +16,11 @@ App::before(function($request)
     if(Sentry::check()){
         //[i] Get user
         $user = Sentry::getUser();
-        View::share(compact('user'));
 
         //[i] Get user role home path
         $user_realm = Atlantis::users()->getUserRealmById($user->id);
-        View::share(compact('user_realm'));
+
+        View::share(compact('user','user_realm'));
     }
 
     #i: List of admin setting to load

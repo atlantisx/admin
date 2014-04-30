@@ -7,7 +7,7 @@
     <ul class="nav navbar-collapse collapse navbar-collapse-primary">
          <li class="active">
             <span class="glow"></span>
-            <a href="{{ $user_role->home_path }}">
+            <a href="{{ $user_realm->home_path }}">
                 <i class="icon-dashboard icon-2x"></i>
                 <span>{{ trans('admin::user.menu_label_home') }}</span>
             </a>

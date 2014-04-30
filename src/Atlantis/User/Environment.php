@@ -20,7 +20,7 @@
 
 
 use \Illuminate\View\Environment as BaseEnvironment;
-use \Atlantis\User\Types\Role;
+use \Atlantis\User\Types\Realm;
 
 
 class Environment extends BaseEnvironment {
@@ -34,7 +34,7 @@ class Environment extends BaseEnvironment {
 
 
     public function getUserRealmById($userId){
-        $user_role = $user_default_role = \Config::get('admin::admin.user_default_role','user');
+        $user_realm = $user_default_role = \Config::get('admin::admin.user_default_role','user');
 
         //[i] Find user based on Id
         $user = $this->sentry->findUserById($userId);
@@ -45,14 +45,14 @@ class Environment extends BaseEnvironment {
             $group_permission = $user_groups->first()->getPermissions();
 
             if( count($group_permission) == 1){
-                $user_role = key($group_permission);
+                $user_realm = key($group_permission);
             }
         }*/
         if( $user_groups ){
-            $user_role = strtolower($user_groups->first()->name);
+            $user_realm = strtolower($user_groups->first()->name);
         }
 
-        return new Role($user_role);
+        return new Realm($user_realm);
     }
 
 }

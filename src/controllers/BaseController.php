@@ -19,7 +19,7 @@ class BaseController extends Controller {
      * Global Attributes
      -----------------------------------------------------------------------------------------------------------------*/
     protected $user;
-    protected $user_role;
+    protected $user_realm;
     protected $superuser;
     protected $route_name;
 
@@ -41,7 +41,7 @@ class BaseController extends Controller {
         #i: Current User
         if( \Sentry::getUser() ){
             $this->user = \Sentry::getUser();
-            $this->user_role = \Atlantis::users()->getUserRealmById($this->user->id)->name;
+            $this->user_realm = \Atlantis::users()->getUserRealmById($this->user->id)->name;
         }
 
         #i: Superuser
