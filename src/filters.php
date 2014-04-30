@@ -28,7 +28,11 @@ App::before(function($request)
 
     #i: Load admin config based on setting
     foreach($settings as $setting){
-        $setting_items = json_decode(@file_get_contents(storage_path() . "/admin_settings/$setting.json")) ?: array();
+        #i: Setting base path
+        $setting_base_path = Config::get('admin::admin.settings.base_path');
+
+        #i: Get setting json object
+        $setting_items = json_decode(@file_get_contents(storage_path() . "/settings/$setting_base_path/$setting.json")) ?: array();
 
         foreach($setting_items as $key => $value){
             Config::set("admin::$setting.$key", $value);

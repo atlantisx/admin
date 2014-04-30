@@ -76,7 +76,7 @@ class Config extends ConfigBase implements ConfigInterface {
 	public function getStoragePath()
 	{
 		$path = $this->getOption('storage_path');
-		$path = $path ? $path : storage_path() . '/admin_settings/';
+		$path = $path ? $path : storage_path() . '/settings/' . Config::get('admin::admin.settings.base_path');
 		return rtrim($path, '/') . '/';
 	}
 
