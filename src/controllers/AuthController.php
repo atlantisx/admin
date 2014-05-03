@@ -15,8 +15,6 @@ use Atlantis\Core\Controller\BaseController;
 
 
 class AuthController extends BaseController {
-    protected $layout = 'admin::layouts.common';
-
 
     /*******************************************************************************************************************
      * User Register [GET]

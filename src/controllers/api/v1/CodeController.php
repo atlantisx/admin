@@ -1,9 +1,9 @@
 <?php namespace Atlantis\Admin\Api\V1;
 
+use Atlantis\Core\Controller\BaseController;
 
-use Whoops\Example\Exception;
 
-class CodeController extends \BaseController{
+class CodeController extends BaseController{
 
     public function index(){
         $get = \Input::all();

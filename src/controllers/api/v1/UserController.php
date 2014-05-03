@@ -1,7 +1,9 @@
 <?php namespace Atlantis\Admin\Api\V1;
 
+use Atlantis\Core\Controller\BaseController;
 
-class UserController extends \BaseController{
+
+class UserController extends BaseController{
 
     public function index(){
         $users = \User::all();

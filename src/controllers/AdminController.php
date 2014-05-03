@@ -20,8 +20,6 @@ use Atlantis\Core\Controller\BaseController;
  */
 class AdminController extends BaseController
 {
-	protected $layout = "admin::layouts.common";
-
 
     /**
      * The main view for any of the data models.
