@@ -40,11 +40,8 @@
 
 <!-- JavaScripts
 ================================================== -->
+@yield('_javascript')
 @section('javascript')
-    <script>
-        var appBase = '{{ $appbase }}';
-    </script>
-
     @javascripts('common')
 @show
 

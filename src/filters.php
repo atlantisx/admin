@@ -1,43 +1,18 @@
 <?php
 
+use Illuminate\Filesystem\Filesystem;
 /*
 |--------------------------------------------------------------------------
 | Application Filter
+| Put process and workflow here. For vars use View Composer
 |--------------------------------------------------------------------------
 */
 
 App::before(function($request)
 {
-    #i: Getting admin site title
-    $title = Config::get('admin::admin.title');
-    View::share('title',$title);
-
-    #i: Authentication check
-    if(Sentry::check()){
-        //[i] Get user
-        $user = Sentry::getUser();
-
-        //[i] Get user role home path
-        $user_realm = Atlantis::users()->getUserRealmById($user->id);
-
-        View::share(compact('user','user_realm'));
-    }
-
-    #i: List of admin setting to load
-    $settings = array('site','user');
-
-    #i: Load admin config based on setting
-    foreach($settings as $setting){
-        #i: Setting base path
-        $setting_base_path = Config::get('admin::admin.settings.base_path');
-
-        #i: Get setting json object
-        $setting_items = json_decode(@file_get_contents(storage_path() . "/settings/$setting_base_path/$setting.json")) ?: array();
-
-        foreach($setting_items as $key => $value){
-            Config::set("admin::$setting.$key", $value);
-        }
-    }
+    Javascript::put(array(
+        'appBase' => url('/') . '/'
+    ));
 });
 
 

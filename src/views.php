@@ -5,8 +5,6 @@ use Atlantis\Admin\Fields\Field;
 
 
 View::composer(array('admin::layouts.common','layouts.common'), function($view){
-    $view->appbase = url('/') . '/';
-
     /*================================================================
         Common Assets
     ================================================================*/
@@ -152,6 +150,21 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('js/settings.js');
         });
     });
+
+
+    #i: Getting admin site title
+    View::share('title',Config::get('admin::site.title'));
+
+    #i: Authentication check
+    if(Sentry::check()){
+        //[i] Get user
+        $user = Sentry::getUser();
+
+        //[i] Get user role home path
+        $user_realm = Atlantis::users()->getUserRealmById($user->id);
+
+        View::share(compact('user','user_realm'));
+    }
 });
 
 
