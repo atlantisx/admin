@@ -33,6 +33,11 @@ return array(
 	 */
 	'settings_config_path' => app('path') . '/config/settings',
 
+    /**
+     *
+     *
+     * @type string
+     */
     'settings' => array(
         'base_path' => 'admin'
     ),
