@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
+use Atlantis\Core\Controller\BaseController;
 
 
 class AuthController extends BaseController {

@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\File\File as SFile;
 use Illuminate\Support\Facades\Validator as LValidator;
-use Atlantis\Admin\Fields\Field;
-
+use Atlantis\Core\Controller\BaseController;
 
 
 /**

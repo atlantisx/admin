@@ -1,5 +1,6 @@
 <?php namespace Atlantis\Admin;
 
+use Atlantis\Core\Controller\BaseController;
 use Former;
 
 
