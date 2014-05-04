@@ -1,21 +1,5 @@
 <?php
 
-use Illuminate\Filesystem\Filesystem;
-/*
-|--------------------------------------------------------------------------
-| Application Filter
-| Put process and workflow here. For vars use View Composer
-|--------------------------------------------------------------------------
-*/
-
-App::before(function($request)
-{
-    Javascript::put(array(
-        'appBase' => url('/') . '/'
-    ));
-});
-
-
 /*
 |--------------------------------------------------------------------------
 | Route Filters
