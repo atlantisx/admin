@@ -3,11 +3,11 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "32bf5f389b10a61ea9ca8a7a66fdcfd0",
+    "hash": "379a13d9c1cf6ef2b6e73f03743ea6df",
     "packages": [
         {
             "name": "illuminate/support",
-            "version": "v4.1.27",
+            "version": "v4.1.28",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
@@ -52,7 +52,7 @@
                     "name": "Taylor Otwell",
                     "email": "taylorotwell@gmail.com",
                     "homepage": "https://github.com/taylorotwell",
-                    "role": "Developer"
+                    "role": "Creator of Laravel"
                 }
             ],
             "time": "2014-03-22 20:29:54"
