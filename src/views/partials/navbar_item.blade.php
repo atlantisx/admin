@@ -3,7 +3,7 @@
         <a href="#">{{$key}}</a>
 		<ul class="dropdown-menu">
 			@foreach ($item as $key => $item)
-                @include('admin::partials.menu_item')
+                @include('admin::partials.navbar_item')
 			@endforeach
 		</ul>
 	</li>

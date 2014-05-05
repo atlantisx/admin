@@ -1,17 +1,6 @@
 <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="{{ url('/') }}/">{{ $title }}</a>
-        @if( isset($sidebar) )
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
-            <span class="sr-only">Toggle Side Navigation</span>
-            <i class="icon-th-list"></i>
-        </button>
-        @endif
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-top">
-            <span class="sr-only">Toggle Top Navigation</span>
-            <i class="icon-align-justify"></i>
-        </button>
-    </div>
+
+    @include('admin::partials.mobilebar')
 
     <div class="navbar-collapse navbar-collapse-top collapse">
         <div class="navbar-right">
@@ -28,7 +17,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         @foreach ($menu_admin as $key => $item)
-                            @include('admin::partials.menu_item')
+                            @include('admin::partials.navbar_item')
                         @endforeach
                     </ul>
                 </li>
