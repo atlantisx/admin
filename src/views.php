@@ -98,6 +98,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
             $collection->javascript('jquery.validation/jquery.validationEngine.js');
             $collection->javascript('jquery.touch/jquery.touch.js');
             $collection->javascript('jquery.datatables/jquery.datatables.js');
+            $collection->javascript('jquery.datatables/jquery.datatables.responsive.js');
             $collection->javascript('jquery.noty/jquery.noty.js');
             $collection->javascript('jquery.noty/layouts/topRight.js');
             $collection->javascript('jquery.noty/themes/default.js');
