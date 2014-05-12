@@ -21,7 +21,7 @@
 use Illuminate\Support\ServiceProvider;
 
 
-class UserProvider extends ServiceProvider {
+class UserServiceProvider extends ServiceProvider {
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -37,9 +37,24 @@ class UserProvider extends ServiceProvider {
      * @return void
      */
     public function register(){
-        $this->app['atlantis.user'] = $this->app->share(function($app){
-            return new Environment;
+        $this->app->bind('atlantis.user', function($app){
+            return new Environment($app, $app['sentry'], $app['atlantis.realm']);
         });
+    }
+
+
+    /**
+     * Boot service provider
+     *
+     * @return void
+     */
+    public function boot(){
+        $this->app['atlantis.user']->boot();
+    }
+
+
+    public function provides(){
+        return ['atlantis.user'];
     }
 
 }

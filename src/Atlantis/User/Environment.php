@@ -19,40 +19,33 @@
  */
 
 
-use \Illuminate\View\Environment as BaseEnvironment;
-use \Atlantis\User\Types\Realm;
+
+class Environment {
+    protected $app;
+    protected $auth;
+    protected $realm;
 
 
-class Environment extends BaseEnvironment {
-
-    protected $sentry;
-
-
-    public function __construct(){
-        $this->sentry = \App::make('sentry');
+    public function __construct($app, $auth, $realm){
+        $this->app = $app;
+        $this->auth = $auth;
+        $this->realm = $realm;
     }
 
 
-    public function getUserRealmById($userId){
-        $user_realm = $user_default_role = \Config::get('admin::admin.user_default_role','user');
+    public function boot(){
+        #i: Get controller provider
+        $controller = $this->app['atlantis.controller'];
 
-        //[i] Find user based on Id
-        $user = $this->sentry->findUserById($userId);
+        $controller->extend('auth', $this->auth);
+        $controller->extend('realm', $this->realm);
 
-        //[i] Checking user role
-        $user_groups = $user->getGroups();
-        /*if( $user_groups->count() == 1 ){
-            $group_permission = $user_groups->first()->getPermissions();
-
-            if( count($group_permission) == 1){
-                $user_realm = key($group_permission);
-            }
-        }*/
-        if( $user_groups ){
-            $user_realm = strtolower($user_groups->first()->name);
+        #i: Extending controller
+        if( $this->auth->getUser() ){
+            $controller->extend('user', $this->auth->getUser());
+            $controller->extend('superuser',  $this->auth->findAllUsersWithAccess('superuser')[0]);
+            $controller->extend('user_realm', $this->realm->current()->name);
         }
-
-        return new Realm($user_realm);
     }
 
 }

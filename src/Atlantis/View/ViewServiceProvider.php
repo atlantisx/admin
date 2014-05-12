@@ -25,8 +25,7 @@ use Illuminate\View\Engines\CompilerEngine;
 use Atlantis\View\Portlet\Eloquent\Provider as PortletProvider;
 use Atlantis\View\Facades\Laravel\Portlet;
 use Atlantis\View\Compilers\BladeCompiler;
-use Atlantis\View\Compilers\Compiler;
-use Illuminate\View\View;
+
 
 
 class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
@@ -50,6 +49,7 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
         parent::boot();
     }
 
+
 	/**
 	 * Register the service provider.
 	 *
@@ -57,10 +57,9 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
 	 */
 	public function register(){
         $this->registerBladeCustomEngine();
-
         $this->registerPortletProvider();
-
         $this->registerViewProvider();
+        $this->registerRealmProvider();
     }
 
 
@@ -72,18 +71,22 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
     protected function registerBladeCustomEngine(){
         $app = $this->app;
 
-        //[i] Get engine resolver
+        #i: Get engine resolver
         $resolver = $this->app['view.engine.resolver'];
 
-        //[i] Load custom Blade engine
-        $resolver->register('blade',function() use($app){
+        #i: Load custom Blade engine
+        $resolver->register('blade', function() use($app){
+            #i: Get view storage path
             $cache = $app['path.storage'].'/views';
 
+            #i: Instantiate blade compiler
             $compiler = new BladeCompiler($app['files'], $cache);
 
+            #i: Register new compiler
             return new CompilerEngine($compiler, $app['files']);
         });
     }
+
 
     /**
      *
@@ -91,22 +94,25 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
      * @return void
      */
     protected function registerBladeExtensions(){
-
+        #i: Get blade compiler
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
+        #i: Extend the blade compiler
         $blade->extend(function($value,$compiler) {
-            //[i] Portlet matcher
+            #i: Create portlet matcher
             $matcher = $compiler->createMatcher('portlet');
 
-            //[i] Get blade tag value
+            #i: Check matched tag value
             if( preg_match_all($matcher,$value,$matched) ){
-                //[i] Removed bracket+quote from value
+                #i: Removed bracket+quote from value
                 $name = preg_replace("([(')])", "", ($matched[2][0]));
 
-                //[i] Get portlet template
+                #i: Get portlet template
                 $template = Portlet::findByName($name)->template();
 
+                #i: Replace value with template
                 return preg_replace($matcher, $template, $value);
+
             }else{
                 return $value;
             }
@@ -154,6 +160,22 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
     }
 
 
+    /**
+     *
+     *
+     * @return void
+     */
+    protected function registerRealmProvider(){
+        $this->app['atlantis.realm'] = $this->app->share(function($app){
+            return new RealmProvider($app,$app['sentry']);
+        });
+
+        $this->app->bind('Atlantis\View\Interfaces\Realm',function($app){
+            return $app['atlantis.realm'];
+        });
+    }
+
+
 	/**
 	 * Get the services provided by the provider.
 	 *
@@ -161,6 +183,6 @@ class ViewServiceProvider extends \Illuminate\View\ViewServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('view');
+		return array('view','atlantis.realm');
 	}
 }

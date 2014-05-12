@@ -1,8 +1,5 @@
 <?php
 
-use Atlantis\Admin\ModelHelper;
-use Atlantis\Admin\Fields\Field;
-
 
 View::composer(array('admin::layouts.common','layouts.common'), function($view){
     /*================================================================
@@ -162,7 +159,7 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
         $user = Sentry::getUser();
 
         //[i] Get user role home path
-        $user_realm = Atlantis::users()->getUserRealmById($user->id);
+        $user_realm = App::make('Atlantis\View\Interfaces\Realm')->current();
 
         View::share(compact('user','user_realm'));
     }

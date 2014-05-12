@@ -41,13 +41,13 @@ class AuthController extends BaseController {
 
         try{
             #e: Trigger user registering
-            \Event::fire('user.registering', array($role));
+            Event::fire('user.registering', array($role));
 
             #i: Start database transaction
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
             #i: Register user
-            $user = \Sentry::register(Input::only('email','first_name','last_name','password'));
+            $user = $this->auth->register(Input::only('email','first_name','last_name','password'));
 
             #i: Preparing data
             $data = array(
@@ -67,13 +67,13 @@ class AuthController extends BaseController {
 
             #e: Trigger user registered
             $user = \User::find($user->id);
-            \Event::fire('user.registered', array($user,$role));
+            Event::fire('user.registered', array($user,$role));
 
             #i: Change view to registered
             $view = 'registered';
 
             #i: Commit DB transaction
-            \DB::commit();
+            DB::commit();
 
         }catch (\Exception $e){
             $data['_status'] = array(
@@ -82,7 +82,7 @@ class AuthController extends BaseController {
             );
 
             #i: Rollback DB transaction
-            \DB::rollback();
+            DB::rollback();
         }
 
         #i: View scaffolding
@@ -126,7 +126,7 @@ class AuthController extends BaseController {
         if(isset($data['login'])){
             try{
                 #i: Find user by login
-                $user = \Sentry::findUserByLogin($data['login']);
+                $user = $this->auth->findUserByLogin($data['login']);
 
                 #i: Prepare email variable if found
                 $data = array(
@@ -136,7 +136,7 @@ class AuthController extends BaseController {
                 );
 
                 #i: Queue job for activation email
-                \Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
+                Mail::queue('admin::emails.auth.activation',$data,function($message) use ($data){
                     $message
                         ->to($data['email'],$data['full_name'])
                         ->subject(trans('admin::user.activation_email_subject',$data));
@@ -177,7 +177,7 @@ class AuthController extends BaseController {
         if(!empty($code)){
             try{
                 #i: Find activation code by user
-                $user = \Sentry::findUserByActivationCode($code);
+                $user = $this->auth->findUserByActivationCode($code);
 
                 #i: Attempt to activate, throw error if unsuccess
                 if($user->attemptActivation($code)){
@@ -187,10 +187,10 @@ class AuthController extends BaseController {
                     );
 
                     #i: Inject role into params
-                    $get['role'] = \Atlantis::users()->getUserRealmById($user->id)->name or '';
+                    $get['role'] = $this->realm->byUserId($user->id)->name or '';
 
                     #i: Redirect to login
-                    return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$get);
+                    return Redirect::action('Atlantis\Admin\AuthController@getLogin',$get);
 
                 }else{
                     throw new Exception(trans('admin::user.activation_error'));
@@ -235,7 +235,7 @@ class AuthController extends BaseController {
         if(!empty($login) && !empty($code)){
             try{
                 #i: Get and check user
-                $user = \Sentry::findUserByLogin($login);
+                $user = $this->auth->findUserByLogin($login);
 
                 #i: Check activation code
                 if( !$user->checkResetPasswordCode($code) ) throw new \Exception(trans('admin::user.recovery_password_error'));
@@ -282,7 +282,7 @@ class AuthController extends BaseController {
 
         try{
             #i: Get user
-            $user = \Sentry::findUserByLogin($post['login']);
+            $user = $this->auth->findUserByLogin($post['login']);
 
             #i: Reset code generation
             if( $user && empty($post['code']) ){
@@ -298,7 +298,7 @@ class AuthController extends BaseController {
                     );
 
                     #i: Queue job for reset password email
-                    \Mail::queue('admin::emails.auth.recovery',$data,function($message) use ($data){
+                    Mail::queue('admin::emails.auth.recovery',$data,function($message) use ($data){
                         $message
                             ->to($data['email'],$data['full_name'])
                             ->subject(trans('admin::user.recovery_password_email_subject',$data));
@@ -328,10 +328,10 @@ class AuthController extends BaseController {
                     );
 
                     #i: Inject role into params
-                    $post['role'] = \Atlantis::users()->getUserRealmById($user->id)->name or '';
+                    $post['role'] = $this->realm->byUserId($user->id)->name or '';
 
                     #i: Redirect to login
-                    return \Redirect::action('Atlantis\Admin\AuthController@getLogin',$post);
+                    return Redirect::action('Atlantis\Admin\AuthController@getLogin',$post);
                 }
             }
 
@@ -360,13 +360,13 @@ class AuthController extends BaseController {
         $get = Input::all();
 
         #i: Get default home
-        $home = \Config::get('admin::admin.user_home','home');
+        $home = Config::get('admin::admin.user_home','home');
 
         #i: View scaffolding
         if($role == 'admin::user' && View::exists('user.login')) $role = 'user';
 
-        #i: Sentry auth check
-        if( \Sentry::check() ) return Redirect::to($role.'/'.$home);
+        #i: Auth check
+        if( $this->auth->check() ) return Redirect::to($role.'/'.$home);
 
         #i: Loading view
         $this->layout->content = View::make($role.'.login',$get);
@@ -379,45 +379,45 @@ class AuthController extends BaseController {
      * @params $role User role
      ******************************************************************************************************************/
     public function postLogin($realm='user'){
-        $post = \Input::all();
-        $home = \Config::get('admin::admin.user_home','home');
+        $post = Input::all();
+        $home = Config::get('admin::admin.user_home','home');
 
         try{
             #i: Get credential
-            $credential = \Input::only('email','password');
+            $credential = Input::only('email','password');
 
             #i: Validate credentials
             $validation = \Validator::make($credential, array('email'=>'email'));
 
             if( $validation->passes() ){
                 #e: Login event
-                \Event::fire('auth.login', array($realm,$credential));
+                Event::fire('auth.login', array($realm,$credential));
 
                 #i: Authenticate
-                $granted = \Sentry::authenticate($credential,false);
+                $granted = $this->auth->authenticate($credential,false);
 
             }else{
                 #e: Alternative login event, do your custom user searching and return user object
-                $user = \Event::fire('auth.login.alternative', array($realm,$credential));
+                $user = Event::fire('auth.login.alternative', array($realm,$credential));
 
                 #i: Get user email
                 if($user[0]) $credential['email'] = $user[0]->email;
 
                 #i: Authenticate
-                $granted = \Sentry::authenticate($credential,false);
+                $granted = $this->auth->authenticate($credential,false);
             }
 
             #i: Redirect to user home if granted
             if($granted){
                 #i: Check user role
-                $user_realm = \Atlantis::users()->getUserRealmById(\Sentry::getUser()->id)->name;
+                $user_realm = $this->realm->current()->name;
                 if( $user_realm ) $realm = $user_realm;
 
                 #i: Redirect to home
                 if( View::exists($realm.'/'.$home) ){
-                    return \Redirect::to($realm.'/'.$home);
+                    return Redirect::to($realm.'/'.$home);
                 }else{
-                    return \Redirect::to('user/'.$home);
+                    return Redirect::to('user/'.$home);
                 }
             }
 
@@ -441,7 +441,7 @@ class AuthController extends BaseController {
      *
      ******************************************************************************************************************/
     public function getLogout(){
-        \Sentry::logout();
+        $this->auth->logout();
         return Redirect::to('public/page');
     }
 }

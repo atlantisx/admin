@@ -1,4 +1,4 @@
-<?php namespace Atlantis\User\Types;
+<?php namespace Atlantis\View\Types;
 
 
 class Realm {
