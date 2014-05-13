@@ -27,6 +27,7 @@ use Atlantis\Admin\DataTable\DataTable;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator as LValidator;
+use Illuminate\Foundation\AliasLoader;
 
 class AdminServiceProvider extends ServiceProvider {
 
@@ -125,7 +126,29 @@ class AdminServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register(){	}
+	public function register(){
+        $this->registerDependencies();
+        $this->registerAlias();
+    }
+
+
+    public function registerDependencies(){
+        $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
+        $this->app->register('Zizaco\Entrust\EntrustServiceProvider');
+        $this->app->register('Menu\MenuServiceProvider');
+        $this->app->register('Baum\BaumServiceProvider');
+        $this->app->register('Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider');
+    }
+
+
+    public function registerAlias(){
+        $alias = AliasLoader::getInstance();
+
+        $alias->alias('Sentry','Cartalyst\Sentry\Facades\Laravel\Sentry');
+        $alias->alias('Entrust','Zizaco\Entrust\EntrustFacade');
+        $alias->alias('Gravatar','Thomaswelton\LaravelGravatar\Facades\Gravatar');
+        $alias->alias('Menu','Menu\Menu');
+    }
 
 
 	/**

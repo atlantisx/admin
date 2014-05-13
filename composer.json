@@ -1,7 +1,7 @@
 {
     "name": "atlantis/admin",
-    "description": "Atlantis X PHP Admin",
-    "keywords": ["administrator", "admin", "database", "atlantis", "laravel", "cms"],
+    "description": "Atlantis Framework : Admin",
+    "keywords": ["administrator", "admin", "database", "atlantis", "laravel", "cms", "enterprise"],
     "authors": [
         {
             "name": "Azri Jamil",
@@ -9,8 +9,15 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.1.*"
+        "php": ">=5.4",
+        "illuminate/support": "4.1.*",
+        "cartalyst/sentry": "2.1.*",
+        "zizaco/entrust": "dev-master",
+        "laravelbook/ardent": "dev-master",
+        "baum/baum": "~1.0",
+        "vespakoen/menu": "dev-master",
+        "noherczeg/breadcrumb": "dev-master",
+        "thomaswelton/laravel-gravatar": "dev-master"
     },
     "autoload": {
         "classmap": [
