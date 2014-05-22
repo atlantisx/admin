@@ -55,7 +55,6 @@ class AdminServiceProvider extends ServiceProvider {
         $this->registerServiceAdminValidator();
         $this->registerServiceAdminFactory();
         $this->registerServiceAdminDataTable();
-        $this->registerServiceAdminMenu();
 
 		#i: Include our filters, view composers, and routes
 		include __DIR__.'/../../filters.php';
@@ -111,7 +110,6 @@ class AdminServiceProvider extends ServiceProvider {
      * @return void
      */
     public function registerServiceAdminValidator(){
-        //the admin validator
         $this->app['admin_validator'] = $this->app->share(function($app)
         {
             //get the original validator class so we can set it back after creating our own
@@ -147,7 +145,6 @@ class AdminServiceProvider extends ServiceProvider {
      * @return void
      */
     public function registerServiceAdminFactory(){
-        //set up the shared instances
         $this->app['admin_config_factory'] = $this->app->share(function($app)
         {
             return new ConfigFactory($app->make('admin_validator'), Config::get('admin::admin'));
@@ -182,19 +179,6 @@ class AdminServiceProvider extends ServiceProvider {
             $dataTable->setRowsPerPage($app->make('session.store'), Config::get('admin::admin.global_rows_per_page'));
 
             return $dataTable;
-        });
-    }
-
-
-    /**
-     *
-     *
-     * @return void
-     */
-    public function registerServiceAdminMenu(){
-        $this->app['admin_menu'] = $this->app->share(function($app)
-        {
-            return new Menu($app->make('config'), $app->make('admin_config_factory'));
         });
     }
 
