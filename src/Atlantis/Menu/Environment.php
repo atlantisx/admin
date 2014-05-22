@@ -1,36 +1,18 @@
-<?php
-namespace Atlantis\Admin;
+<?php namespace Atlantis\Menu;
 
 use Illuminate\Config\Repository AS Config;
-use Atlantis\Admin\Config\Factory AS ConfigFactory;
 
-class Menu {
 
-	/**
-	 * The config instance
-	 *
-	 * @var \Illuminate\Config\Repository
-	 */
-	protected $config;
+class Environment {
 
-	/**
-	 * The config instance
-	 *
-	 * @var \Atlantis\Admin\Config\Factory
-	 */
-	protected $configFactory;
+	protected $app;
 
-	/**
-	 * Create a new Menu instance
-	 *
-	 * @param \Illuminate\Config\Repository				$config
-	 * @param \Atlantis\Admin\Config\Factory	$config
-	 */
-	public function __construct(Config $config, ConfigFactory $configFactory)
+
+	public function __construct($app)
 	{
-		$this->config = $config;
-		$this->configFactory = $configFactory;
+		$this->config = $app;
 	}
+
 
 	/**
 	 * Gets the menu items indexed by their name with a value of the title
