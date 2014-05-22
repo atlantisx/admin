@@ -245,17 +245,17 @@
         },
         {
             "name": "illuminate/cache",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Cache",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
-                "reference": "e896940c3232d96bd802734184164fae5cdb2141"
+                "reference": "fe78a7cd013cd4a175cad1cfc564e549ac234a6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cache/zipball/e896940c3232d96bd802734184164fae5cdb2141",
-                "reference": "e896940c3232d96bd802734184164fae5cdb2141",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/fe78a7cd013cd4a175cad1cfc564e549ac234a6f",
+                "reference": "fe78a7cd013cd4a175cad1cfc564e549ac234a6f",
                 "shasum": ""
             },
             "require": {
@@ -293,21 +293,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-04-16 14:40:58"
+            "time": "2014-05-02 18:11:11"
         },
         {
             "name": "illuminate/config",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
-                "reference": "101117c45d703bd03e2aa55f2d58ca73bf9b3447"
+                "reference": "7492390a13d575e73460e6738ba38a3e41ac0341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/config/zipball/101117c45d703bd03e2aa55f2d58ca73bf9b3447",
-                "reference": "101117c45d703bd03e2aa55f2d58ca73bf9b3447",
+                "url": "https://api.github.com/repos/illuminate/config/zipball/7492390a13d575e73460e6738ba38a3e41ac0341",
+                "reference": "7492390a13d575e73460e6738ba38a3e41ac0341",
                 "shasum": ""
             },
             "require": {
@@ -341,24 +341,25 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-03-22 20:12:48"
+            "time": "2014-04-16 00:49:36"
         },
         {
             "name": "illuminate/console",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
-                "reference": "c8c7ca32df00ca5503fcde6a28568055a1cdf8fc"
+                "reference": "e2f771cf8afaa3febc71a97ba4d9be21e7bd377b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/c8c7ca32df00ca5503fcde6a28568055a1cdf8fc",
-                "reference": "c8c7ca32df00ca5503fcde6a28568055a1cdf8fc",
+                "url": "https://api.github.com/repos/illuminate/console/zipball/e2f771cf8afaa3febc71a97ba4d9be21e7bd377b",
+                "reference": "e2f771cf8afaa3febc71a97ba4d9be21e7bd377b",
                 "shasum": ""
             },
             "require": {
+                "php": ">=5.3.0",
                 "symfony/console": "2.4.*"
             },
             "require-dev": {
@@ -387,21 +388,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-03-23 01:00:18"
+            "time": "2014-04-18 21:49:31"
         },
         {
             "name": "illuminate/container",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "51d590fd7e301f56c567459a26343a8288330f69"
+                "reference": "1bc5798b2241219ec76c57736ab139527cc2d3ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/51d590fd7e301f56c567459a26343a8288330f69",
-                "reference": "51d590fd7e301f56c567459a26343a8288330f69",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/1bc5798b2241219ec76c57736ab139527cc2d3ad",
+                "reference": "1bc5798b2241219ec76c57736ab139527cc2d3ad",
                 "shasum": ""
             },
             "require": {
@@ -433,21 +434,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-03-22 20:29:54"
+            "time": "2014-04-21 18:20:26"
         },
         {
             "name": "illuminate/cookie",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Cookie",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cookie.git",
-                "reference": "265ff9f3b077c4f549aad0404a85b490c97fe511"
+                "reference": "007daf5970f9bdf48180965b62384390e370848b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cookie/zipball/265ff9f3b077c4f549aad0404a85b490c97fe511",
-                "reference": "265ff9f3b077c4f549aad0404a85b490c97fe511",
+                "url": "https://api.github.com/repos/illuminate/cookie/zipball/007daf5970f9bdf48180965b62384390e370848b",
+                "reference": "007daf5970f9bdf48180965b62384390e370848b",
                 "shasum": ""
             },
             "require": {
@@ -488,17 +489,17 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Database",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "c84f39734c6bfe7fbf694ff8dc33d15605553de2"
+                "reference": "00babb09abdb2115c5380c3c1090ca8f533bd30b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/c84f39734c6bfe7fbf694ff8dc33d15605553de2",
-                "reference": "c84f39734c6bfe7fbf694ff8dc33d15605553de2",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/00babb09abdb2115c5380c3c1090ca8f533bd30b",
+                "reference": "00babb09abdb2115c5380c3c1090ca8f533bd30b",
                 "shasum": ""
             },
             "require": {
@@ -546,27 +547,27 @@
                 "orm",
                 "sql"
             ],
-            "time": "2014-04-11 20:10:04"
+            "time": "2014-05-20 13:21:41"
         },
         {
             "name": "illuminate/encryption",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Encryption",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/encryption.git",
-                "reference": "9974a90f92b5eaddfd8b258936acb575e733eb15"
+                "reference": "afa985079aa97909df7840e847d38cc3d307fe92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/encryption/zipball/9974a90f92b5eaddfd8b258936acb575e733eb15",
-                "reference": "9974a90f92b5eaddfd8b258936acb575e733eb15",
+                "url": "https://api.github.com/repos/illuminate/encryption/zipball/afa985079aa97909df7840e847d38cc3d307fe92",
+                "reference": "afa985079aa97909df7840e847d38cc3d307fe92",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.1.*",
                 "php": ">=5.3.0",
-                "symfony/security": "2.4.*"
+                "symfony/security-core": "2.4.*"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.0.*"
@@ -594,21 +595,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-04-17 16:30:31"
+            "time": "2014-05-02 21:03:07"
         },
         {
             "name": "illuminate/events",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Events",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
-                "reference": "ef6ae5962134a35667f24349bc2c9b8ad1e20c8b"
+                "reference": "4e83ee4f255ec084d510e533ef8e98961aae8729"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/events/zipball/ef6ae5962134a35667f24349bc2c9b8ad1e20c8b",
-                "reference": "ef6ae5962134a35667f24349bc2c9b8ad1e20c8b",
+                "url": "https://api.github.com/repos/illuminate/events/zipball/4e83ee4f255ec084d510e533ef8e98961aae8729",
+                "reference": "4e83ee4f255ec084d510e533ef8e98961aae8729",
                 "shasum": ""
             },
             "require": {
@@ -647,17 +648,17 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "3b81b7825065328ea9be926bf80f3253bdf94244"
+                "reference": "bae44b67e7bd68ef676c77cdb70eb505a3aff9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/3b81b7825065328ea9be926bf80f3253bdf94244",
-                "reference": "3b81b7825065328ea9be926bf80f3253bdf94244",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/bae44b67e7bd68ef676c77cdb70eb505a3aff9aa",
+                "reference": "bae44b67e7bd68ef676c77cdb70eb505a3aff9aa",
                 "shasum": ""
             },
             "require": {
@@ -695,22 +696,23 @@
         },
         {
             "name": "illuminate/http",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Http",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
-                "reference": "cffc5778a1138127c326efbc67e04f0e5e0a36b2"
+                "reference": "cab212a7ee499124a2ec66015f593eafe5e3b7c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/cffc5778a1138127c326efbc67e04f0e5e0a36b2",
-                "reference": "cffc5778a1138127c326efbc67e04f0e5e0a36b2",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/cab212a7ee499124a2ec66015f593eafe5e3b7c3",
+                "reference": "cab212a7ee499124a2ec66015f593eafe5e3b7c3",
                 "shasum": ""
             },
             "require": {
                 "illuminate/session": "4.1.*",
                 "illuminate/support": "4.1.*",
+                "php": ">=5.3.0",
                 "symfony/http-foundation": "2.4.*",
                 "symfony/http-kernel": "2.4.*"
             },
@@ -741,21 +743,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-04-11 19:21:28"
+            "time": "2014-05-02 18:11:11"
         },
         {
             "name": "illuminate/session",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Session",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
-                "reference": "2b9d7f871f0a1f1e23843e625a90121da325733e"
+                "reference": "bdf63771abd0e090453474896b4b396f44f48117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/session/zipball/2b9d7f871f0a1f1e23843e625a90121da325733e",
-                "reference": "2b9d7f871f0a1f1e23843e625a90121da325733e",
+                "url": "https://api.github.com/repos/illuminate/session/zipball/bdf63771abd0e090453474896b4b396f44f48117",
+                "reference": "bdf63771abd0e090453474896b4b396f44f48117",
                 "shasum": ""
             },
             "require": {
@@ -800,17 +802,17 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "69b248f240719e8d764ee6ec0384819fa57d60bb"
+                "reference": "7716337401e573ba69923d335c0ee01fd5448df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/69b248f240719e8d764ee6ec0384819fa57d60bb",
-                "reference": "69b248f240719e8d764ee6ec0384819fa57d60bb",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/7716337401e573ba69923d335c0ee01fd5448df7",
+                "reference": "7716337401e573ba69923d335c0ee01fd5448df7",
                 "shasum": ""
             },
             "require": {
@@ -848,21 +850,21 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-03-22 20:29:54"
+            "time": "2014-05-02 18:11:11"
         },
         {
             "name": "illuminate/validation",
-            "version": "v4.1.28",
+            "version": "v4.1.29",
             "target-dir": "Illuminate/Validation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/validation.git",
-                "reference": "5d621ab9a5e94158fb5564bb319193fff3e72491"
+                "reference": "70ef72ed282cb5b996c8b041dc3c2a95d0de73dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/validation/zipball/5d621ab9a5e94158fb5564bb319193fff3e72491",
-                "reference": "5d621ab9a5e94158fb5564bb319193fff3e72491",
+                "url": "https://api.github.com/repos/illuminate/validation/zipball/70ef72ed282cb5b996c8b041dc3c2a95d0de73dc",
+                "reference": "70ef72ed282cb5b996c8b041dc3c2a95d0de73dc",
                 "shasum": ""
             },
             "require": {
@@ -900,7 +902,7 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-04-12 18:37:54"
+            "time": "2014-05-08 12:48:19"
         },
         {
             "name": "laravelbook/ardent",
