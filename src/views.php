@@ -155,10 +155,10 @@ View::composer(array('admin::layouts.common','layouts.common'), function($view){
 
     #i: Authentication check
     if(Sentry::check()){
-        //[i] Get user
+        #i: Get user
         $user = Sentry::getUser();
 
-        //[i] Get user role home path
+        #i: Get user role home path
         $user_realm = App::make('Atlantis\View\Interfaces\Realm')->current();
 
         View::share(compact('user','user_realm'));
@@ -172,12 +172,12 @@ View::composer(array('admin::layouts.user'), function($view){
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
     $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
 
-    //[i] (User Role Only) Menu : Admin
+    #i: (User Role Only) Menu : Admin
     if( Sentry::getUser()->hasAnyAccess($permissions) ){
-        $view->menu_admin = App::make('admin_menu')->getMenu();
+        $view->menu_admin = App::make('atlantis.menu')->getMenu();
     }
 
-    //[i] (Global Role) Sidebar : Applications
+    #i: (Global Role) Sidebar : Applications
     View::share( array('sidebar' => array(
         'applications' => Config::get('admin::admin.sidebar.applications'),
         'user' => Config::get('admin::admin.sidebar.user'),
@@ -185,20 +185,18 @@ View::composer(array('admin::layouts.user'), function($view){
 });
 
 
-//header view
 View::composer(array('admin::partials.header'), function($view)
 {
-    $view->menu = App::make('admin_menu')->getMenu();
+    $view->menu = App::make('atlantis.menu')->getMenu();
     $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
     $view->configType = App::bound('itemconfig') ? App::make('itemconfig')->getType() : false;
 });
 
 
-//admin index view
 View::composer('admin::admin.admin', function($view)
 {
-    //get a model instance that we'll use for constructing stuff
+    #i: Get a model instance that we'll use for constructing stuff
     $config = App::make('itemconfig');
     $fieldFactory = App::make('admin_field_factory');
     $columnFactory = App::make('admin_column_factory');
@@ -208,7 +206,7 @@ View::composer('admin::admin.admin', function($view)
     $baseUrl = URL::route('admin_dashboard');
     $route = parse_url($baseUrl);
 
-    //add the view fields
+    #i: Add the view fields
     $view->config = $config;
     $view->dataTable = $dataTable;
     $view->primaryKey = $model->getKeyName();
@@ -229,7 +227,6 @@ View::composer('admin::admin.admin', function($view)
 });
 
 
-//admin settings view
 View::composer('admin::admin.settings', function($view)
 {
     $config = App::make('itemconfig');
