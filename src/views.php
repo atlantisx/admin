@@ -179,8 +179,8 @@ View::composer(array('admin::layouts.user'), function($view){
 
     #i: (Global Role) Sidebar : Applications
     View::share( array('sidebar' => array(
-        'applications' => Config::get('admin::admin.sidebar.applications'),
-        'user' => Config::get('admin::admin.sidebar.user'),
+        'applications' => Config::get('admin::menu.sidebar.applications'),
+        'user' => Config::get('admin::menu.sidebar.user'),
     )));
 });
 

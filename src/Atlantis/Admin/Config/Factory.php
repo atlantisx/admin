@@ -66,7 +66,7 @@ class Factory {
 		'title' => 'required|string',
 		'model_config_path' => 'required|string|directory',
 		'settings_config_path' => 'required|string|directory',
-		'menu' => 'required|array|not_empty',
+		//'menu' => 'required|array|not_empty',
 		'permission' => 'required|callable',
 		'use_dashboard' => 'required',
 		'dashboard_view' => 'string',
@@ -87,6 +87,9 @@ class Factory {
 		$this->options = $options;
 		$this->validator = $validator;
 		$validator->override($this->options, $this->rules);
+
+        #i: Override menu from menu config
+        $this->options['menu'] = \App::make('config')->get('admin::menu.admin');
 
 		//if the validator failed, throw an exception
 		if ($validator->fails())

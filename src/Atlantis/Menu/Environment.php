@@ -23,7 +23,7 @@ class Environment {
 	{
 		$menu = array();
 
-		if (!$subMenu) $subMenu = $this->app['config']->get('admin::admin.menu');
+		if (!$subMenu) $subMenu = $this->app['config']->get('admin::menu.admin');
 
 		#i: iterate over the menu to build the return array of valid menu items
 		foreach ($subMenu as $key => $item){
