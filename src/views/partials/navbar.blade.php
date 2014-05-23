@@ -12,7 +12,7 @@
                 @if( isset($menu_admin) )
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <?php echo trans('admin::admin.system') ?>
+                        {{ trans('admin::admin.system') }}
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
