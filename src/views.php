@@ -6,8 +6,6 @@ View::composer(array('core::layouts.common'), function($view){
         Admin Assets
     ================================================================*/
     Basset::collection('admin', function($collection){
-        $collection->requireDirectory('libs/jquery.uniform');
-
         $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
             $collection->javascript('admin/knockout-2.2.0.js');
             $collection->javascript('admin/knockout.mapping.js');
@@ -16,6 +14,7 @@ View::composer(array('core::layouts.common'), function($view){
             $collection->javascript('admin/markdown.js');
             $collection->javascript('admin/accounting.js');
             $collection->javascript('admin/history.min.js');
+            $collection->requireDirectory('jquery.uniform');
         });
 
         $collection->directory('packages/atlantis/admin/javascript', function($collection){
