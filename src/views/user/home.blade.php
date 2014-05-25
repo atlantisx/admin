@@ -1,27 +1,17 @@
-@extends('admin::layouts.user')
+@extends('themes/default::layouts.fluid')
 
 @section('container')
     <div class="container">
         <div class="row padded">
-            @if( isset($_status) )
-            <div class="alert alert-{{ $status['type'] }}">
-                {{ $_status['message'] }}
-            </div>
-            @endif
+            @include('core::partials.error')
         </div>
 
         <div class="row">
             <div class="col-md-4">
                 @portlet('user.tag')
             </div>
-
             <div class="col-md-8">
-
             </div>
         </div>
     </div>
-@stop
-
-@section('javascript')
-    @parent
 @stop

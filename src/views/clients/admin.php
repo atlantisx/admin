@@ -23,7 +23,7 @@
                 <a class="new_item"
                    data-bind="attr: {href: base_url + modelName() + '/new'},
 								text: '<?php echo trans('admin::admin.new') ?> ' + modelSingle()">
-                   <i class="icon-refresh"></i>
+                   <i class="fa fa-refresh"></i>
                 </a>
                 <!-- /ko -->
             </li>

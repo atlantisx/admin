@@ -8,7 +8,7 @@
          <li class="active">
             <span class="glow"></span>
             <a href="{{ $user_realm->home_path }}">
-                <i class="icon-dashboard icon-2x"></i>
+                <i class="fa fa-dashboard fa-2x"></i>
                 <span>{{ trans('admin::user.menu_label_home') }}</span>
             </a>
         </li>
