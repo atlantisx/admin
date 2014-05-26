@@ -1,9 +1,9 @@
 @if (is_array($item))
-	<li class="dark-nav">
+	<li>
         <span class="glow"></span>
         <a href="#{{ $key }}" data-toggle="collapse" class="accordion-toggle collapsed ">
             <i class="fa fa-{{ $item['icon'] or 'laptop' }} fa-2x"></i>
-            <span>{{ $item['title'] }}<i class="fa fa-caret-down"></i></span>
+            <span>{{ $item['title'] }} <i class="fa fa-caret-down"></i></span>
         </a>
 		<ul class="collapse" id="{{$key}}">
 			@foreach ($item['items'] as $key => $child)
