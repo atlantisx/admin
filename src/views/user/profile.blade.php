@@ -1,23 +1,16 @@
-@extends('admin::layouts.user')
+@extends('themes/default::layouts.fluid')
 
 @section('container')
-<div class="container" ng-controller="controllerProfile">
-    <div class="row padded">
-        @if( isset($_status) )
-        <div class="alert alert-{{ $status['type'] }}">
-            <button class="close" data-dismiss="alert" type="button">x</button>
-            {{ $_status['message'] }}
-        </div>
-        @endif
-    </div>
+<div class="container" ng-controller="controllerProfile" style="margin-top: 15px;">
+    @include('core::partials.error')
 
-    <div class="row">
-        <div class="col-md-3">
+    <div class="col-fixed">
+        <div class="col-fixed-200">
             <div class="thumbnail" style="width: 200px; height: 200px;">
                 <a href="http://www.gravatar.com/{{ md5($user_profile->email) }}.hcard" target="_blank"><img class="media-object" src="{{ Gravatar::src($user_profile->email,200) }}" width="200" height="200" alt="avatar" /></a>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="content">
             <div class="box">
                 <div class="box-header">
                     <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
