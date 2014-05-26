@@ -1,46 +1,23 @@
-@section('stylesheet')
-    @parent
-    @stylesheets('public')
-@stop
+@extends('themes/default::layouts.fixed-box')
 
-@section('content')
-<div class="container">
-    <div class="col-md-4 col-md-offset-4">
-        <div class="row login">
-            <div class="col-md-12 text-center">
-                <a href="{{ url('/') }}/"><img src="{{ asset('assets/img/logo.png') }}"></a>
-            </div>
+@section('box-header')
+    <div class="title">{{ trans('admin::user.activate_title') }}</div>
+@show
+
+@section('box-content')
+    {{ Former::open()->method('GET')->class('separate-sections') }}
+        <div class="input-group addon-left">
+            <span class="input-group-addon" href="#"><i class="fa fa-user"></i></span>
+            {{ Form::text('code', '', array('placeholder'=> trans('admin::user.activate_code')) ) }}
         </div>
-
-        <div class="login box">
-            <div class="box-header">
-                <div class="title">{{ trans('admin::user.activate_title') }}</div>
-            </div>
-            <div class="box-content padded">
-            @if( isset($_status) )
-                <div class="alert alert-{{ $_status['type'] }}">
-                    {{ $_status['message'] }}
-                </div>
-            @endif
-            {{ Former::open()->method('GET')->class('separate-sections') }}
-                <div class="input-group addon-left">
-                    <span class="input-group-addon" href="#"><i class="fa fa-user"></i></span>
-                    {{ Form::text('code', '', array('placeholder'=> trans('admin::user.activate_code')) ) }}
-                </div>
-                <div>
-                    <btn id="submit" class="btn btn-blue btn-block">{{ trans('admin::user.activation_btn_activate') }} <i class="fa fa-signin"></i></btn>
-                </div>
-            {{ Former::close() }}
-            </div>
+        <div>
+            <btn id="submit" class="btn btn-blue btn-block">{{ trans('admin::user.activation_btn_activate') }} <i class="fa fa-signin"></i></btn>
         </div>
-
-    </div>
-</div>
-@stop
+    {{ Former::close() }}
+@show
 
 @section('javascript')
     @parent
-    @javascripts('public')
     <script>
         $(document).ready(function(){
             $('#submit').on('click',function(){
