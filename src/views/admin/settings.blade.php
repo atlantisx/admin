@@ -1,4 +1,4 @@
-@extends('admin::layouts.user')
+@extends('themes/default::layouts.fluid')
 
 @section('container')
     <div id="settings_page" class="container">
