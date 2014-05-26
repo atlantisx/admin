@@ -31,22 +31,12 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
                         <span>
-                            <!--<img src="{{ Gravatar::src($user->email) }}" class="menu-avatar">-->
                             <span>{{ $user->first_name }} <i class="fa fa-caret-down"></i></span>
                         </span>
-                        <!--<span class="badge badge-dark-red">0</span>-->
                     </a>
                     <ul class="dropdown-menu">
-                        <!--
-                        <li class="with-image">
-                            <div class="avatar"><img src="{{ Gravatar::src($user->email,100) }}"></div>
-                        </li>
-                        <li class="divider"></li>
-                        -->
-
                         <li><a href="{{ url('user/profile') }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
-                        <!--<li><a href="{{ url('message/list/' . $user->id) }}"><i class="fa fa-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">0</span></a></li>-->
-                        <li><a href="{{ url('user/logout') }}"><i class="fa fa-off"></i> <span>Logout</span></a></li>
+                        <li><a href="{{ url('user/logout') }}"><i class="fa fa-sign-out"></i> <span>Logout</span></a></li>
                     </ul>
                 </li>
             </ul>
