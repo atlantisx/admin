@@ -1,6 +1,5 @@
 <?php
 
-
 View::composer(array('core::layouts.common'), function($view){
     /*================================================================
         Admin Assets
@@ -41,7 +40,7 @@ View::composer(array('core::layouts.common'), function($view){
 });
 
 
-View::composer(array('admin::layouts.user'), function($view){
+View::composer(array('themes/default::layouts.fluid'), function($view){
     $permissions = Config::get('admin::admin.permissions');
     $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();
     $view->pagePrefix = App::make('admin_config_factory')->getPagePrefix();
