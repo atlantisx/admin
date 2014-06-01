@@ -8,6 +8,7 @@
             "email": "azri@nematix.com"
         }
     ],
+    "license": "MIT",
     "require": {
         "php": ">=5.4",
         "illuminate/support": "4.1.*",
