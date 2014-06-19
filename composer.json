@@ -11,12 +11,11 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4",
-        "illuminate/support": "4.1.*",
+        "illuminate/support": "~4.2",
         "cartalyst/sentry": "2.1.*",
         "zizaco/entrust": "dev-master",
         "laravelbook/ardent": "dev-master",
         "baum/baum": "~1.0",
-        "vespakoen/menu": "dev-master",
         "noherczeg/breadcrumb": "dev-master",
         "thomaswelton/laravel-gravatar": "dev-master"
     },
