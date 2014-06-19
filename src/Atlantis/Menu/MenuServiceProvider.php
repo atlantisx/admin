@@ -41,6 +41,14 @@ class MenuServiceProvider extends BaseServiceProvider {
         $this->app['atlantis.menu'] = $this->app->share(function($app){
             return new Environment($app);
         });
+
+        /*
+        $this->package('vespakoen/menu', null, __DIR__ . '/../');
+        $container = Menu::getContainer();
+        $container['url'] = $this->app['url'];
+        $container['config'] = $this->app['config'];
+        Menu::setContainer($container);
+         */
     }
 
 
@@ -50,7 +58,7 @@ class MenuServiceProvider extends BaseServiceProvider {
      * @return void
      */
     public function boot(){
-        $this->package('atlantis/admin');
+        $this->package('atlantis/menu');
     }
 
 

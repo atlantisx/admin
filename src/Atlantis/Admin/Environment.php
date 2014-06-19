@@ -19,7 +19,7 @@
  */
 
 
-use \Illuminate\View\Environment as BaseEnvironment;
+use Illuminate\View\Factory as BaseEnvironment;
 
 
 class Environment extends BaseEnvironment {

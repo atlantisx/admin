@@ -84,7 +84,7 @@ class AdminServiceProvider extends ServiceProvider {
     public function registerDependencies(){
         $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
         $this->app->register('Zizaco\Entrust\EntrustServiceProvider');
-        $this->app->register('Menu\MenuServiceProvider');
+        //$this->app->register('Menu\MenuServiceProvider');
         $this->app->register('Baum\BaumServiceProvider');
         $this->app->register('Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider');
     }

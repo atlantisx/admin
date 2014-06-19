@@ -20,11 +20,12 @@
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Illuminate\Support\Facades\Cache;
-use \Illuminate\View\Environment as BaseEnvironment;
-use \Illuminate\Support\Facades\File;
+use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Support\Facades\File;
+use Atlantis\View\View;
 
 
-class Environment extends BaseEnvironment{
+class Environment extends ViewFactory{
 
     /**
      * Get a evaluated view contents for the given view.
