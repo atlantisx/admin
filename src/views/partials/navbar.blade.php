@@ -12,8 +12,7 @@
                 @if( isset($menu_admin) )
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        {{ trans('admin::admin.system') }}
-                        <b class="caret"></b>
+                        {{ trans('admin::admin.system') }} <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         @foreach ($menu_admin as $key => $item)
@@ -29,10 +28,8 @@
                  User menu
                  ==========================================-->
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle dropdown-avatar" href="#">
-                        <span>
-                            <span>{{ $user->first_name }} <i class="fa fa-caret-down"></i></span>
-                        </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        {{ $user->first_name }} <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('user/profile') }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
