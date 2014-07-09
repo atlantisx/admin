@@ -44,7 +44,7 @@ class AuthController extends BaseController {
 
         try{
             #e: Trigger user registering
-            Event::fire('user.registering', array($role));
+            Event::fire('user.registering', array(Input::all(),$role));
 
             #i: Start database transaction
             DB::beginTransaction();
