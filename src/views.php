@@ -1,29 +1,9 @@
 <?php
 
+use Atlantis\Asset\Collection\Javascript;
+
+
 View::composer(array('core::layouts.common'), function($view){
-    /*================================================================
-        Admin Assets
-    ================================================================*/
-    Basset::collection('admin', function($collection){
-        $collection->directory('packages/atlantis/admin/javascript/libs', function($collection){
-            $collection->javascript('admin/knockout-2.2.0.js');
-            $collection->javascript('admin/knockout.mapping.js');
-            $collection->javascript('admin/knockout.notification.min.js');
-            $collection->javascript('admin/knockout.update-data.js');
-            $collection->javascript('admin/markdown.js');
-            $collection->javascript('admin/accounting.js');
-            $collection->javascript('admin/history.min.js');
-            $collection->requireDirectory('jquery.uniform');
-        });
-
-        $collection->directory('packages/atlantis/admin/javascript', function($collection){
-            $collection->javascript('js/admin.binding.js');
-            $collection->javascript('js/admin.js');
-            $collection->javascript('js/settings.js');
-        });
-    });
-
-
     #i: Getting admin site title
     View::share('title',Config::get('admin::site.title'));
 
@@ -37,6 +17,26 @@ View::composer(array('core::layouts.common'), function($view){
 
         View::share(compact('user','user_realm'));
     }
+});
+
+
+View::composer(array('admin::admin.admin','admin::admin.settings'), function($view){
+    /*================================================================
+    Admin Assets
+    ================================================================*/
+    app('atlantis.asset')->set('admin::javascript',new Javascript([
+        'admin/knockout-2.2.0.js',
+        'admin/knockout.mapping.js',
+        'admin/knockout.notification.min.js',
+        'admin/knockout.update-data.js',
+        'admin/markdown.js',
+        'admin/accounting.js',
+        'admin/history.min.js',
+        public_path().'/packages/atlantis/admin/javascript/js/admin.binding.js',
+        public_path().'/packages/atlantis/admin/javascript/js/admin.js',
+        public_path().'/packages/atlantis/admin/javascript/js/settings.js'
+
+    ],[],public_path().'/packages/atlantis/admin/javascript/libs/'));
 });
 
 
