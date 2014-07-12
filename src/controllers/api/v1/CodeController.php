@@ -54,6 +54,10 @@ class CodeController extends BaseController{
                 $codes = \Code::category($category);
             }
 
+            if(isset($get['format'])){
+                return array_map(create_function('$o', 'return $o["value"];'), $codes->get()->toArray());
+            }
+
             return $codes->get();
 
         }catch (Exception $e){
