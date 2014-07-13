@@ -8,29 +8,29 @@
     "packages": [
         {
             "name": "baum/baum",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/etrepat/baum.git",
-                "reference": "12baf6c7d514b97b6df550d5abfe2baacf625c94"
+                "reference": "ae9d7e549dbba38f57512b125509f4e56a3009d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/etrepat/baum/zipball/12baf6c7d514b97b6df550d5abfe2baacf625c94",
-                "reference": "12baf6c7d514b97b6df550d5abfe2baacf625c94",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/ae9d7e549dbba38f57512b125509f4e56a3009d1",
+                "reference": "ae9d7e549dbba38f57512b125509f4e56a3009d1",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "4.*",
-                "illuminate/database": "4.*",
-                "illuminate/filesystem": "4.*",
-                "illuminate/support": "4.*",
+                "illuminate/console": "~4.0",
+                "illuminate/database": "~4.0",
+                "illuminate/filesystem": "~4.0",
+                "illuminate/support": "~4.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "d11wtq/boris": "dev-master",
-                "mockery/mockery": "0.9.0",
-                "phpunit/phpunit": "4.0.*"
+                "d11wtq/boris": "~1.0",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "autoload": {
@@ -57,7 +57,7 @@
                 "laravel",
                 "nested set"
             ],
-            "time": "2014-05-02 14:35:17"
+            "time": "2014-07-03 10:37:33"
         },
         {
             "name": "cartalyst/sentry",
@@ -165,12 +165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
-                "reference": "30ed49c100e02584f60f9d9a5c4e6be42f60653e"
+                "reference": "f4c36706ae40ba17397d97f91ce4f3763d95988d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/30ed49c100e02584f60f9d9a5c4e6be42f60653e",
-                "reference": "30ed49c100e02584f60f9d9a5c4e6be42f60653e",
+                "url": "https://api.github.com/repos/illuminate/console/zipball/f4c36706ae40ba17397d97f91ce4f3763d95988d",
+                "reference": "f4c36706ae40ba17397d97f91ce4f3763d95988d",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-06-11 15:34:38"
+            "time": "2014-07-09 02:50:55"
         },
         {
             "name": "illuminate/container",
@@ -208,12 +208,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "133578d728bfa34ebd13dd9c17fdebf2f7e77e57"
+                "reference": "92459b11e53cf9573264646977f623f4bbe7fc4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/133578d728bfa34ebd13dd9c17fdebf2f7e77e57",
-                "reference": "133578d728bfa34ebd13dd9c17fdebf2f7e77e57",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/92459b11e53cf9573264646977f623f4bbe7fc4a",
+                "reference": "92459b11e53cf9573264646977f623f4bbe7fc4a",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +242,7 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-06-01 19:50:07"
+            "time": "2014-07-09 02:50:55"
         },
         {
             "name": "illuminate/database",
@@ -250,12 +250,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "ba8d30a12345fd86049688954a0547d61147085e"
+                "reference": "2143330889c96c410b63820c74bde7ce0053d566"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/ba8d30a12345fd86049688954a0547d61147085e",
-                "reference": "ba8d30a12345fd86049688954a0547d61147085e",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/2143330889c96c410b63820c74bde7ce0053d566",
+                "reference": "2143330889c96c410b63820c74bde7ce0053d566",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2014-06-11 15:34:38"
+            "time": "2014-07-09 02:50:55"
         },
         {
             "name": "illuminate/events",
@@ -397,12 +397,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "8ba416d18dd7a2ffff5454afd1b94a17b8f37fa1"
+                "reference": "36d2c321f7be3fa61293909c17e931067e77b531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/8ba416d18dd7a2ffff5454afd1b94a17b8f37fa1",
-                "reference": "8ba416d18dd7a2ffff5454afd1b94a17b8f37fa1",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/36d2c321f7be3fa61293909c17e931067e77b531",
+                "reference": "36d2c321f7be3fa61293909c17e931067e77b531",
                 "shasum": ""
             },
             "require": {
@@ -438,7 +438,7 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-06-06 15:13:48"
+            "time": "2014-07-09 02:50:55"
         },
         {
             "name": "illuminate/validation",
@@ -446,12 +446,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/validation.git",
-                "reference": "4edb72db22844bf1303c1045a5df40e61b82a415"
+                "reference": "0f717c7e78159272c2f68b6b500173923a5e1068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/validation/zipball/4edb72db22844bf1303c1045a5df40e61b82a415",
-                "reference": "4edb72db22844bf1303c1045a5df40e61b82a415",
+                "url": "https://api.github.com/repos/illuminate/validation/zipball/0f717c7e78159272c2f68b6b500173923a5e1068",
+                "reference": "0f717c7e78159272c2f68b6b500173923a5e1068",
                 "shasum": ""
             },
             "require": {
@@ -487,7 +487,7 @@
                     "role": "Creator of Laravel"
                 }
             ],
-            "time": "2014-06-06 15:43:59"
+            "time": "2014-07-09 02:50:55"
         },
         {
             "name": "laravelbook/ardent",
@@ -495,12 +495,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravelbook/ardent.git",
-                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed"
+                "reference": "8af3cf8cd3ea514c68439fdae0271af71ef1449e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravelbook/ardent/zipball/0a0238b8040abc1c71401ce27a8edf2619fa5bed",
-                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+                "url": "https://api.github.com/repos/laravelbook/ardent/zipball/8af3cf8cd3ea514c68439fdae0271af71ef1449e",
+                "reference": "8af3cf8cd3ea514c68439fdae0271af71ef1449e",
                 "shasum": ""
             },
             "require": {
@@ -546,7 +546,7 @@
                 "sql",
                 "validation"
             ],
-            "time": "2014-02-25 20:39:04"
+            "time": "2014-07-10 04:06:41"
         },
         {
             "name": "nesbot/carbon",
@@ -600,12 +600,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/noherczeg/breadcrumb.git",
-                "reference": "16c2bdd92022014d0b69f81e98db5c7c410d504e"
+                "reference": "3d2f786eadf0fa763cb8edfb66f4480faa7d63c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/noherczeg/breadcrumb/zipball/16c2bdd92022014d0b69f81e98db5c7c410d504e",
-                "reference": "16c2bdd92022014d0b69f81e98db5c7c410d504e",
+                "url": "https://api.github.com/repos/noherczeg/breadcrumb/zipball/3d2f786eadf0fa763cb8edfb66f4480faa7d63c5",
+                "reference": "3d2f786eadf0fa763cb8edfb66f4480faa7d63c5",
                 "shasum": ""
             },
             "require": {
@@ -634,7 +634,7 @@
             "keywords": [
                 "breadcrumb"
             ],
-            "time": "2014-03-24 21:52:53"
+            "time": "2014-06-19 21:04:51"
         },
         {
             "name": "symfony/console",
@@ -643,12 +643,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "5e8b3e4e17102eeb807ccd65750302a5402863cb"
+                "reference": "2b9e4e36d132fb2b3c5efe022db5c3a2bfab40c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/5e8b3e4e17102eeb807ccd65750302a5402863cb",
-                "reference": "5e8b3e4e17102eeb807ccd65750302a5402863cb",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/2b9e4e36d132fb2b3c5efe022db5c3a2bfab40c3",
+                "reference": "2b9e4e36d132fb2b3c5efe022db5c3a2bfab40c3",
                 "shasum": ""
             },
             "require": {
@@ -691,7 +691,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-03 20:33:46"
+            "time": "2014-07-09 09:05:48"
         },
         {
             "name": "symfony/finder",
@@ -700,12 +700,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "307aad2c541bbdf43183043645e186ef2cd6b973"
+                "reference": "9f6b98ea1b963c562af8834056706d7f914d0167"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/307aad2c541bbdf43183043645e186ef2cd6b973",
-                "reference": "307aad2c541bbdf43183043645e186ef2cd6b973",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/9f6b98ea1b963c562af8834056706d7f914d0167",
+                "reference": "9f6b98ea1b963c562af8834056706d7f914d0167",
                 "shasum": ""
             },
             "require": {
@@ -740,7 +740,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-22 13:47:45"
+            "time": "2014-07-09 09:05:48"
         },
         {
             "name": "symfony/http-foundation",
@@ -749,12 +749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "efa2b935a1305a578aef7fc22a28ad5204969927"
+                "reference": "827f0422a4ce00716dd70a442e4538386bca7e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/efa2b935a1305a578aef7fc22a28ad5204969927",
-                "reference": "efa2b935a1305a578aef7fc22a28ad5204969927",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/827f0422a4ce00716dd70a442e4538386bca7e13",
+                "reference": "827f0422a4ce00716dd70a442e4538386bca7e13",
                 "shasum": ""
             },
             "require": {
@@ -795,7 +795,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-06 03:57:03"
+            "time": "2014-07-09 09:05:48"
         },
         {
             "name": "symfony/translation",
@@ -804,12 +804,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "5f23265dcf8927a84be832608069c9edca3cf5f4"
+                "reference": "3680e1ee573b96e19ddfa20aaa3f39845b74cddd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/5f23265dcf8927a84be832608069c9edca3cf5f4",
-                "reference": "5f23265dcf8927a84be832608069c9edca3cf5f4",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/3680e1ee573b96e19ddfa20aaa3f39845b74cddd",
+                "reference": "3680e1ee573b96e19ddfa20aaa3f39845b74cddd",
                 "shasum": ""
             },
             "require": {
@@ -852,7 +852,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-22 13:47:45"
+            "time": "2014-07-09 09:05:48"
         },
         {
             "name": "thomaswelton/gravatarlib",

@@ -31,8 +31,7 @@ class CodeController extends BaseController{
             $get['aaData'] = $codes->toArray()['data'];
 
         }else{
-            $codes = \Code::roots()->get();
-            $get = $codes;
+            $get = \Code::roots()->get();
         }
 
         return $get;
