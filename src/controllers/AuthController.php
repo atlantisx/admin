@@ -52,13 +52,16 @@ class AuthController extends BaseController {
             #i: Register user
             $user = $this->auth->register(Input::only('email','first_name','last_name','password'));
 
+            #i: Get registration activation
+            $activation_code = $user->getActivationCode();
+
             #i: Preparing data
             $data = array(
                 'id'                => $user->id,
                 'full_name'         => $user->first_name . ' ' . $user->last_name,
                 'email'             => $user->email,
-                'activation_code'   => $user->getActivationCode(),
-                'activation_link'   => URL::to('user/activate', array($user->getActivationCode()))
+                'activation_code'   => $activation_code,
+                'activation_link'   => URL::to('user/activate', array($activation_code))
             );
 
             #i: Send activation email to user
@@ -196,7 +199,7 @@ class AuthController extends BaseController {
                     return Redirect::action('Atlantis\Admin\AuthController@getLogin',$get);
 
                 }else{
-                    throw new Exception(trans('admin::user.activation_error'));
+                    throw new \Exception(trans('admin::user.activation_error'));
                 }
 
             }catch(\Exception $e){
