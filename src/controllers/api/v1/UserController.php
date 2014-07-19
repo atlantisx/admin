@@ -12,6 +12,7 @@ class UserController extends BaseController{
         return $users;
     }
 
+
     public function show($id){
         $get = \Input::all();
 
@@ -37,6 +38,7 @@ class UserController extends BaseController{
 
         return \Response::json(array('Error in query'),400);
     }
+
 
     public function update($id){
         $put = \Input::all();
@@ -69,6 +71,7 @@ class UserController extends BaseController{
         return \Response::json($put);
     }
 
+
     public function destroy($id){
         //@info Search user
         $user = \User::find($id);
@@ -80,6 +83,7 @@ class UserController extends BaseController{
             return \Response::json(array('Error in query'),400);
         }
     }
+
 
     public function changeEmail(){
         $post = \Input::all();
@@ -108,8 +112,7 @@ class UserController extends BaseController{
         return \Response::json($post);
     }
 
-    public function missingMethod($parameters = array()){
 
-    }
+    public function missingMethod($parameters = array()){}
 
 }
