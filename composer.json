@@ -14,7 +14,6 @@
         "illuminate/support": "~4.2",
         "cartalyst/sentry": "2.1.*",
         "zizaco/entrust": "dev-master",
-        "laravelbook/ardent": "dev-master",
         "baum/baum": "~1.0",
         "noherczeg/breadcrumb": "dev-master",
         "thomaswelton/laravel-gravatar": "dev-master"
