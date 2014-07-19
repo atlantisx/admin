@@ -40,7 +40,7 @@ class AuthController extends BaseController {
      ******************************************************************************************************************/
     public function postRegister($role='admin::user'){
         $view = 'register';
-        $data = Input::flash();
+        Input::flash();
 
         try{
             #e: Trigger user registering
