@@ -15,10 +15,10 @@ class UserController extends BaseController{
     public function show($id){
         $get = \Input::all();
 
-        //[i] Search user
+        //@info Search user
         $user = \User::find($id);
 
-        //[i] Return user
+        //@info Return user
         if($user){
             $user->load('profile');
             if( !empty($get['access']) ){
@@ -42,13 +42,17 @@ class UserController extends BaseController{
         $put = \Input::all();
 
         try{
-            //[i] Search user
+            //@info Search user
             $user = \User::find($id);
 
-            //[i] Update user
+            //@info Update user
             if($user){
                 $user->fill($put);
                 if($user->profile){
+                    //@todo Uncommon properties should be move to modules. eg: profile.idno_ic > profile.data.idno_ic
+                    $validator = \Validator::make($put,array('profile.idno_ic'=>'unique:peoples,idno_ic,'.$user->id.',user_id'));
+                    if($validator->fails()) throw new \Exception($validator->messages()->first());
+                    
                     $user->profile->fill($put['profile']);
                 }else{
                     $profile = new \People($put['profile']);
@@ -59,7 +63,6 @@ class UserController extends BaseController{
             $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
 
         }catch (Exception $e){
-            //return \Response::json(array('Error in query!'),400);
             $put = array_merge($put,array('status'=>'error','message'=>$e->getMessage()));
         }
 
@@ -67,7 +70,7 @@ class UserController extends BaseController{
     }
 
     public function destroy($id){
-        //[i] Search user
+        //@info Search user
         $user = \User::find($id);
 
         if($user){
@@ -81,7 +84,7 @@ class UserController extends BaseController{
     public function changeEmail(){
         $post = \Input::all();
 
-        //[i] Email validation
+        //@info Email validation
         $validator = \Validator::make(
             array('email'=>$post['email']),
             array('email'=>'required|email|unique:users')
@@ -89,7 +92,7 @@ class UserController extends BaseController{
 
         try{
             if( $validator->passes() ){
-                //[i] Find user by email
+                //@info Find user by email
                 $user = \Sentry::getUser();
                 $user->email = $post['email'];
                 $user->save();
