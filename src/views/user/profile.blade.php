@@ -162,9 +162,8 @@
 
 @section('javascript')
     @parent
+    @javascripts('user')
     <script language="JavaScript" type="text/javascript">
-        var urlAPIUser = appBase + 'api/v1/users/';
-
         $(document).ready(function(){
             $('#profile\\.birth_date').datepicker("option","changeYear",true);
             $('#profile\\.birth_date').datepicker("option","maxDate",'-15Y');
@@ -178,35 +177,20 @@
             });
         });
 
-        function controllerProfile($scope,$http,$q,Api){
-            var params = {model:'users', id:'{{ $user_profile->id }}', 'access':'simple'};
 
-            //[i] Getting user model
-            $scope.user = Api.get(params);
+        function controllerProfile($scope,Model){
+            $scope.user = Model.one('users','{{ $user_profile->id }}').get().$object;
 
             //[i] Updating data user model
             $scope.processForm = function(){
                 if( $('#form_profile').validationEngine('validate') ){
-                    $scope.user.$update(params);
+                    $scope.user.save();
                 }
             }
 
             //[i] Changing email
             $scope.validateEmail = function(data){
-                var d = $q.defer();
-
-                $http.post(urlAPIUser + 'change-email', {email: data}).success(function(res){
-                    res = res || {};
-                    if( res.status === 'success' ){
-                        d.resolve();
-                    }else{
-                        d.resolve(res.message);
-                    }
-                }).error(function(e){
-                    d.reject('Server error!');
-                });
-
-                return d.promise;
+                $scope.user.post('change-email',{email:data});
             }
         }
 
