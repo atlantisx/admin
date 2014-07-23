@@ -1,9 +1,8 @@
 <?php namespace Atlantis\Admin\Api\V1;
 
-use Atlantis\Core\Controller\BaseController;
+use Atlantis\Api\Controller\ApiController;
 
-
-class UserController extends BaseController{
+class UserController extends ApiController{
 
     public function index(){
         $users = \User::all();
@@ -82,34 +81,6 @@ class UserController extends BaseController{
         }else{
             return \Response::json(array('Error in query'),400);
         }
-    }
-
-
-    public function changeEmail(){
-        $post = \Input::all();
-
-        //@info Email validation
-        $validator = \Validator::make(
-            array('email'=>$post['email']),
-            array('email'=>'required|email|unique:users')
-        );
-
-        try{
-            if( $validator->passes() ){
-                //@info Find user by email
-                $user = \Sentry::getUser();
-                $user->email = $post['email'];
-                $user->save();
-
-                $post = array('status'=>'success','message'=>'Successfully changed email!');
-            }else{
-                $post = array('status'=>'error','message'=>'Error while updating email!');
-            }
-        }catch (Exception $e){
-            return \Response::json(array('Error in query'),400);
-        }
-
-        return \Response::json($post);
     }
 
 

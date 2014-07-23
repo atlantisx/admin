@@ -40,6 +40,17 @@ View::composer(array('admin::admin.admin','admin::admin.settings'), function($vi
 });
 
 
+View::composer(array('admin::user.profile'), function($view){
+    /*================================================================
+    Admin Assets
+    ================================================================*/
+    /*app('atlantis.asset')->set('user::javascript',new Javascript([
+        public_path().'/packages/atlantis/admin/javascript/js/api.users.js'
+
+    ],[],public_path().'/packages/atlantis/admin/javascript/libs/'));*/
+});
+
+
 View::composer(array('themes/default::layouts.fluid'), function($view){
     $permissions = Config::get('admin::admin.permissions');
     $view->settingsPrefix = App::make('admin_config_factory')->getSettingsPrefix();

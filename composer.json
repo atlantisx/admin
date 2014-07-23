@@ -26,7 +26,8 @@
             "src/views"
         ],
         "psr-0": {
-            "Atlantis": "src/"
+            "Atlantis": "src/",
+            "Users": "src/modules"
         }
     },
     "minimum-stability": "dev"
