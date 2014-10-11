@@ -25,8 +25,8 @@
                                 <div class="input-group">
                                     {{ Former::open()->name('form_account') }}
                                         {{ Former::label('name')->class('control-label col-lg-2') }}
-                                        <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]')->ng_model('user.first_name') }}</div>
-                                        <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]')->ng_model('user.last_name') }}</div>
+                                        <div class="col-lg-5">{{ Former::text('first_name')->class('validate[required]')->as_ui_validation()->ng_model('user.first_name') }}</div>
+                                        <div class="col-lg-5">{{ Former::text('last_name')->class('validate[required]')->as_ui_validation()->ng_model('user.last_name') }}</div>
                                     {{ Former::close() }}
                                 </div>
                                 <div class="input-group">
@@ -82,7 +82,7 @@
                         <div class="padded">
                             <div class="form-group">
                                 {{ Former::label('idno_ic')->class('control-label col-lg-2') }}
-                                <div class="col-lg-10">{{ Former::text('profile.idno_ic')->class('validate[required,custom[idICNo]]')->ng_model('user.profile.idno_ic') }}</div>
+                                <div class="col-lg-10">{{ Former::text('profile.idno_ic')->class('validate[required,custom[idICNo]]')->as_ui_validation()->ng_model('user.profile.idno_ic') }}</div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('race')->class('control-label col-lg-2') }}
@@ -104,16 +104,16 @@
                             <div class="form-group">
                                 {{ Former::label('birth')->class('control-label col-lg-2') }}
                                 <div class="col-lg-3">
-                                    {{ Former::text('profile.birth_date')->class('datepicker validate[required]')->ng_model('user.profile.birth_date') }}
+                                    {{ Former::text('profile.birth_date')->class('datepicker validate[required]')->as_ui_validation()->ng_model('user.profile.birth_date') }}
                                 </div>
                                 <div class="col-lg-7">
-                                    {{ Former::text('profile.birth_place')->class('validate[required]')->placeholder('admin::user.label_birth_place')->ng_model('user.profile.birth_place') }}
+                                    {{ Former::text('profile.birth_place')->class('validate[required]')->as_ui_validation()->placeholder('admin::user.label_birth_place')->ng_model('user.profile.birth_place') }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('phone')->class('control-label col-lg-2') }}
-                                <div class="col-lg-5">{{ Former::text('profile.contact_home')->class('validate[required,custom[number]]')->placeholder('admin::user.label_contact_home')->ng_model('user.profile.contact_home') }}</div>
-                                <div class="col-lg-5">{{ Former::text('profile.contact_mobile')->class('validate[required,custom[number]]')->placeholder('admin::user.label_contact_mobile')->ng_model('user.profile.contact_mobile') }}</div>
+                                <div class="col-lg-5">{{ Former::text('profile.contact_home')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder('admin::user.label_contact_home')->ng_model('user.profile.contact_home') }}</div>
+                                <div class="col-lg-5">{{ Former::text('profile.contact_mobile')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder('admin::user.label_contact_mobile')->ng_model('user.profile.contact_mobile') }}</div>
                             </div>
                         </div>
                     </div>
@@ -127,12 +127,23 @@
                         <div class="padded">
                             <div class="form-group">
                                 {{ Former::label('address_street')->class('control-label col-lg-2') }}
-                                <div class="col-lg-10">{{ Former::text('profile.address_street')->class('validate[required]')->ng_model('user.profile.address_street') }}</div>
+                                <div class="col-lg-10">{{ Former::text('profile.address_street')
+                                                            ->class('validate[required]')
+                                                            ->ng_model('user.profile.address_street')
+                                                            ->as_ui_validation() }}</div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('address_area')->class('control-label col-lg-2') }}
-                                <div class="col-lg-8">{{ Former::text('profile.address_area')->class('validate[required]')->ng_model('user.profile.address_area')->placeholder('admin::user.label_address_area') }}</div>
-                                <div class="col-lg-2">{{ Former::text('profile.address_postcode')->class('validate[required,custom[number]]')->ng_model('user.profile.address_postcode')->placeholder('admin::user.label_address_postcode') }}</div>
+                                <div class="col-lg-8">{{ Former::text('profile.address_area')
+                                                            ->class('validate[required]')
+                                                            ->ng_model('user.profile.address_area')
+                                                            ->as_ui_validation()
+                                                            ->placeholder('admin::user.label_address_area') }}</div>
+                                <div class="col-lg-2">{{ Former::text('profile.address_postcode')
+                                                            ->class('validate[required,custom[number]]')
+                                                            ->ng_model('user.profile.address_postcode')
+                                                            ->as_ui_validation()
+                                                            ->placeholder('admin::user.label_address_postcode') }}</div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
@@ -151,7 +162,7 @@
 
                 <div class="well clearfix">
                     <div class="pull-right">
-                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="profileSubmit()">{{ trans('admin::user.btn_update_profile') }}</button>
+                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="user.$save()" ng-disabled="!validation.$error.controls.$valid">{{ trans('admin::user.btn_update_profile') }}</button>
                     </div>
                 </div>
             {{ Former::close() }}
@@ -167,26 +178,11 @@
         $(document).ready(function(){
             $('#profile\\.birth_date').datepicker("option","changeYear",true);
             $('#profile\\.birth_date').datepicker("option","maxDate",'-15Y');
-
-            $('form').validationEngine({
-                validateNonVisibleFields: true,
-                autoPositionUpdate: true,
-                promptPosition: "inline",
-                showArrow: false,
-                scroll: false
-            });
         });
 
-
-        function controllerProfile($scope,Model){
+        function controllerProfile($scope,Model,Validation){
+            $scope.validation = Validation;
             $scope.user = Model.create('users').$find('{{ $user_profile->id }}');
-
-            //[i] Updating data user model
-            $scope.profileSubmit = function(){
-                if( !$('#form_profile').validationEngine('validate') ){
-                    $scope.user.$save();
-                }
-            }
 
             //[i] Changing email
             $scope.validateEmail = function(data){
