@@ -183,14 +183,14 @@
 
             //[i] Updating data user model
             $scope.profileSubmit = function(){
-                if( $('#form_profile').validationEngine('validate') ){
+                if( !$('#form_profile').validationEngine('validate') ){
                     $scope.user.$save();
                 }
             }
 
             //[i] Changing email
             $scope.validateEmail = function(data){
-                $scope.user.post('change-email',{email:data});
+                $scope.user.$rpc('change-email',{email:data});
             }
         }
 
