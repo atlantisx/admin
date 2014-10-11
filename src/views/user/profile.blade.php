@@ -73,7 +73,7 @@
             </div>
 
 
-            {{ Former::open()->name('form_profile')->class('form-horizontal fill-up')->ng_submit('processForm()') }}
+            {{ Former::open()->name('form_profile')->class('form-horizontal fill-up') }}
                 <div class="box">
                     <div class="box-header">
                         <span class="title">{{ trans('admin::user.title_profile') }}</span>
@@ -151,7 +151,7 @@
 
                 <div class="well clearfix">
                     <div class="pull-right">
-                        <button id="btnUpdateProfile" type="submit" class="btn btn-green">{{ trans('admin::user.btn_update_profile') }}</button>
+                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="profileSubmit()">{{ trans('admin::user.btn_update_profile') }}</button>
                     </div>
                 </div>
             {{ Former::close() }}
@@ -179,12 +179,12 @@
 
 
         function controllerProfile($scope,Model){
-            $scope.user = Model.one('users','{{ $user_profile->id }}').get().$object;
+            $scope.user = Model.create('users').$find('{{ $user_profile->id }}');
 
             //[i] Updating data user model
-            $scope.processForm = function(){
+            $scope.profileSubmit = function(){
                 if( $('#form_profile').validationEngine('validate') ){
-                    $scope.user.save();
+                    $scope.user.$save();
                 }
             }
 
