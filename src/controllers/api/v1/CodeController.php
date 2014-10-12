@@ -117,7 +117,4 @@ class CodeController extends BaseController{
         return \Response::json($delete);
     }
 
-
-    public function missingMethod($parameters = array()){}
-
 }

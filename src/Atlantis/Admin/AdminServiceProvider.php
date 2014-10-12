@@ -55,6 +55,7 @@ class AdminServiceProvider extends ServiceProvider {
         $this->registerServiceAdminValidator();
         $this->registerServiceAdminFactory();
         $this->registerServiceAdminDataTable();
+        $this->registerServiceModules();
 
 		#i: Include our filters, view composers, and routes
 		include __DIR__.'/../../filters.php';
@@ -183,15 +184,13 @@ class AdminServiceProvider extends ServiceProvider {
     }
 
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array();
-	}
+    /**
+     *
+     */
+    public function registerServiceModules(){
+        //@info Enable internal Api
+        $this->app['atlantis.module']->extend('users.api','Modules\Users\Api\UsersApiServiceProvider');
+    }
 
 
 	/**
@@ -206,5 +205,16 @@ class AdminServiceProvider extends ServiceProvider {
 			$this->app->setLocale($locale);
 		}
 	}
+
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['atlantis.admin'];
+    }
 
 }

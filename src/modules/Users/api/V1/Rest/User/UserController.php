@@ -1,8 +1,9 @@
-<?php namespace Atlantis\Admin\Api\V1;
+<?php namespace Modules\Users\Api\V1\Rest\User;
 
-use Atlantis\Api\Controller\ApiController;
+use Atlantis\Api\Rest\ResourceController;
 
-class UserController extends ApiController{
+
+class UserController extends ResourceController{
 
     public function index(){
         $users = \User::all();
@@ -39,7 +40,7 @@ class UserController extends ApiController{
     }
 
 
-    public function update($id){
+    public function update($id,$data=null){
         $put = \Input::all();
 
         try{
@@ -82,8 +83,5 @@ class UserController extends ApiController{
             return \Response::json(array('Error in query'),400);
         }
     }
-
-
-    public function missingMethod($parameters = array()){}
 
 }

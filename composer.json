@@ -23,6 +23,7 @@
             "src/database",
             "src/migrations",
             "src/controllers",
+            "src/modules",
             "src/views"
         ],
         "psr-0": {
