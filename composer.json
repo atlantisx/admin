@@ -12,10 +12,9 @@
     "require": {
         "php": ">=5.4",
         "illuminate/support": "~4.2",
-        "illuminate/contracts": "5.0.*@dev",
         "cartalyst/sentry": "2.1.*",
         "zizaco/entrust": "dev-master",
-        "baum/baum": "~1.0",
+        "baum/baum": "1.0.12",
         "noherczeg/breadcrumb": "dev-master",
         "thomaswelton/laravel-gravatar": "dev-master"
     },
