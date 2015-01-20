@@ -11,7 +11,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4",
-        "illuminate/support": "~4.2",
+        "illuminate/support": "~4.2.0",
         "cartalyst/sentry": "2.1.*",
         "zizaco/entrust": "dev-master",
         "baum/baum": "1.0.12",
