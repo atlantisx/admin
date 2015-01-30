@@ -107,13 +107,13 @@
                                     {{ Former::text('profile.birth_date')->class('datepicker validate[required]')->as_ui_validation()->ng_model('user.profile.birth_date') }}
                                 </div>
                                 <div class="col-lg-7">
-                                    {{ Former::text('profile.birth_place')->class('validate[required]')->as_ui_validation()->placeholder('admin::user.label_birth_place')->ng_model('user.profile.birth_place') }}
+                                    {{ Former::text('profile.birth_place')->class('validate[required]')->as_ui_validation()->placeholder(trans('admin::user.label_birth_place'))->ng_model('user.profile.birth_place') }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('phone')->class('control-label col-lg-2') }}
-                                <div class="col-lg-5">{{ Former::text('profile.contact_home')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder('admin::user.label_contact_home')->ng_model('user.profile.contact_home') }}</div>
-                                <div class="col-lg-5">{{ Former::text('profile.contact_mobile')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder('admin::user.label_contact_mobile')->ng_model('user.profile.contact_mobile') }}</div>
+                                <div class="col-lg-5">{{ Former::text('profile.contact_home')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder(trans('admin::user.label_contact_home'))->ng_model('user.profile.contact_home') }}</div>
+                                <div class="col-lg-5">{{ Former::text('profile.contact_mobile')->class('validate[required,custom[number]]')->as_ui_validation()->placeholder(trans('admin::user.label_contact_mobile'))->ng_model('user.profile.contact_mobile') }}</div>
                             </div>
                         </div>
                     </div>
@@ -138,12 +138,12 @@
                                                             ->class('validate[required]')
                                                             ->ng_model('user.profile.address_area')
                                                             ->as_ui_validation()
-                                                            ->placeholder('admin::user.label_address_area') }}</div>
+                                                            ->placeholder(trans('admin::user.label_address_area')) }}</div>
                                 <div class="col-lg-2">{{ Former::text('profile.address_postcode')
                                                             ->class('validate[required,custom[number]]')
                                                             ->ng_model('user.profile.address_postcode')
                                                             ->as_ui_validation()
-                                                            ->placeholder('admin::user.label_address_postcode') }}</div>
+                                                            ->placeholder(trans('admin::user.label_address_postcode')) }}</div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
