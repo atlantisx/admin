@@ -1,5 +1,5 @@
 @if (is_array($item))
-	<li class="dropdown-submenu">
+	<li class="dropdown-submenu dropdown-menu-left">
         <a href="#">{{$key}}</a>
 		<ul class="dropdown-menu">
 			@foreach ($item as $key => $item)
