@@ -1,9 +1,9 @@
 <?php namespace Atlantis\User\Models;
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Zizaco\Entrust\HasRole;
 
-
-class User extends \Eloquent {
+class User extends Eloquent {
     /**
      * Entrust traits
      */
@@ -21,7 +21,7 @@ class User extends \Eloquent {
      *
      * @var array
      */
-    protected $appends = array('full_name');
+    protected $appends = array('full_name','url_update');
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -111,6 +111,13 @@ class User extends \Eloquent {
         return $this->getAttribute('first_name').$middle.$this->getAttribute('last_name');
     }
 
+
+    public function getUrlUpdateAttribute(){
+        #i: Return the update url
+        return route('admin_get_item',array('users',$this->id));
+    }
+
+
     /**
      * Get the unique identifier for the user.
      *
@@ -165,6 +172,25 @@ class User extends \Eloquent {
      */
     public function getRememberTokenName(){
         return 'remember_token';
+    }
+
+
+    public function scopeFiltering($query,$columns=array()){
+        foreach($columns as $column => $value){
+            $relations =  explode('.',$column);
+            $field = array_pop($relations);
+
+            if( count($relations) > 0 ){
+                $relation = join('.',$relations);
+                $query->whereHas($relation, function($q) use($relation,$field,$value){
+                    $q->with($relation)->where($field,'LIKE',$value.'%');
+                });
+
+            }else{
+                #i: Filtering normal columns
+                $query->where($field,'LIKE',$value.'%');
+            }
+        }
     }
 
 }

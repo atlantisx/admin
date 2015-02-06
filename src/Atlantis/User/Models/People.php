@@ -1,7 +1,8 @@
 <?php namespace Atlantis\User\Models;
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class People extends \Eloquent {
+class People extends Eloquent {
     protected $hidden = array('id','object','data_id','data_type');
     protected $guarded = array('id','user_id','object','data_id','data_type','updated_at','created_at','meta','data');
 
