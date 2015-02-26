@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 {{ Former::label('birth')->class('control-label col-lg-2') }}
                                 <div class="col-lg-3">
-                                    {{ Former::text('profile.birth_date')->class('datepicker validate[required]')->as_ui_validation()->ng_model('user.profile.birth_date') }}
+                                    {{ Former::text('profile.birth_date')->class('validate[required,custom[date],past[now]]')->uias_datepicker('dd-mm-yy')->as_ui_validation()->ng_model('user.profile.birth_date') }}
                                 </div>
                                 <div class="col-lg-7">
                                     {{ Former::text('profile.birth_place')->class('validate[required]')->as_ui_validation()->placeholder(trans('admin::user.label_birth_place'))->ng_model('user.profile.birth_place') }}
