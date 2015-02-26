@@ -1,5 +1,6 @@
 <?php namespace Atlantis\User\Models;
 
+use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -9,10 +10,6 @@ class People extends Eloquent {
 
     /** @var array Guarded fields */
     protected $guarded = array('id','user_id','object','data_id','data_type','updated_at','created_at','meta','data');
-
-    /** @var array Date mutator fields */
-    //protected $dates = array('birth_date');
-
 
     /**
      * Boot model
@@ -76,6 +73,17 @@ class People extends Eloquent {
 
 
     /**
+     * Birth date set attribute
+     *
+     * @param $value
+     */
+    public function setBirthDateAttribute($value){
+        /** Set formatted date */
+        $this->attributes['birth_date'] = Carbon::parse($value);
+    }
+
+
+    /**
      * Birth date get attribute
      *
      * @param $value
@@ -86,20 +94,7 @@ class People extends Eloquent {
         $date = new Carbon($value);
 
         /** Return formatted date */
-        return $date->format('d-m-Y');
+        return $date->format(Config::get('core::app.format.date'));
     }
 
-
-    /**
-     * Birth date set attribute
-     *
-     * @param $value
-     */
-    public function setBirthDateAttribute($value){
-        /** @var $date Carbon date instance */
-        $date = new Carbon($value);
-
-        /** Set formatted date */
-        $this->attributes['birth_date'] = $date->format('Y-m-d');
-    }
 }
