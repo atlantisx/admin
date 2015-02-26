@@ -80,7 +80,7 @@
     'login_label_login'                 => 'NamaPengguna \ emel',
     'login_label_password'              => 'Kata Laluan',
     'login_btn_login'                   => 'Log Masuk',
-    'login_text_register'               => 'LogMasuk <a href=":link"><strong>register</strong></a> jika anda tidak mempunyai akaun',
-    'login_text_help'                   => '<a href=":link"><strong>bantu Logmasuk</strong></a>'
+    'login_text_register'               => '<a href=":link"><strong>Daftar</strong></a> jika anda tidak mempunyai akaun',
+    'login_text_help'                   => '<a href=":link"><strong>Bantuan Akaun</strong></a>'
 
 );
