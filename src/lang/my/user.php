@@ -30,6 +30,10 @@
     'label_address_area'        => 'Bandar',
     'label_address_postcode'    => 'Postkod',
 
+    'label_status'              => 'Status',
+    'label_status_active'       => 'Aktif',
+    'label_status_inactive'     => 'Tidak Aktif',
+
     'title_task'                => 'Kotak Maklumat Tugasan',
 
     'btn_register'              => 'Daftar',

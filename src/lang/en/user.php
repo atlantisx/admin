@@ -30,6 +30,10 @@
     'label_address_area'        => 'Area',
     'label_address_postcode'    => 'Postcode',
 
+    'label_status'              => 'Status',
+    'label_status_active'       => 'Active',
+    'label_status_inactive'     => 'Inactive',
+
     'title_task'                => 'Task Toolbox',
 
     'btn_register'              => 'Register',

@@ -21,7 +21,7 @@ class User extends Eloquent {
      *
      * @var array
      */
-    protected $appends = array('full_name','url_update');
+    protected $appends = array('full_name','status','url_update');
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -50,7 +50,7 @@ class User extends Eloquent {
 
 
     /**
-     * Boot
+     * Boot model
      *
      */
     protected static function boot()
@@ -65,6 +65,7 @@ class User extends Eloquent {
         });
     }
 
+
     /**
      * Profile relationship
      *
@@ -73,6 +74,7 @@ class User extends Eloquent {
     public function profile(){
         return $this->hasOne('People');
     }
+
 
     /**
      * Group relationship
@@ -84,6 +86,7 @@ class User extends Eloquent {
         return $this->belongsToMany('Group', 'users_groups');
     }
 
+
     /**
      * name attribute accessor
      *
@@ -93,6 +96,7 @@ class User extends Eloquent {
     {
         return $this->first_name.' '.$this->last_name;
     }
+
 
     /**
      * full_name attribute accessor
@@ -112,6 +116,11 @@ class User extends Eloquent {
     }
 
 
+    /**
+     * Update url attribute
+     *
+     * @return string
+     */
     public function getUrlUpdateAttribute(){
         #i: Return the update url
         return route('admin_get_item',array('users',$this->id));
@@ -175,6 +184,26 @@ class User extends Eloquent {
     }
 
 
+    /**
+     * User status attribute
+     *
+     * @return string
+     */
+    public function getStatusAttribute(){
+        if( $this->activated ){
+            return trans('admin::user.label_status_active');
+        } else {
+            return trans('admin::user.label_status_inactive');
+        }
+    }
+
+
+    /**
+     * Columns filtering scope
+     *
+     * @param $query
+     * @param array $columns
+     */
     public function scopeFiltering($query,$columns=array()){
         foreach($columns as $column => $value){
             $relations =  explode('.',$column);
