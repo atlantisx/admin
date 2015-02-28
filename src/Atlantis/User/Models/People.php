@@ -71,30 +71,4 @@ class People extends Eloquent {
         $this->attributes['meta'] = json_encode($value);
     }
 
-
-    /**
-     * Birth date set attribute
-     *
-     * @param $value
-     */
-    public function setBirthDateAttribute($value){
-        /** Set formatted date */
-        $this->attributes['birth_date'] = Carbon::parse($value);
-    }
-
-
-    /**
-     * Birth date get attribute
-     *
-     * @param $value
-     * @return string
-     */
-    public function getBirthDateAttribute($value){
-        /** @var $date Carbon date instance */
-        $date = new Carbon($value);
-
-        /** Return formatted date */
-        return $date->format(Config::get('core::app.format.date'));
-    }
-
 }
