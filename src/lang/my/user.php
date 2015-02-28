@@ -28,7 +28,7 @@
     'label_contact_home'        => 'No. Telefon Rumah',
     'label_contact_mobile'      => 'No. Telefon Bimbit',
     'label_address_area'        => 'Bandar',
-    'label_address_postcode'    => 'Postkod',
+    'label_address_postcode'    => 'Poskod',
 
     'label_status'              => 'Status',
     'label_status_active'       => 'Aktif',
@@ -51,7 +51,7 @@
     'registered_text_success'           => 'Pendaftaran anda berjaya, e-mel pengaktifan telah dihantar ke <strong>:email</strong> dan sila klik pautan yang disediakan untuk mengaktifkan akaun anda. ' .
         'Sila simpan kod pengaktifan di bawah untuk rujukan masa hadapan jika anda tidak dapat untuk mengaktifkan akaun anda melalui e-mel anda.',
 
-    'activation_title'                  => 'Hantar Pautan Kod Pengaktifan',
+    'activation_title'                  => 'Hantar Kod Pengaktifan',
     'activation_btn_send'               => 'Hantar',
     'activation_btn_activate'           => 'Aktifkan',
     'activation_success'                => 'Pengaktifan anda berjaya! Sila log masuk ke sistem dengan kredit yang diperuntukkan dalam pendaftaran.',
@@ -60,7 +60,7 @@
     'activation_email_subject'          => 'Pengaktifan Akaun untuk pengguna :full_name',
     'activation_email_text'             => 'Terima kasih kerana mendaftar dengan Sistem ePendahuluan MARA. Sila klik pada pautan di bawah ini untuk pengaktifan.',
     'activation_email_regards'          => 'Terima kasih, Sistem Pentadbiran',
-    'activation_prompt'                 => 'Sila masukkan bukti kelayakan log masuk anda untuk menghantar semula e-mel pengaktifan',
+    'activation_prompt'                 => 'Sila masukkan e-mel anda untuk menghantar semula e-mel pengaktifan',
     'activate_title'                    => 'Pengaktifan Manual',
     'activate_code'                     => 'Kod Pengaktifan',
     'activate_prompt'                   => 'Sila masukkan kod pengaktifan anda untuk mengaktifkan akaun',
