@@ -18,7 +18,7 @@ return array(
     'loading' => 'Sedang Memuat...',
     'createnew' => 'Cipta Baru',
     'new' => 'Baru',
-    'viewitem' => 'Lihat :tunggal',
+    'viewitem' => 'Lihat :single',
     'id' => 'ID',
     'uploadimage' => 'Muat Naik Imej',
     'imageuploading' => 'Imej Sedang Dimuat naik',
