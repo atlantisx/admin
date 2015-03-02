@@ -162,7 +162,7 @@
 
                 <div class="well clearfix">
                     <div class="pull-right">
-                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="user.$save()" ng-disabled="!validation.$error.controls.$valid">{{ trans('admin::user.btn_update_profile') }}</button>
+                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="user.$save()" ng-disabled="!validation.$error.controls.$valid" as-ui-button as-ui-progress="ladda">{{ trans('admin::user.btn_update_profile') }}</button>
                     </div>
                 </div>
             {{ Former::close() }}
