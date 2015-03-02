@@ -5,6 +5,11 @@ use Atlantis\Api\Rest\ResourceController;
 
 class UserController extends ResourceController{
 
+    /**
+     * Index
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function index(){
         $users = \User::all();
         $users->load('profile');
@@ -13,6 +18,12 @@ class UserController extends ResourceController{
     }
 
 
+    /**
+     * Show
+     *
+     * @param $id
+     * @return \Illuminate\Support\Collection|null|static
+     */
     public function show($id){
         $get = \Input::all();
 
@@ -40,6 +51,14 @@ class UserController extends ResourceController{
     }
 
 
+    /**
+     * Update
+     *
+     * @param int|string $id
+     * @param null $data
+     * @return mixed
+     * @throws \Exception
+     */
     public function update($id,$data=null){
         $put = \Input::all();
 
@@ -62,23 +81,29 @@ class UserController extends ResourceController{
                 }
                 $user->push();
             }
-            $put = array_merge($put,array('status'=>'success','message'=>'Successfully update user!'));
+            $put['_status'] = array('type'=>'success','message'=>'Successfully update user!');
 
         }catch (Exception $e){
-            $put = array_merge($put,array('status'=>'error','message'=>$e->getMessage()));
+            $put['_status'] = array('type'=>'error','message'=>$e->getMessage());
         }
 
         return \Response::json($put);
     }
 
 
+    /**
+     *
+     *
+     * @param $id
+     * @return mixed
+     */
     public function destroy($id){
-        //@info Search user
         $user = \User::find($id);
 
         if($user){
             $user->delete();
-            return \Response::json(array('message'=>'Successfully delete user!'));
+            return \Response::json(array('_status' => array('type'=>'success','message'=>'Successfully delete user!')));
+
         }else{
             return \Response::json(array('Error in query'),400);
         }
