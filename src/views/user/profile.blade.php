@@ -148,7 +148,7 @@
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
                                 <div class="col-lg-5">{{ Former::select('address_city')
-                                                        ->fromQuery( Code::category('city')->get(), 'value', 'name' )
+                                                        ->fromQuery( Code::category('district')->get(), 'value', 'name' )
                                                         ->ng_model('user.profile.address_city')
                                                         ->ui_select2() }}</div>
                                 <div class="col-lg-5">{{ Former::select('address_state')
