@@ -140,7 +140,7 @@
                                                             ->as_ui_validation()
                                                             ->placeholder(trans('admin::user.label_address_area')) }}</div>
                                 <div class="col-lg-2">{{ Former::text('profile.address_postcode')
-                                                            ->class('validate[required,custom[number]]')
+                                                            ->class('validate[required,custom[postcode]]')
                                                             ->ng_model('user.profile.address_postcode')
                                                             ->as_ui_validation()
                                                             ->placeholder(trans('admin::user.label_address_postcode')) }}</div>
