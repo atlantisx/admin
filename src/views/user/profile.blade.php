@@ -45,7 +45,7 @@
                                     <div class="col-lg-10">
                                         {{ Former::select('role')
                                             ->fromQuery( Role::all(), 'name', 'id' )
-                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) )
+                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) ? "true" : "" )
                                             ->ng_model('user._roles')
                                             ->ui_select2()
                                             ->multiple() }}
@@ -56,7 +56,7 @@
                                     <div class="col-lg-10">
                                         {{ Former::select('group')
                                             ->fromQuery( Group::all(), 'name', 'id' )
-                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) )
+                                            ->ng_disabled( !$user->inGroup(Sentry::findGroupByName('Admin')) ? "true" : "" )
                                             ->ng_model('user._groups')
                                             ->ui_select2()
                                             ->multiple() }}
@@ -88,23 +88,30 @@
                                 {{ Former::label('race')->class('control-label col-lg-2') }}
                                 <div class="col-lg-6">
                                     {{ Former::select('profile.race')
-                                        ->fromQuery( Code::parentName('native'), 'value', 'name' )
+                                        ->fromQuery( Code::category('native')->get(), 'value', 'name' )
+                                        ->class('validate[required]')
+                                        ->as_ui_validation()
                                         ->ng_model('user.profile.race')
                                         ->ui_select2() }}
                                 </div>
                                 <div class="col-lg-2">
-                                    <input type="radio" name="profile.gender" class="validate[required]" value="male" ng-model="user.profile.gender" as-ui-icheck>
+                                    <input type="radio" name="profile.gender" value="male" ng-model="user.profile.gender" as-ui-icheck>
                                     {{ Former::label('gender_male') }}
+                                    <input type="hidden" name="profile.gender" class="validate[required]" ng-model="user.profile.gender" as-ui-validation>
                                 </div>
                                 <div class="col-lg-2">
-                                    <input type="radio" name="profile.gender" class="validate[required]" value="female" ng-model="user.profile.gender" as-ui-icheck>
+                                    <input type="radio" name="profile.gender" value="female" ng-model="user.profile.gender" as-ui-icheck>
                                     {{ Former::label('gender_female') }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {{ Former::label('birth')->class('control-label col-lg-2') }}
                                 <div class="col-lg-3">
-                                    {{ Former::text('profile.birth_date')->class('validate[required,custom[date],past[now]]')->as_ui_datepicker('dd-mm-yy')->as_ui_validation()->ng_model('user.profile.birth_date') }}
+                                    {{ Former::text('profile.birth_date')
+                                        ->class('validate[required,custom[date],past[now]]')
+                                        ->as_ui_datepicker('dd-mm-yy')
+                                        ->as_ui_validation()
+                                        ->ng_model('user.profile.birth_date') }}
                                 </div>
                                 <div class="col-lg-7">
                                     {{ Former::text('profile.birth_place')->class('validate[required]')->as_ui_validation()->placeholder(trans('admin::user.label_birth_place'))->ng_model('user.profile.birth_place') }}
@@ -149,10 +156,14 @@
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
                                 <div class="col-lg-5">{{ Former::select('address_city')
                                                         ->fromQuery( Code::category('district')->get(), 'value', 'name' )
+                                                        ->class('validate[required]')
+                                                        ->as_ui_validation()
                                                         ->ng_model('user.profile.address_city')
                                                         ->ui_select2() }}</div>
                                 <div class="col-lg-5">{{ Former::select('address_state')
                                                         ->fromQuery( Code::category('state')->get(), 'value', 'name' )
+                                                        ->class('validate[required]')
+                                                        ->as_ui_validation()
                                                         ->ng_model('user.profile.address_state')
                                                         ->ui_select2() }}</div>
                             </div>
