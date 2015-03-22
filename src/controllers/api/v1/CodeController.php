@@ -1,4 +1,6 @@
-<?php namespace Atlantis\Admin\Api\V1;
+<?php
+
+namespace Atlantis\Admin\Api\V1;
 
 use Atlantis\Core\Controller\BaseController;
 
@@ -9,25 +11,25 @@ class CodeController extends BaseController{
         $get = \Input::all();
 
         if( isset($get['iDisplayLength']) ){
-            #i: Pagination setup
+            /** Pagination setup */
             $current_page = ($get['iDisplayStart'] / $get['iDisplayLength']) + 1;
             $get['iTotalRecords'] = \Code::count();
             \Code::resolveConnection()->getPaginator()->setCurrentPage($current_page);
 
-            #i: Filtering result
+            /** Filtering result */
             if( isset($get['search']) ){
                 $codes = \Code::roots()->filtering($get['search']);
             }else{
                 $codes = \Code::roots();
             }
 
-            #i: Filtered record count
+            /** Filtered record count */
             $get['iTotalDisplayRecords'] = $codes->count();
 
-            #i: Fetching result
+            /** Fetching result */
             $codes = $codes->paginate($get['iDisplayLength']);
 
-            #i: Collecting result
+            /** Collecting result */
             $get['aaData'] = $codes->toArray()['data'];
 
         }else{
