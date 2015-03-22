@@ -1,15 +1,20 @@
-<?php namespace Atlantis\User\Models;
+<?php
 
+namespace Atlantis\User\Models;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+
 
 class People extends Eloquent {
+
     /** @var array Hidden fields */
     protected $hidden = array('id','object','data_id','data_type');
 
     /** @var array Guarded fields */
     protected $guarded = array('id','user_id','object','data_id','data_type','updated_at','created_at','meta','data');
+
 
     /**
      * Boot model

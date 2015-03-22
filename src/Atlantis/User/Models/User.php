@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Zizaco\Entrust\HasRole;
 
+
 class User extends Eloquent {
     /**
      * Entrust traits

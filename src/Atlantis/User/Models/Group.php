@@ -1,6 +1,12 @@
-<?php namespace Atlantis\User\Models;
+<?php
 
-class Group extends \Eloquent {
+namespace Atlantis\User\Models;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+
+class Group extends Eloquent {
+
     /**
      * The database table used by the model.
      *
@@ -18,10 +24,12 @@ class Group extends \Eloquent {
         'name' => 'required'
     );
 
+
     /**
      * User relationship
      *
      * @var array
+     * @return mixed
      */
     public function users()
     {
