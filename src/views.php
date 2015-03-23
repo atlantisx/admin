@@ -27,15 +27,13 @@ View::composer(array('admin::admin.admin','admin::admin.settings'), function($vi
     app('atlantis.asset')->set('admin::javascript',new Javascript([
         'admin/knockout-2.2.0.js',
         'admin/knockout.mapping.js',
-        'admin/knockout.notification.min.js',
+        'admin/knockout.notification.js',
         'admin/knockout.update-data.js',
-        'admin/markdown.js',
         'admin/accounting.js',
-        'admin/history.min.js',
+        'admin/history.js',
         public_path().'/packages/atlantis/admin/javascript/js/admin.binding.js',
         public_path().'/packages/atlantis/admin/javascript/js/admin.js',
         public_path().'/packages/atlantis/admin/javascript/js/settings.js'
-
     ],[],public_path().'/packages/atlantis/admin/javascript/libs/'));
 });
 
