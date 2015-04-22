@@ -11,6 +11,8 @@
             </div>
         </div>
         <div class="content">
+
+            @section('section-account')
             <div class="box">
                 <div class="box-header">
                     <ul id="user-tabs" class="nav nav-tabs nav-tabs-left">
@@ -71,9 +73,10 @@
                     </div>
                 </div>
             </div>
+            @show
 
-
-            {{ Former::open()->name('form_profile')->class('form-horizontal fill-up') }}
+            @section('section-profile')
+                {{ Former::open()->name('form_profile')->class('form-horizontal fill-up') }}
                 <div class="box">
                     <div class="box-header">
                         <span class="title">{{ trans('admin::user.title_profile') }}</span>
@@ -125,7 +128,11 @@
                         </div>
                     </div>
                 </div>
+                {{ Former::close() }}
+            @show
 
+            @section('section-address')
+                {{ Former::open()->name('form_address')->class('form-horizontal fill-up') }}
                 <div class="box">
                     <div class="box-header">
                         <span class="title">{{ trans('admin::user.title_address') }}</span>
@@ -170,13 +177,15 @@
                         </div>
                     </div>
                 </div>
+                {{ Former::close() }}
+            @show
 
-                <div class="well clearfix">
-                    <div class="pull-right">
-                        <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="user.$save()" ng-disabled="!validation.$error.controls.$valid" as-ui-button as-ui-progress="ladda">{{ trans('admin::user.btn_update_profile') }}</button>
-                    </div>
+            <div class="well clearfix">
+                <div class="pull-right">
+                    <button id="btnUpdateProfile" type="submit" class="btn btn-green" ng-click="user.$save()" ng-disabled="!validation.$error.controls.$valid" as-ui-button as-ui-progress="ladda">{{ trans('admin::user.btn_update_profile') }}</button>
                 </div>
-            {{ Former::close() }}
+            </div>
+
         </div>
     </div>
 </div>
@@ -189,7 +198,7 @@
 
         function controllerProfile($scope,Model,Validation){
             $scope.validation = Validation;
-            $scope.user = Model.create('users').$find('{{ $user_profile->id }}');
+            $scope.user = Model.create('users').$find('{{ $user_profile->id }}', {access: 'simple'});
 
             //[i] Changing email
             $scope.validateEmail = function(data){
