@@ -88,7 +88,7 @@
                                 {{ Former::label('race')->class('control-label col-lg-2') }}
                                 <div class="col-lg-6">
                                     {{ Former::select('profile.race')
-                                        ->fromQuery( Code::category('native')->get(), 'value', 'name' )
+                                        ->fromQuery( Code::category('native')->get(), function($model){return $model->value;}, 'name' )
                                         ->class('validate[required]')
                                         ->as_ui_validation()
                                         ->ng_model('user.profile.race')
@@ -155,13 +155,13 @@
                             <div class="form-group">
                                 {{ Former::label('address_citystate')->class('control-label col-lg-2') }}
                                 <div class="col-lg-5">{{ Former::select('address_city')
-                                                        ->fromQuery( Code::category('district')->get(), 'value', 'name' )
+                                                        ->fromQuery( Code::category('district')->get(), function($model){return $model->value;}, 'name' )
                                                         ->class('validate[required]')
                                                         ->as_ui_validation()
                                                         ->ng_model('user.profile.address_city')
                                                         ->ui_select2() }}</div>
                                 <div class="col-lg-5">{{ Former::select('address_state')
-                                                        ->fromQuery( Code::category('state')->get(), 'value', 'name' )
+                                                        ->fromQuery( Code::category('state')->get(), function($model){return $model->value;}, 'name' )
                                                         ->class('validate[required]')
                                                         ->as_ui_validation()
                                                         ->ng_model('user.profile.address_state')
