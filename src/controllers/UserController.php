@@ -10,7 +10,7 @@ class UserController extends BaseController {
         $this->layout->content = \View::make('admin::user.home');
     }
 
-    public function getProfile($user_id=null){
+    public function getProfile($user_id=null,$role='admin::user'){
         $get = \Input::all();
 
         #i: Get current user
@@ -23,7 +23,11 @@ class UserController extends BaseController {
         #i: Inline data populate
         \Former::populate($user);
 
+        #i: View scaffolding
+        $view = 'admin::user.profile';
+        if(\View::exists('user.profile')) $view = 'user.profile';
+
         #i: Display view
-        $this->layout->content = \View::make('admin::user.profile',$get);
+        $this->layout->content = \View::make($view,$get);
     }
 }

@@ -1,5 +1,6 @@
 <?php namespace Modules\Users\Api\V1\Rest\User;
 
+use Atlantis\User\Models\User;
 use Atlantis\Api\Rest\ResourceController;
 
 
@@ -11,7 +12,7 @@ class UserController extends ResourceController{
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index(){
-        $users = \User::all();
+        $users = User::all();
         $users->load('profile');
 
         return $users;
@@ -27,10 +28,10 @@ class UserController extends ResourceController{
     public function show($id){
         $get = \Input::all();
 
-        //@info Search user
-        $user = \User::find($id);
+        /** Search user */
+        $user = User::find($id);
 
-        //@info Return user
+        /** Return user */
         if($user){
             $user->load('profile');
             if( !empty($get['access']) ){
@@ -63,10 +64,10 @@ class UserController extends ResourceController{
         $put = \Input::all();
 
         try{
-            //@info Search user
+            /** Search user */
             $user = \User::find($id);
 
-            //@info Update user
+            /** Update user */
             if($user){
                 $user->fill($put);
                 if($user->profile){
