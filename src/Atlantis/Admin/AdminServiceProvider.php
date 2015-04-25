@@ -74,6 +74,7 @@ class AdminServiceProvider extends ServiceProvider {
 	public function register(){
         $this->registerDependencies();
         $this->registerAlias();
+        $this->registerServiceCommands();
     }
 
 
@@ -190,6 +191,18 @@ class AdminServiceProvider extends ServiceProvider {
     public function registerServiceModules(){
         //@info Enable internal Api
         $this->app['atlantis.module']->extend('users.api','Modules\Users\Api\UsersApiServiceProvider');
+    }
+
+
+    /**
+     *
+     */
+    public function registerServiceCommands(){
+        $this->app['atlantis.commands.admin-update'] = $this->app->share(function($app){
+            return new \Atlantis\Admin\Commands\AdminCommandsUpdate($app['files']);
+        });
+
+        $this->commands(['atlantis.commands.admin-update']);
     }
 
 

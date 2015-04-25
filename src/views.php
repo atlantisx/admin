@@ -22,19 +22,19 @@ View::composer(array('core::layouts.common'), function($view){
 
 View::composer(array('admin::admin.admin','admin::admin.settings'), function($view){
     /*================================================================
-    Admin Assets
+    Admin Specific Assets
     ================================================================*/
     app('atlantis.asset')->set('admin::javascript',new Javascript([
-        'admin/knockout-2.2.0.js',
-        'admin/knockout.mapping.js',
-        'admin/knockout.notification.js',
-        'admin/knockout.update-data.js',
-        'admin/accounting.js',
-        'admin/history.js',
-        public_path().'/packages/atlantis/admin/javascript/js/admin.binding.js',
-        public_path().'/packages/atlantis/admin/javascript/js/admin.js',
-        public_path().'/packages/atlantis/admin/javascript/js/settings.js'
-    ],[],public_path().'/packages/atlantis/admin/javascript/libs/'));
+        'libs/admin/knockout-2.2.0.js',
+        'libs/admin/knockout.mapping.js',
+        'libs/admin/knockout.notification.js',
+        'libs/admin/knockout.update-data.js',
+        'libs/admin/accounting.js',
+        'libs/admin/history.js',
+        'js/admin.binding.js',
+        'js/admin.js',
+        'js/settings.js'
+    ],[],public_path().'/packages/atlantis/admin/javascript/'));
 });
 
 
