@@ -77,7 +77,7 @@
     'recovery_email_regards'            => 'Terima kasih, Sistem Pentadbiran ',
 
     'login_title'                       => 'Log Masuk Pengguna',
-    'login_label_login'                 => 'NamaPengguna \ emel',
+    'login_label_login'                 => 'NamaPengguna \ Emel',
     'login_label_password'              => 'Kata Laluan',
     'login_btn_login'                   => 'Log Masuk',
     'login_text_register'               => '<a href=":link"><strong>Daftar</strong></a> jika anda tidak mempunyai akaun',
