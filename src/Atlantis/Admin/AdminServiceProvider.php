@@ -216,7 +216,9 @@ class AdminServiceProvider extends ServiceProvider {
 		if ($locale = $this->app->session->get('admin_locale'))
 		{
 			$this->app->setLocale($locale);
-		}
+		} else {
+            \Session::put('admin_locale', \Config::get('app.locale'));
+        }
 	}
 
 
