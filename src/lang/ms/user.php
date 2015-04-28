@@ -27,7 +27,7 @@
     'label_birth_place'         => 'Tempat Lahir',
     'label_contact_home'        => 'No. Telefon Rumah',
     'label_contact_mobile'      => 'No. Telefon Bimbit',
-    'label_address_area'        => 'Bandar',
+    'label_address_area'        => 'Kawasan',
     'label_address_postcode'    => 'Poskod',
 
     'label_status'              => 'Status',
