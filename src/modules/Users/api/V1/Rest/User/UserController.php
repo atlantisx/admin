@@ -1,4 +1,6 @@
-<?php namespace Modules\Users\Api\V1\Rest\User;
+<?php
+
+namespace Modules\Users\Api\V1\Rest\User;
 
 use Atlantis\User\Models\User;
 use Atlantis\Api\Rest\ResourceController;

@@ -1,40 +1,48 @@
-<?php namespace Users\Rpc\V1;
+<?php
+
+namespace Modules\Users\Api\V1\Rpc\User;
 
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Dingo\Api\Routing\Controller;
+use Atlantis\Api\Controller\BaseController;
 
-class UserController extends Controller{
 
-    public function actionChangeEmail($id)
+class UserController extends BaseController{
+
+    public function methodChangeEmail()
     {
         $post = Input::all();
+        $params = $post['params'];
+        $this->result['id'] = $post['id'];
 
-        //@info Email validation
+        /** Email validation */
         $validator = Validator::make(
-            array('email'=>$post['email']),
-            array('email'=>'required|email|unique:users')
+            array('id'=>$params['id'], 'email'=>$params['email']),
+            array('id'=>'required','email'=>'required|email|unique:users')
         );
+
 
         try{
             if ($validator->passes()) {
-                //@info Find user by email
-                $user = \Sentry::find($id);
-                $user->email = $post['email'];
+                /** Find user by email */
+                $user = \User::find($params['id']);
+                $user->email = $params['email'];
                 $user->save();
 
-                $post = array('status'=>'success','message'=>'Successfully changed email!');
+                $this->result['result'] = 'Successfully changed email!';
+
             } else {
-                $post = array('status'=>'error','message'=>'Error while updating email!');
+                $this->result['error'] = 'Error while updating email!';
             }
 
         }catch (Exception $e){
-            return Response::json(array('Error in query'),400);
+            $this->result['error'] = $e->getMessage();
+
         }
 
-        return Response::json($post);
+        return Response::json($this->result);
     }
 
 } 

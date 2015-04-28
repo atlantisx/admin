@@ -204,9 +204,9 @@
             $scope.validation = Validation;
             $scope.user = Model.create('users').$find('{{ $user_profile->id }}', {access: 'simple'});
 
-            //[i] Changing email
+            /** Changing email */
             $scope.validateEmail = function(data){
-                $scope.user.$rpc('change-email',{email:data});
+                $scope.user.$rpc('change-email',{id:'{{ $user_profile->id }}',email:data});
             }
         }
 
