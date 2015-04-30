@@ -431,9 +431,19 @@ class AuthController extends BaseController {
             throw new \Exception('Cannot authenticate user.');
 
         }catch ( \Exception $e){
+            /** Sentry language translation */
+            $params = [];
+            $error_message = $e->getMessage();
+            preg_match('/\[(\S+(?<!email|password))\]/',$error_message,$match);
+
+            if(!empty($match)){
+                $error_message = preg_replace('/\[(\S+(?<!email))\]/','[%email%]',$e->getMessage());
+                $params = ['%email%'=>$match[1]];
+            }
+
             $post['_status'] = array(
                 'type' => 'error',
-                'message' => $e->getMessage()
+                'message' => app('atlantis.language')->lang($error_message,$params,'translate')
             );
         }
 
