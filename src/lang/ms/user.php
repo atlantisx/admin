@@ -54,7 +54,7 @@
     'activation_title'                  => 'Hantar Kod Pengaktifan',
     'activation_btn_send'               => 'Hantar',
     'activation_btn_activate'           => 'Aktifkan',
-    'activation_success'                => 'Pengaktifan anda berjaya! Sila log masuk ke sistem dengan kredit yang diperuntukkan dalam pendaftaran.',
+    'activation_success'                => 'Pengaktifan anda berjaya! Sila log masuk ke sistem dengan maklumat login yang digunakan dalam pendaftaran.',
     'activation_error'                  => 'Pengaktifan anda tidak berjaya, sila hubungi sistem pentadbiran untuk bantuan.',
     'activation_resend_success'         => 'Kod pengaktifan anda telah berjaya dihantar ke :email',
     'activation_email_subject'          => 'Pengaktifan Akaun untuk pengguna :full_name',
